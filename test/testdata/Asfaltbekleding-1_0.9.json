@@ -1,0 +1,1478 @@
+{
+    "tijdstippen": [
+        0.0,
+        2269.440000000016,
+        4538.879999999999,
+        6808.320000000018,
+        9077.760000000031,
+        11347.200000000015,
+        13616.64,
+        15180.292682926836,
+        16371.902439024394,
+        17563.51219512195,
+        18755.12195121951,
+        19946.731707317074,
+        21138.341463414636,
+        22329.951219512193,
+        23521.560975609762,
+        24713.170731707323,
+        25904.780487804877,
+        27096.390243902435,
+        28287.999999999993,
+        29479.60975609755,
+        30671.219512195123,
+        31862.829268292684,
+        33054.43902439024,
+        34246.04878048779,
+        35437.65853658537,
+        36629.26829268294,
+        37820.87804878049,
+        39012.487804878045,
+        40204.0975609756,
+        41395.70731707315,
+        42587.31707317072,
+        43778.92682926828,
+        44970.53658536586,
+        46162.14634146341,
+        47353.75609756097,
+        48545.36585365854,
+        49736.9756097561,
+        50928.58536585365,
+        52120.195121951205,
+        53311.804878048766,
+        54503.41463414634,
+        55695.0243902439,
+        56883.317073170736,
+        58078.243902439026,
+        59269.85365853659,
+        60461.46341463415,
+        61653.0731707317,
+        62844.68292682927,
+        64036.29268292684,
+        65227.9024390244,
+        66419.51219512196,
+        67611.12195121952,
+        68802.73170731709,
+        69994.34146341465,
+        71185.95121951221,
+        72377.56097560977,
+        73569.17073170732,
+        74760.78048780488,
+        75952.39024390244,
+        77144.0,
+        78335.60975609756,
+        79527.21951219512,
+        80718.82926829268,
+        81910.43902439025,
+        83102.0487804878,
+        84293.65853658537,
+        85485.26829268293,
+        86676.87804878049,
+        87868.48780487805,
+        89060.09756097561,
+        90251.70731707317,
+        91441.65853658537,
+        92634.9268292683,
+        93826.53658536586,
+        95018.14634146342,
+        96209.75609756098,
+        97401.36585365854,
+        98592.9756097561,
+        99784.58536585367,
+        100976.19512195123,
+        102167.80487804877,
+        103359.41463414633,
+        104551.0243902439,
+        105742.63414634146,
+        106934.24390243902,
+        108125.85365853658,
+        109317.46341463414,
+        110509.0731707317,
+        111700.68292682926,
+        112892.29268292683,
+        114083.90243902439,
+        115275.51219512195,
+        116467.12195121951,
+        117658.73170731707,
+        118850.34146341463,
+        120041.9512195122,
+        121233.56097560977,
+        122425.17073170733,
+        123616.78048780489,
+        124808.39024390245,
+        126000.0
+    ],
+    "hydraulischeBelastingen": {
+        "waterstanden": [
+            1.16812,
+            1.1523599999999998,
+            1.1366,
+            1.1208399999999998,
+            1.10508,
+            1.0893199999999998,
+            1.07356,
+            1.0577999999999999,
+            1.04204,
+            1.0262799999999999,
+            1.01052,
+            0.99476,
+            0.979,
+            0.96324,
+            0.94748,
+            0.93172,
+            0.91596,
+            0.9002,
+            0.88444,
+            0.86868,
+            0.85292,
+            0.83716,
+            0.8214,
+            0.8056399999999999,
+            0.7898799999999999,
+            0.7741199999999999,
+            0.7583599999999999,
+            0.7425999999999999,
+            0.7268399999999999,
+            0.7110799999999999,
+            0.6953199999999999,
+            0.6795599999999999,
+            0.6638,
+            0.64804,
+            0.63228,
+            0.61652,
+            0.60076,
+            0.585,
+            0.56924,
+            0.55348,
+            0.53772,
+            0.52196,
+            0.5062,
+            0.49044,
+            0.47468,
+            0.45892,
+            0.44316,
+            0.42739999999999995,
+            0.4116399999999999,
+            0.3958799999999999,
+            0.3801199999999999,
+            0.3643599999999999,
+            0.3485999999999999,
+            0.3328399999999999,
+            0.3170799999999999,
+            0.3013199999999999,
+            0.2855599999999999,
+            0.26979999999999993,
+            0.25403999999999993,
+            0.23827999999999994,
+            0.22251999999999994,
+            0.20675999999999994,
+            0.19099999999999995,
+            0.17523999999999995,
+            0.15947999999999996,
+            0.14371999999999996,
+            0.12795999999999996,
+            0.11219999999999997,
+            0.09643999999999997,
+            0.08067999999999997,
+            0.06491999999999998,
+            0.04915999999999998,
+            0.033399999999999985,
+            0.01763999999999999,
+            0.0018799999999999928,
+            -0.013880000000000003,
+            -0.02964,
+            -0.045399999999999996,
+            -0.06115999999999999,
+            -0.07691999999999999,
+            -0.09267999999999998,
+            -0.10843999999999998,
+            -0.12419999999999998,
+            -0.13995999999999997,
+            -0.15571999999999997,
+            -0.17147999999999997,
+            -0.18723999999999996,
+            -0.20299999999999996,
+            -0.21875999999999995,
+            -0.23451999999999995,
+            -0.25027999999999995,
+            -0.26603999999999994,
+            -0.28179999999999994,
+            -0.29755999999999994,
+            -0.31331999999999993,
+            -0.32908000000000004,
+            -0.34484000000000015,
+            -0.36060000000000014,
+            -0.37636000000000014,
+            -0.39212000000000014
+        ],
+        "golfhoogtenHm0": [
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85,
+            1.85
+        ],
+        "golfperiodenTm10": [
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375,
+            3.609375
+        ],
+        "golfhoeken": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "dijkprofiel": {
+        "posities": [
+            0.0,
+            4.167,
+            8.96,
+            10.9,
+            11.59,
+            13.315
+        ],
+        "hoogten": [
+            -0.28,
+            0.52,
+            1.44,
+            2.37,
+            2.55,
+            3.0
+        ],
+        "teenBuitenzijde": 0.0,
+        "kruinBuitenzijde": 13.315
+    },
+    "locaties": [
+        {
+            "positie": 4.241890625,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 4.391671875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 4.541453125,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 4.691234375,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 4.841015625,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 4.990796875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.140578125,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.2903593749999995,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.440140625,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.589921875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.739703125,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 5.889484375,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.0392656250000005,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.189046875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.338828125000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.488609375,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.638390625,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.788171875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 6.937953125,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.087734375,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.237515625,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.3872968750000005,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.537078125000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.686859375000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.836640625000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 7.986421875,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.136203125,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.285984375000002,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.435765625000002,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.585546875000002,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.735328125000002,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 8.885109375,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.029285714285715,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.167857142857144,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.306428571428572,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.445,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.58357142857143,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.722142857142858,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.860714285714286,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 9.999285714285715,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.137857142857143,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.276428571428571,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.415000000000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.553571428571429,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.692142857142857,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.830714285714286,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 10.969,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 11.107,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 11.245000000000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 11.383000000000001,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        },
+        {
+            "positie": 11.521,
+            "beginschade": 0.0,
+            "rekenmethode": "asfaltGolfklap",
+            "typeToplaag": "waterbouwAsfaltBeton",
+            "breuksterkteAsfalt": 0.9,
+            "veerconstanteOndergrond": 64.0,
+            "toplaag": {
+                "dikte": 0.146,
+                "stijfheidsmodulus": 5712.0
+            }
+        }
+    ],
+    "rekenmethoden": [
+        {
+            "rekenmethode": "asfaltGolfklap",
+            "faalgetal": 1.0,
+            "toplagen": [
+                {
+                    "typeToplaag": "waterbouwAsfaltBeton",
+                    "stijfheidsverhoudingNu": 0.35,
+                    "vermoeiingAsfalt": {
+                        "alfa": 0.5,
+                        "beta": 5.4
+                    }
+                }
+            ],
+            "soortelijkeDichtheidWater": 1000.0,
+            "factorCtm": 1.0,
+            "stootgetalC": 1.0,
+            "breedteFactoren": [
+                [
+                    0.1,
+                    0.0392
+                ],
+                [
+                    0.2,
+                    0.0738
+                ],
+                [
+                    0.3,
+                    0.1002
+                ],
+                [
+                    0.4,
+                    0.1162
+                ],
+                [
+                    0.5,
+                    0.1213
+                ],
+                [
+                    0.6,
+                    0.1168
+                ],
+                [
+                    0.7,
+                    0.1051
+                ],
+                [
+                    0.8,
+                    0.089
+                ],
+                [
+                    0.9,
+                    0.0712
+                ],
+                [
+                    1.0,
+                    0.0541
+                ],
+                [
+                    1.1,
+                    0.0391
+                ],
+                [
+                    1.2,
+                    0.0269
+                ],
+                [
+                    1.3,
+                    0.0216
+                ],
+                [
+                    1.4,
+                    0.015
+                ],
+                [
+                    1.5,
+                    0.0105
+                ]
+            ],
+            "diepteFactoren": [
+                [
+                    -1.0,
+                    0.005040816326530646
+                ],
+                [
+                    -0.9744897959183674,
+                    0.00596482278562177
+                ],
+                [
+                    -0.9489795918367347,
+                    0.007049651822326582
+                ],
+                [
+                    -0.923469387755102,
+                    0.008280657034496978
+                ],
+                [
+                    -0.8979591836734694,
+                    0.009643192019984783
+                ],
+                [
+                    -0.8724489795918368,
+                    0.011122610376641823
+                ],
+                [
+                    -0.846938775510204,
+                    0.012704265702320014
+                ],
+                [
+                    -0.8214285714285714,
+                    0.014373511594871225
+                ],
+                [
+                    -0.7959183673469388,
+                    0.016115701652147284
+                ],
+                [
+                    -0.7704081632653061,
+                    0.017916189471999994
+                ],
+                [
+                    -0.7448979591836735,
+                    0.019760328652281334
+                ],
+                [
+                    -0.7193877551020409,
+                    0.02163347279084307
+                ],
+                [
+                    -0.6938775510204082,
+                    0.02352097548553716
+                ],
+                [
+                    -0.6683673469387754,
+                    0.025408190334215378
+                ],
+                [
+                    -0.6428571428571429,
+                    0.027280470934729583
+                ],
+                [
+                    -0.6173469387755102,
+                    0.029123170884931715
+                ],
+                [
+                    -0.5918367346938775,
+                    0.030921643782673508
+                ],
+                [
+                    -0.5663265306122449,
+                    0.03266124322580695
+                ],
+                [
+                    -0.5408163265306123,
+                    0.034327322812183814
+                ],
+                [
+                    -0.5153061224489797,
+                    0.03590523613965599
+                ],
+                [
+                    -0.4897959183673469,
+                    0.036419783440920166
+                ],
+                [
+                    -0.4642857142857143,
+                    0.03634372210983519
+                ],
+                [
+                    -0.4387755102040817,
+                    0.03603984556448696
+                ],
+                [
+                    -0.41326530612244894,
+                    0.0355249692161967
+                ],
+                [
+                    -0.3877551020408163,
+                    0.03481590847628564
+                ],
+                [
+                    -0.3622448979591837,
+                    0.033929478756075014
+                ],
+                [
+                    -0.33673469387755095,
+                    0.032882495466886014
+                ],
+                [
+                    -0.31122448979591844,
+                    0.03169177402003989
+                ],
+                [
+                    -0.2857142857142858,
+                    0.03037412982685786
+                ],
+                [
+                    -0.2602040816326531,
+                    0.028946378298661132
+                ],
+                [
+                    -0.23469387755102034,
+                    0.02742533484677094
+                ],
+                [
+                    -0.2091836734693877,
+                    0.02582781488250851
+                ],
+                [
+                    -0.1836734693877552,
+                    0.024170633817195083
+                ],
+                [
+                    -0.15816326530612246,
+                    0.022470607062151843
+                ],
+                [
+                    -0.13265306122448983,
+                    0.02074455002870004
+                ],
+                [
+                    -0.1071428571428571,
+                    0.019009278128160882
+                ],
+                [
+                    -0.08163265306122447,
+                    0.01728160677185561
+                ],
+                [
+                    -0.056122448979591955,
+                    0.015578351371105446
+                ],
+                [
+                    -0.030612244897959218,
+                    0.01391632733723159
+                ],
+                [
+                    -0.005102040816326481,
+                    0.012312350081555283
+                ],
+                [
+                    0.020408163265306145,
+                    0.010783235015397755
+                ],
+                [
+                    0.04591836734693877,
+                    0.00934579755008022
+                ],
+                [
+                    0.0714285714285714,
+                    0.008016853096923902
+                ],
+                [
+                    0.09693877551020402,
+                    0.006813217067250026
+                ],
+                [
+                    0.12244897959183665,
+                    0.005751704872379814
+                ],
+                [
+                    0.1479591836734695,
+                    0.004849131923634483
+                ],
+                [
+                    0.17346938775510212,
+                    0.004122313632335269
+                ],
+                [
+                    0.19897959183673475,
+                    0.0035880654098033892
+                ],
+                [
+                    0.22448979591836737,
+                    0.003263202667360069
+                ],
+                [
+                    0.25,
+                    0.0031645408163265307
+                ]
+            ],
+            "stootFactoren": [
+                [
+                    2.0,
+                    0.039
+                ],
+                [
+                    2.4,
+                    0.1
+                ],
+                [
+                    2.8,
+                    0.18
+                ],
+                [
+                    3.2,
+                    0.235
+                ],
+                [
+                    3.6,
+                    0.2
+                ],
+                [
+                    4.0,
+                    0.13
+                ],
+                [
+                    4.4,
+                    0.08
+                ],
+                [
+                    4.8,
+                    0.02
+                ],
+                [
+                    5.2,
+                    0.01
+                ],
+                [
+                    5.6,
+                    0.005
+                ],
+                [
+                    6.0,
+                    0.001
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,314 @@
+{
+    "metaInformatie": {
+        "versie": "22.1.1 (ALPHA)",
+        "besturingssysteem": "Windows 64-bit",
+        "tijdstipBerekening": "2023-08-08T08:29:33Z",
+        "tijdsduurBerekening": 0.0008471
+    },
+    "uitvoerdata": {
+        "locaties": [
+            {
+                "falen": {
+                    "faalgebeurtenis": false,
+                    "faaltijd": null
+                },
+                "schade": {
+                    "schadegetalPerTijdstap": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "fysica": {
+                    "hoogteLocatie": 14.25,
+                    "toenameSchade": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "hellingBuitentalud": [
+                        0.2899999999999979,
+                        0.29000000000000153,
+                        0.29000000000000187,
+                        0.2899999999999985,
+                        0.2899999999999979
+                    ],
+                    "bovenzijdeHellingvlak": [
+                        5.575,
+                        5.59,
+                        5.609999999999999,
+                        5.625,
+                        5.575
+                    ],
+                    "rechterzijdeHellingvlak": [
+                        30.086206896551726,
+                        30.137931034482758,
+                        30.206896551724135,
+                        30.258620689655174,
+                        30.086206896551726
+                    ],
+                    "onderzijdeHellingvlak": [
+                        5.55,
+                        5.55,
+                        5.55,
+                        5.55,
+                        5.55
+                    ],
+                    "linkerzijdeHellingvlak": [
+                        30.0,
+                        30.0,
+                        30.0,
+                        30.0,
+                        30.0
+                    ],
+                    "belastingBekleding": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                    ],
+                    "golfbrekingparameter": [
+                        1.024914319558925,
+                        2.430797742245928,
+                        1.9847380454706383,
+                        2.0710709540277694,
+                        2.04982863911785
+                    ],
+                    "golfsteilheidDiepWater": [
+                        0.0800609748621252,
+                        0.014233062197711147,
+                        0.02134959329656672,
+                        0.019606769353989844,
+                        0.0200152437155313
+                    ],
+                    "bovengrensBelasting": [
+                        0.35600151441369327,
+                        0.6052143900536129,
+                        1.4526862639520963,
+                        2.1133104215870304,
+                        2.11731129270939
+                    ],
+                    "ondergrensBelasting": [
+                        -0.02573639072699211,
+                        -0.172640887465084,
+                        0.4868374356066184,
+                        0.8706678491703693,
+                        1.6511813504870174
+                    ],
+                    "diepteMaximaleGolfbelasting": [
+                        0.025736390726992114,
+                        0.5307842631122163,
+                        0.5631625643933815,
+                        0.7603267185189808,
+                        0.24881864951298258
+                    ],
+                    "afstandMaximaleStijghoogte": [
+                        0.2921793348530198,
+                        2.096372556533198,
+                        2.3693378445420525,
+                        3.1492231070258674,
+                        1.0343586697060396
+                    ],
+                    "maatgevendeBreedteGolfklap": [
+                        0.4236297124242591,
+                        0.5540897986823583,
+                        0.8900145779978756,
+                        1.098273292585418,
+                        0.36725942484851826
+                    ],
+                    "hydraulischeBelasting": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "impactGolfhoek": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "sterkteBekleding": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "referentietijdDegradatie": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "referentieDegradatie": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            },
+            {
+                "falen": {
+                    "faalgebeurtenis": false,
+                    "faaltijd": null
+                },
+                "schade": {
+                    "schadegetalPerTijdstap": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "fysica": {
+                    "hoogteLocatie": 15.41,
+                    "toenameSchade": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "hellingBuitentalud": [
+                        0.2899999999999979,
+                        0.29000000000000153,
+                        0.29000000000000187,
+                        0.2899999999999985,
+                        0.2899999999999979
+                    ],
+                    "bovenzijdeHellingvlak": [
+                        5.575,
+                        5.59,
+                        5.609999999999999,
+                        5.625,
+                        5.575
+                    ],
+                    "rechterzijdeHellingvlak": [
+                        30.086206896551726,
+                        30.137931034482758,
+                        30.206896551724135,
+                        30.258620689655174,
+                        30.086206896551726
+                    ],
+                    "onderzijdeHellingvlak": [
+                        5.55,
+                        5.55,
+                        5.55,
+                        5.55,
+                        5.55
+                    ],
+                    "linkerzijdeHellingvlak": [
+                        30.0,
+                        30.0,
+                        30.0,
+                        30.0,
+                        30.0
+                    ],
+                    "belastingBekleding": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                    ],
+                    "golfbrekingparameter": [
+                        1.024914319558925,
+                        2.430797742245928,
+                        1.9847380454706383,
+                        2.0710709540277694,
+                        2.04982863911785
+                    ],
+                    "golfsteilheidDiepWater": [
+                        0.0800609748621252,
+                        0.014233062197711147,
+                        0.02134959329656672,
+                        0.019606769353989844,
+                        0.0200152437155313
+                    ],
+                    "bovengrensBelasting": [
+                        0.35600151441369327,
+                        0.6052143900536129,
+                        1.4526862639520963,
+                        2.1133104215870304,
+                        2.11731129270939
+                    ],
+                    "ondergrensBelasting": [
+                        -0.02573639072699211,
+                        -0.172640887465084,
+                        0.4868374356066184,
+                        0.8706678491703693,
+                        1.6511813504870174
+                    ],
+                    "diepteMaximaleGolfbelasting": [
+                        0.025736390726992114,
+                        0.5307842631122163,
+                        0.5631625643933815,
+                        0.7603267185189808,
+                        0.24881864951298258
+                    ],
+                    "afstandMaximaleStijghoogte": [
+                        0.2921793348530198,
+                        2.096372556533198,
+                        2.3693378445420525,
+                        3.1492231070258674,
+                        1.0343586697060396
+                    ],
+                    "maatgevendeBreedteGolfklap": [
+                        0.4236297124242591,
+                        0.5540897986823583,
+                        0.8900145779978756,
+                        1.098273292585418,
+                        0.36725942484851826
+                    ],
+                    "hydraulischeBelasting": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "impactGolfhoek": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "sterkteBekleding": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "referentietijdDegradatie": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "referentieDegradatie": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ]
+                }
+            }
+        ]
+    }
+}

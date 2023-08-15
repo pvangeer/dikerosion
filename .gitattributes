@@ -1,0 +1,2 @@
+*.csproj merge=rx-tree-merge
+*.cs merge=rx-tree-merge

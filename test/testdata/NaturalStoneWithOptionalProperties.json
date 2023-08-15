@@ -1,0 +1,155 @@
+{
+    "tijdstippen": [
+        0,
+        100,
+        500,
+        800,
+        1200,
+        2000
+    ],
+    "hydraulischeBelastingen": {
+        "waterstanden": [
+            0.1,
+            0.5,
+            1.15,
+            1.77,
+            2
+        ],
+        "golfhoogtenHm0": [
+            0.5,
+            0.8,
+            1.2,
+            1.5,
+            0.5
+        ],
+        "golfperiodenTm10": [
+            2,
+            6,
+            6,
+            7,
+            4
+        ],
+        "golfhoeken": [
+            -10,
+            -5,
+            0,
+            7,
+            8
+        ]
+    },
+    "dijkprofiel": {
+        "posities": [
+            -30,
+            -20,
+            -10,
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65
+        ],
+        "hoogten": [
+            -11.85,
+            -8.95,
+            -6.05,
+            -3.15,
+            -1.7,
+            -0.25,
+            1.2,
+            2.65,
+            4.1,
+            5.55,
+            7,
+            8.45,
+            9.9,
+            11.35,
+            12.8,
+            14.25,
+            15.7
+        ],
+        "teenBuitenzijde": 30,
+        "kruinBermBuitenzijde": 40,
+        "insteekBermBuitenzijde": 50,
+        "kruinBuitenzijde": 65
+    },
+    "locaties": [
+        {
+            "positie": 60,
+            "rekenmethode": "natuursteen",
+            "typeToplaag": "noorseSteen",
+            "beginschade": 0,
+            "dikteToplaag": 0.28,
+            "relatieveDichtheid": 2.45
+        },
+        {
+            "positie": 64,
+            "rekenmethode": "natuursteen",
+            "typeToplaag": "noorseSteen",
+            "beginschade": 0,
+            "dikteToplaag": 0.44,
+            "relatieveDichtheid": 2.71
+        }
+    ],
+    "rekenmethoden": [
+        {
+            "rekenmethode": "natuursteen",
+            "faalgetal": 1,
+            "afstandMaximaleStijghoogte": {
+                "a": 0.42,
+                "b": 0.9
+            },
+            "belastingzone": {
+                "bovengrens": {
+                    "a": 0.1,
+                    "b": 0.6,
+                    "c": 4
+                },
+                "ondergrens": {
+                    "a": 0.1,
+                    "b": 0.2,
+                    "c": 4
+                }
+            },
+            "hellingvlak": {
+                "bovenzijde": 0.05,
+                "onderzijde": 1.5
+            },
+            "impactGolfhoek": {
+                "betaMax": 78
+            },
+            "maatgevendeBreedteGolfklap": {
+                "a": 0.96,
+                "b": 0.11
+            },
+            "toplagen": [
+                {
+                    "typeToplaag": "noorseSteen",
+                    "stabiliteit": {
+                        "plunging": {
+                            "a": 4,
+                            "b": 0,
+                            "c": 0,
+                            "n": -0.9
+                        },
+                        "surging": {
+                            "a": 0.8,
+                            "b": 0,
+                            "c": 0,
+                            "n": 0.6
+                        },
+                        "xib": 2.9
+                    }
+                }
+            ]
+        }
+    ]
+}
