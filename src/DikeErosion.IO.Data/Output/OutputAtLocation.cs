@@ -1,8 +1,8 @@
 ﻿namespace DikeErosion.IO.Data.Output;
 
-public class OutputLocation
+public class OutputAtLocation
 {
-    public OutputLocation(double height, double outerSlope, bool revetmentFailed, double revetmentFailedAfter, double[] damageDevelopment)
+    public OutputAtLocation(double height, double outerSlope, bool revetmentFailed, double revetmentFailedAfter, double[] damageDevelopment)
     {
         PhysicsDouble = new Dictionary<string, double[]>();
         PhysicsBool = new Dictionary<string, bool[]>();

@@ -1,4 +1,4 @@
-﻿namespace DikeErosion.IO.Data.Input;
+﻿namespace DikeErosion.Data.CrossShoreProfile;
 
 public enum CharacteristicPointType
 {

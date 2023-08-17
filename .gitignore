@@ -4,6 +4,7 @@
 *.userosscache
 *.sln.docstates
 *.userprefs
+*.vs/
 
 [Dd]ebug/
 [Rr]elease/

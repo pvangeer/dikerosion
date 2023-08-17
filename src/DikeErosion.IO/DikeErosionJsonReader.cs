@@ -1,4 +1,7 @@
-﻿using DikeErosion.IO.Data.Input;
+﻿using DikeErosion.Data;
+using DikeErosion.Data.CrossShoreProfile;
+using DikeErosion.IO.Data;
+using DikeErosion.IO.Data.Input;
 using DikeErosion.IO.Data.Output;
 using Newtonsoft.Json.Linq;
 
@@ -65,7 +68,7 @@ namespace DikeErosion.IO
             var jProfileDefinition = ReadAsJObject(jInput, ProfileDefinitionPropertyName);
             if (jProfileDefinition != null)
             {
-                var coordinates = new List<ProfileCoordinate>();
+                var coordinates = new List<CrossShoreCoordinate>();
 
                 var xPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileXPositionsPropertyName);
                 var zPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileZPositionsPropertyName);
@@ -73,7 +76,7 @@ namespace DikeErosion.IO
                 {
                     for (int i = 0; i < xPositions.Length; i++)
                     {
-                        coordinates.Add(new ProfileCoordinate(xPositions[i], zPositions[i]));
+                        coordinates.Add(new CrossShoreCoordinate(xPositions[i], zPositions[i]));
                     }
                 }
 
@@ -103,11 +106,11 @@ namespace DikeErosion.IO
 
             // TODO: Read calculation settings
             var dikernelInput = new DikernelInput(timeSteps, dikeProfile, outputLocations);
-            dikernelInput.HydraulicConditions.AddRange(hydraulicConditions.Select(c => new HydraulicCondition(c.Key, c.Value)));
+            dikernelInput.HydraulicConditions.AddRange(hydraulicConditions.Select(c => new HydraulicConditionItem(c.Key, c.Value)));
             return dikernelInput;
         }
 
-        public static OutputLocation[] ReadResults(string fileName)
+        public static OutputAtLocation[] ReadResults(string fileName)
         {
             var json = ReadJasonFileContent(fileName);
 
@@ -116,10 +119,10 @@ namespace DikeErosion.IO
             var jOutputLocations = ReadAsJArray(jOutput, LocationsObjectPropertyName);
             if (jOutputLocations == null || jOutputLocations.Count == 0 || jOutputLocations.First?.Type != JTokenType.Object)
             {
-                return Array.Empty<OutputLocation>();
+                return Array.Empty<OutputAtLocation>();
             }
 
-            var locations = new List<OutputLocation>();
+            var locations = new List<OutputAtLocation>();
             foreach (var jOutputLocation in jOutputLocations.OfType<JObject>())
             {
                 var revetmentFailed = false;
@@ -155,7 +158,12 @@ namespace DikeErosion.IO
                                 height = jPhysicsOutput.Value.ToDouble();
                                 break;
                             case SlopeOutputPropertyName:
-                                outerSlope = jPhysicsOutput.Value.ToDouble(); 
+                                if (jPhysicsOutput.Value?.Type == JTokenType.Array)
+                                {
+                                    outerSlope = double.NaN;
+                                    goto default;
+                                }
+                                outerSlope = jPhysicsOutput.Value.ToDouble();
                                 break;
                             default:
                                 if (jPhysicsOutput.Value?.First?.Type == JTokenType.Float)
@@ -171,7 +179,7 @@ namespace DikeErosion.IO
                     }
                 }
 
-                var location = new OutputLocation(height, outerSlope, revetmentFailed, revetmentFailedAfter, damage);
+                var location = new OutputAtLocation(height, outerSlope, revetmentFailed, revetmentFailedAfter, damage);
                 foreach (var item in physicsDoublesDictionary)
                 {
                     location.PhysicsDouble[item.Key] = item.Value;
@@ -191,14 +199,13 @@ namespace DikeErosion.IO
             return double.IsNaN(value) ? defaultValue : value;
         }
 
-        private static ProfileCoordinate? ToCoordinate(double xPosition, List<ProfileCoordinate> coordinates)
+        private static CrossShoreCoordinate? ToCoordinate(double xPosition, List<CrossShoreCoordinate> coordinates)
         {
             return coordinates.FirstOrDefault(c => Math.Abs(c.X - xPosition) < 1E-8);
         }
 
         private static JObject ReadJasonFileContent(string fileName)
         {
-            // TODO: Validate file and format.
             return JObject.Parse(File.ReadAllText(fileName));
         }
 

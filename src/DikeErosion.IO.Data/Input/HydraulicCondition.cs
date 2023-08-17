@@ -1,8 +1,8 @@
 ﻿namespace DikeErosion.IO.Data.Input;
 
-public class HydraulicCondition
+public class HydraulicConditionItem
 {
-    public HydraulicCondition(string name, double[] values)
+    public HydraulicConditionItem(string name, double[] values)
     {
         Name = name;
         Values = values;
