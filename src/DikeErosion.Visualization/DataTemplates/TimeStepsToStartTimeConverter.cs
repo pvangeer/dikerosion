@@ -4,22 +4,18 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 
-namespace DikeErosion.Gui;
+namespace DikeErosion.Visualization.DataTemplates;
 
-public class TimeStepsToTicksConverter : IValueConverter
+public class TimeStepsToStartTimeConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var ticks = "0";
-        if (value is IList<double> timeSteps && timeSteps.Any())
+        if (value is double[] timeSteps && timeSteps.Any())
         {
-            foreach (var timeStep in timeSteps)
-            {
-                ticks += (timeStep.ToString(CultureInfo.InvariantCulture) + ",");
-            }
-            ticks = ticks.Remove(ticks.Length - 1, 1);
+            return timeSteps.Min();
         }
-        return ticks;
+
+        return 0.0;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

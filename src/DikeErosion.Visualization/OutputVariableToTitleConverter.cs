@@ -1,21 +1,20 @@
-using System.Collections.Generic;
-using System.Globalization;
 using System;
-using System.Linq;
+using System.Globalization;
 using System.Windows.Data;
+using DikeErosion.Data;
 
-namespace DikeErosion.Gui;
+namespace DikeErosion.Visualization;
 
-public class TimeStepsToEndTimeConverter : IValueConverter
+public class OutputVariableToTitleConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is List<double> timeSteps && timeSteps.Any())
+        if (value is TimeDependentOutputVariable output)
         {
-            return timeSteps.Max();
+            return output.Name;
         }
 
-        return 1.0;
+        return value;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

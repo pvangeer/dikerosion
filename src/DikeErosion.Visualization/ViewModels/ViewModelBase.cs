@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DikeErosion.Visualization;
+namespace DikeErosion.Visualization.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public virtual string Title => "";
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {

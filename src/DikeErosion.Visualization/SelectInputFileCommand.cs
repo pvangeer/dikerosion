@@ -35,7 +35,6 @@ public class SelectInputFileCommand : ICommand
         {
             var importer = new DikeErosionInputImporter(project);
             importer.Import(dialog.FileName);
-            
         }
     }
 

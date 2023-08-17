@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using DikeErosion.Data;
 
-namespace DikeErosion.Visualization
+namespace DikeErosion.Visualization.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -16,19 +17,12 @@ namespace DikeErosion.Visualization
         {
             Project = new DikeErosionProject();
             Project.PropertyChanged += ProjectPropertyChanged;
-            Project.TimeSteps.CollectionChanged += TimeStepsCollectionChanged;
-            ChartAreaViewModel = new CrossShoreChartViewModel(Project);
+            ContentViewModels = new ObservableCollection<ViewModelBase>
+            {
+                new CrossShoreChartViewModel(Project),
+                new TimeLineViewModel(Project)
+            };
         }
-
-        private void TimeStepsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            TimeSteps = Project.TimeSteps.ToList();
-            CurrentTimeStep = TimeSteps.Any() ? TimeSteps.Min() : 0.0;
-            OnPropertyChanged(nameof(CurrentTimeStep));
-            OnPropertyChanged(nameof(TimeSteps));
-        }
-
-        public CrossShoreChartViewModel ChartAreaViewModel { get; }
 
         public string InputFileName
         {
@@ -54,17 +48,7 @@ namespace DikeErosion.Visualization
 
         public ICommand SelectOutputFileCommand => new SelectOutputFileCommand(Project);
 
-        public List<double>? TimeSteps { get; set; }
-
-        public double CurrentTimeStep
-        {
-            get => currentTimeStep;
-            set
-            {
-                currentTimeStep = value;
-                ChartAreaViewModel.CurrentTimeStep = currentTimeStep;
-            }
-        }
+        public ObservableCollection<ViewModelBase> ContentViewModels { get; }
 
         private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {

@@ -12,8 +12,11 @@ namespace DikeErosion.Data
 
             TimeSteps = new ObservableCollection<double>();
             Profile = new Profile();
+
             OutputLocations = new ObservableCollection<OutputLocation>();
             HydraulicConditions = new ObservableCollection<HydraulicCondition>();
+
+            TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
         }
 
         public string InputFileName { get; set; }
@@ -27,5 +30,7 @@ namespace DikeErosion.Data
         public ObservableCollection<OutputLocation> OutputLocations { get; }
 
         public ObservableCollection<HydraulicCondition> HydraulicConditions { get; }
+
+        public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
     }
 }

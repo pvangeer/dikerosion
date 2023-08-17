@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:DikeErosion.Gui"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/SliderControlStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Input;
 using DikeErosion.Data;
+using DikeErosion.IO;
 using Microsoft.Win32;
 
 namespace DikeErosion.Visualization;
@@ -32,12 +33,8 @@ public class SelectOutputFileCommand : ICommand
         var result = dialog.ShowDialog();
         if (result == true)
         {
-            project.OutputFileName = dialog.FileName;
-            project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
-
-            // TODO: Validate input and gice feedback to the user (use log4net?).
-            // TODO: Import values and place on datamodel (also adjust presented data
-            //var output = DikeErosionJsonReader.ReadResults(dialog.FileName);
+            var importer = new DikeErosionOutputImporter(project);
+            importer.Import(dialog.FileName);
         }
     }
 

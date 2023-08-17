@@ -3,19 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:oxy="http://oxyplot.org/wpf"
-        xmlns:visualization="clr-namespace:DikeErosion.Visualization;assembly=DikeErosion.Visualization"
         xmlns:gui="clr-namespace:DikeErosion.Gui"
+        xmlns:viewModels="clr-namespace:DikeErosion.Visualization.ViewModels;assembly=DikeErosion.Visualization"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
 
     <Window.Resources>
-        <gui:TimeStepsToTicksConverter x:Key="TimeStepsToTicksConverter" />
-        <gui:TimeStepsToStartTimeConverter x:Key="TimeStepsToStartTimeConverter" />
-        <gui:TimeStepsToEndTimeConverter x:Key="TimeStepsToEndTimeConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/CrossShoreViewDataTemplate.xaml" />
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/TimeLineViewDataTemplate.xaml" />
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/TabItemDataTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <gui:MainContentTemplateSelector 
+                x:Key="MainContentTemplateSelector" 
+                CrossShoreViewDataTemplate="{StaticResource CrossShoreViewDataTemplate}"
+                TimeLineViewDataTemplate="{StaticResource TimeLineViewDataTemplate}"/>
+
+        </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
-        <visualization:MainWindowViewModel/>
+        <viewModels:MainWindowViewModel/>
     </Window.DataContext>
 
     <Grid>
@@ -71,20 +80,11 @@
                 Content="Browse..." 
                 Command="{Binding SelectOutputFileCommand}"/>
         </Grid>
-        <oxy:PlotView 
-            Grid.Row="1" 
-            Model="{Binding ChartAreaViewModel.PlotModel}"/>
-        <Slider 
-            Grid.Row="2"
-            Margin="20,5"
-            Minimum="{Binding TimeSteps, Converter={StaticResource TimeStepsToStartTimeConverter}}"
-            Maximum="{Binding TimeSteps, Converter={StaticResource TimeStepsToEndTimeConverter}}"
-            Ticks="{Binding TimeSteps, Converter={StaticResource TimeStepsToTicksConverter}}"
-            AutoToolTipPlacement="BottomRight"
-            AutoToolTipPrecision="2"
-            IsSnapToTickEnabled="True"
-            Value="{Binding CurrentTimeStep}"
-            TickPlacement="Both">
-        </Slider>
+        <TabControl 
+            Grid.Row="1"
+            ContentTemplateSelector="{StaticResource MainContentTemplateSelector}"
+            ItemTemplate="{StaticResource TabItemDataTemplate}"
+            ItemsSource="{Binding ContentViewModels}">
+        </TabControl>
     </Grid>
 </Window>
