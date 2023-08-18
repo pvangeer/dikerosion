@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,6 +22,10 @@ namespace DikeErosion.Visualization.ViewModels
         private double currentTimeStep;
         private LineSeries? waterLevelSeries;
         private AreaSeries? waveHeightSeries;
+        private TimeDependentOutputVariable? selectedOutputVariable;
+        private Series? selectedOutputSeries;
+        private LinearAxis selectedOutputAxes;
+        private const string OutputVariableAxisKey = "OutputVariableAxis";
 
         private DikeErosionProject Project { get; }
 
@@ -35,6 +40,12 @@ namespace DikeErosion.Visualization.ViewModels
             {
                 Title = "Dike Erosion Results"
             };
+            selectedOutputAxes = new LinearAxis
+            {
+                Position = AxisPosition.Right,
+                Key = OutputVariableAxisKey
+            };
+
             Controller = new PlotController();
 
             InitializePlotModel();
@@ -55,10 +66,29 @@ namespace DikeErosion.Visualization.ViewModels
             {
                 currentTimeStep = value;
                 UpdateHydraulicConditions();
+                UpdateSelectedOutputVariableSeriesData();
                 PlotModel.InvalidatePlot(true);
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanStepBackInTime));
                 OnPropertyChanged(nameof(CanStepForwardInTime));
+            }
+        }
+
+        private void UpdateSelectedOutputVariableSeriesData()
+        {
+            if (selectedOutputSeries != null && selectedOutputVariable != null)
+            {
+                switch (Type.GetTypeCode(selectedOutputVariable.ValueType))
+                {
+                    case TypeCode.Double:
+                        var stemSeries = ((StemSeries)selectedOutputSeries);
+                        stemSeries.Points.Clear();
+                        stemSeries.Points
+                            .AddRange(selectedOutputVariable.Values
+                                .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8)
+                                .Select(v => new DataPoint(v.Coordinate.X, (double)v.Value)));
+                        break;
+                }
             }
         }
 
@@ -74,7 +104,16 @@ namespace DikeErosion.Visualization.ViewModels
 
         public TimeDependentOutputVariable[] OutputVariables => Project.TimeDependentOutputVariables.ToArray();
 
-        public TimeDependentOutputVariable SelectedOutputVariable { get; set; }
+        public TimeDependentOutputVariable? SelectedOutputVariable
+        {
+            get => selectedOutputVariable;
+            set
+            {
+                selectedOutputVariable = value;
+                UpdateSelectedOutputVariableSeries();
+                PlotModel.InvalidatePlot(true);
+            }
+        }
 
         private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -85,6 +124,49 @@ namespace DikeErosion.Visualization.ViewModels
                     break;
                 case nameof(DikeErosionProject.OutputFileName):
                     UpdateOutputRelatedInformation();
+                    break;
+            }
+        }
+
+        private void UpdateSelectedOutputVariableSeries()
+        {
+            if (selectedOutputSeries != null)
+            {
+                PlotModel.Series.Remove(selectedOutputSeries);
+                selectedOutputSeries = null;
+                PlotModel.Axes.Remove(selectedOutputAxes);
+            }
+
+            if (selectedOutputVariable == null)
+            {
+                return;
+            }
+
+            selectedOutputAxes.Title = selectedOutputVariable.Name; // TODO: Include units and pretty name.
+            PlotModel.Axes.Add(selectedOutputAxes);
+
+            switch (Type.GetTypeCode(selectedOutputVariable.ValueType))
+            {
+                case TypeCode.Double:
+                    var stemSeries = new StemSeries
+                    {
+                        Title = selectedOutputVariable.Name,
+                        MarkerStroke = OxyColors.Black,
+                        MarkerType = MarkerType.Circle,
+                        MarkerSize = 5,
+                        MarkerFill = OxyColors.Transparent,
+                        MarkerStrokeThickness = 1.5,
+                        StrokeThickness = 1.5,
+                        Dashes = new []{1.0,1},
+                        Color = OxyColors.Black,
+                        YAxisKey = OutputVariableAxisKey
+                    };
+                    stemSeries.Points
+                        .AddRange(selectedOutputVariable.Values
+                            .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8)
+                            .Select(v => new DataPoint(v.Coordinate.X, (double)v.Value)));
+                    selectedOutputSeries = stemSeries;
+                    PlotModel.Series.Add(selectedOutputSeries);
                     break;
             }
         }

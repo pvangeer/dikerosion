@@ -34,9 +34,17 @@
                 <ComboBox 
                     Grid.Column="1"
                     MinWidth="400"
-                    ItemsSource="{Binding OutputVariables, Converter={StaticResource OutputVariableToTitleConverter}}"/>
-                <!--
-                    SelectedItem="{Binding SelectedOutputVariable}"-->
+                    VerticalContentAlignment="Center"
+                    ItemsSource="{Binding OutputVariables}"
+                    SelectedItem="{Binding SelectedOutputVariable}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
             <oxy:PlotView 
                 Grid.Row="1" 

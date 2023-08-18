@@ -10,7 +10,6 @@ namespace DikeErosion.Visualization.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private double currentTimeStep;
         private DikeErosionProject Project { get; }
 
         public MainWindowViewModel()

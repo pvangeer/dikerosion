@@ -105,7 +105,7 @@ namespace DikeErosion.IO
             }
 
             var timeDependentOutputVariables = outputVariableValues.Select(v =>
-                new TimeDependentOutputVariable(v.Key, v.Value.First().GetType(), v.Value.ToArray()));
+                new TimeDependentOutputVariable(v.Key, v.Value.First().Value.GetType(), v.Value.ToArray()));
             project.TimeDependentOutputVariables.Clear();
             foreach (var variable in timeDependentOutputVariables)
             {
@@ -113,6 +113,7 @@ namespace DikeErosion.IO
             }
 
             project.OutputFileName = fileName;
+            project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
 
         }
 
