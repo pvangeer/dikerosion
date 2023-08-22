@@ -1,21 +1,15 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
-using DikeErosion.Data;
-using DikeErosion.Visualization.ViewModels;
 
-namespace DikeErosion.Visualization;
+namespace DikeErosion.Visualization.DataTemplates;
 
-public class OutputVariableToTitleConverter : IValueConverter
+public class HasTimeStepsConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is TimeDependentOutputVariable output)
-        {
-            return output.ToTitle();
-        }
-
-        return value;
+        return (value is double[] timeSteps && timeSteps.Any());
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

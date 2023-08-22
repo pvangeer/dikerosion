@@ -1,6 +1,99 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewModels="clr-namespace:DikeErosion.Visualization.ViewModels">
-    <DataTemplate x:Key="TimeLineViewDataTemplate" DataType="{x:Type viewModels:TimeLineViewModel}"/>
+                    xmlns:viewModels="clr-namespace:DikeErosion.Visualization.ViewModels"
+                    xmlns:oxy="http://oxyplot.org/wpf"
+                    xmlns:data="clr-namespace:DikeErosion.Data;assembly=DikeErosion.Data"
+                    xmlns:visualization="clr-namespace:DikeErosion.Visualization">
 
+    <visualization:OutputVariableToTitleConverter x:Key="OutputVariableToTitleConverter" />
+
+    <visualization:OutputLocationToTitleConverter x:Key="OutputLocationToTitleConverter" />
+    <DataTemplate x:Key="TimeLineViewDataTemplate" DataType="{x:Type viewModels:TimeLineViewModel}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid 
+                    Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border 
+                        Grid.Row="0"
+                        Background="Chocolate"
+                        Height="30"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                             VerticalAlignment="Center"
+                             Text="Locatie"/>
+                    </Border>
+                    <ListBox
+                        Grid.Row="1"
+                        ItemsSource="{Binding OutputLocations}"
+                        SelectedItem="{Binding SelectedOutputLocation}"
+                        MinWidth="200">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type data:OutputLocation}">
+                                <TextBlock Text="{Binding Converter={StaticResource OutputLocationToTitleConverter}}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <GridSplitter 
+                    Grid.Row="1"
+                    ResizeDirection="Rows"
+                    Height="5"
+                    Background="Brown"
+                    HorizontalAlignment="Stretch"
+                    ResizeBehavior="BasedOnAlignment"/>
+                <Grid 
+                    Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border 
+                        Grid.Row="0"
+                        Background="Chocolate"
+                        Height="30"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="Uitvoervariabele"/>
+                    </Border>
+                    <ListBox
+                        Grid.Row="1"
+                        MinWidth="200"
+                        SelectedItem="{Binding SelectedOutputVariable}"
+                        ItemsSource="{Binding OutputVariables}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type data:TimeDependentOutputVariable}">
+                                <TextBlock Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+            <GridSplitter 
+                Grid.Column="1"
+                ResizeDirection="Columns"
+                Width="5"
+                Background="Brown"
+                HorizontalAlignment="Stretch"
+                ResizeBehavior="BasedOnAlignment"/>
+            <oxy:PlotView 
+                Grid.Column="2" 
+                Model="{Binding PlotModel}"
+                Controller="{Binding Controller}"/>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

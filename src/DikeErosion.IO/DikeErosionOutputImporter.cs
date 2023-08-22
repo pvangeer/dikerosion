@@ -1,6 +1,7 @@
 ﻿using DikeErosion.Data;
 using DikeErosion.Data.CrossShoreProfile;
 using DikeErosion.Data.ExceptionHandling;
+using DikeErosion.IO.Data.Output;
 
 namespace DikeErosion.IO
 {
@@ -24,32 +25,25 @@ namespace DikeErosion.IO
             ValidateFileName(fileName);
 
             var results = DikeErosionJsonReader.ReadResults(fileName);
-            var firstResult = results.FirstOrDefault();
-            if (firstResult == null)
+            if (!results.Any())
             {
                 return;
             }
 
-            var doublesPhysicsResultsAvailable = firstResult.PhysicsDouble.Any();
-            var boolPhysicsResultsAvailable = firstResult.PhysicsBool.Any();
-            if ((doublesPhysicsResultsAvailable && firstResult.PhysicsDouble.Values.First().Length != project.TimeSteps.Count -1) ||
+            var doubleVariableNames = new List<string>();
+            var boolVariableNames = new List<string>();
+            foreach (var result in results)
+            {
+                doubleVariableNames.AddRange(result.PhysicsDouble.Keys.Where(k => !doubleVariableNames.Contains(k)));
+                boolVariableNames.AddRange(result.PhysicsBool.Keys.Where(k => !boolVariableNames.Contains(k)));
+            }
+
+            /*if ((doubleVariableNames.Any() && firstResult.PhysicsDouble.Values.First().Length != project.TimeSteps.Count -1) ||
                 (boolPhysicsResultsAvailable && firstResult.PhysicsDouble.Values.First().Length != project.TimeSteps.Count - 1))
             {
                 return;
-            }
-
-            var outputVariableValues = new Dictionary<string,List<TimeDependentOutputVariableValue>>();
-            var doubleVariableNames = firstResult.PhysicsDouble.Keys.ToArray();
-            var boolVariableNames = firstResult.PhysicsBool.Keys.ToArray();
-            foreach (var name in doubleVariableNames)
-            {
-                outputVariableValues[name] = new List<TimeDependentOutputVariableValue>();
-            }
-            foreach (var name in boolVariableNames)
-            {
-                outputVariableValues[name] = new List<TimeDependentOutputVariableValue>();
-            }
-            outputVariableValues["Schadeontwikkeling"] = new List<TimeDependentOutputVariableValue>();
+            }*/
+            // TODO: Check correct length?
 
             var heights = results.Select(r => r.Height).ToArray();
             if (heights.Length != project.OutputLocations.Count)
@@ -64,44 +58,63 @@ namespace DikeErosion.IO
                 return;
             }
 
+            var outputVariableValues = new Dictionary<string,List<TimeDependentOutputVariableValue>>();
+            foreach (var name in doubleVariableNames)
+            {
+                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinates, double.NaN);
+            }
+            foreach (var name in boolVariableNames)
+            {
+                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinates, false);
+            }
+            outputVariableValues["Schadeontwikkeling"] = GetDefaultOutputVariableList(results, coordinates, double.NaN);
+
             foreach (var location in results)
             {
-                var currentCoordinate = coordinates[location.Height].Coordinate;
-                for (int i = 0; i < project.TimeSteps.Count - 1; i++)
+                var currentCoordinate = coordinates[location.Height]?.Coordinate;
+                if (currentCoordinate == null)
                 {
-                    if (doublesPhysicsResultsAvailable)
+                    throw new Exception("Should not occur");
+                }
+
+                for (int i = 1; i < project.TimeSteps.Count; i++)
+                {
+                    if (doubleVariableNames.Any())
                     {
-                        foreach (var variableName in doubleVariableNames)
+                        foreach (var variableName in doubleVariableNames.Where(v => location.PhysicsDouble.ContainsKey(v)))
                         {
                             outputVariableValues[variableName].Add(new TimeDependentOutputVariableValue(
                                 currentCoordinate,
-                                project.TimeSteps[i + 1],
-                                location.PhysicsDouble[variableName][i]));
+                                project.TimeSteps[i],
+                                location.PhysicsDouble[variableName][i-1]));
                         }
                     }
 
-                    if (boolPhysicsResultsAvailable)
+                    if (boolVariableNames.Any())
                     {
-                        foreach (var variableName in boolVariableNames)
+                        foreach (var variableName in boolVariableNames.Where(v => location.PhysicsBool.ContainsKey(v)))
                         {
                             outputVariableValues[variableName].Add(new TimeDependentOutputVariableValue(
                                 currentCoordinate,
-                                project.TimeSteps[i + 1],
-                                location.PhysicsBool[variableName][i]));
+                                project.TimeSteps[i],
+                                location.PhysicsBool[variableName][i-1]));
                         }
                     }
 
                     if (location.DamageDevelopment != null)
                     {
-                        outputVariableValues["Schadeontwikkeling"].Add(new TimeDependentOutputVariableValue(currentCoordinate, project.TimeSteps[i], location.DamageDevelopment[i]));
+                        outputVariableValues["Schadeontwikkeling"].Add(
+                            new TimeDependentOutputVariableValue(
+                                currentCoordinate, 
+                                project.TimeSteps[i], 
+                                location.DamageDevelopment[i-1]));
                     }
                 }
 
                 // TODO: Not time dependent
                 /*OuterSlope
-                    RevetmentFailed
+                RevetmentFailed
                 RevetmentFailedAfter*/
-
             }
 
             var timeDependentOutputVariables = outputVariableValues.Select(v =>
@@ -115,6 +128,20 @@ namespace DikeErosion.IO
             project.OutputFileName = fileName;
             project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
 
+        }
+
+        private List<TimeDependentOutputVariableValue> GetDefaultOutputVariableList(OutputAtLocation[] results, Dictionary<double, OutputLocation?> coordinates, object value)
+        {
+            return results.Select(r =>
+            {
+                var coordinate = coordinates[r.Height]?.Coordinate;
+                if (coordinate != null)
+                {
+                    return new TimeDependentOutputVariableValue(coordinate, project.TimeSteps[0], value);
+                }
+
+                throw new Exception("Should not occur");
+            }).ToList();
         }
 
         private void ValidateFileName(string fileName)

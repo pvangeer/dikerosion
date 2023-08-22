@@ -1,7 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -18,14 +16,19 @@ namespace DikeErosion.Visualization.ViewModels
     {
         private AreaSeries? dikeProfileSeries;
         private readonly Dictionary<ScatterSeries, Annotation> characteristicPointsSeries = new();
-        private ScatterSeries? outputLocationsSeries;
+        private readonly List<ScatterSeries> outputLocationsSeries = new();
         private double currentTimeStep;
         private LineSeries? waterLevelSeries;
         private AreaSeries? waveHeightSeries;
         private TimeDependentOutputVariable? selectedOutputVariable;
-        private Series? selectedOutputSeries;
-        private LinearAxis selectedOutputAxes;
+        private List<Series> selectedOutputSeries = new();
+
         private const string OutputVariableAxisKey = "OutputVariableAxis";
+        private readonly LinearAxis selectedOutputAxes = new()
+        {
+            Position = AxisPosition.Right,
+            Key = OutputVariableAxisKey
+        };
 
         private DikeErosionProject Project { get; }
 
@@ -39,11 +42,6 @@ namespace DikeErosion.Visualization.ViewModels
             PlotModel = new PlotModel
             {
                 Title = "Dike Erosion Results"
-            };
-            selectedOutputAxes = new LinearAxis
-            {
-                Position = AxisPosition.Right,
-                Key = OutputVariableAxisKey
             };
 
             Controller = new PlotController();
@@ -76,17 +74,30 @@ namespace DikeErosion.Visualization.ViewModels
 
         private void UpdateSelectedOutputVariableSeriesData()
         {
-            if (selectedOutputSeries != null && selectedOutputVariable != null)
+            if (selectedOutputSeries.Any() && selectedOutputVariable != null)
             {
                 switch (Type.GetTypeCode(selectedOutputVariable.ValueType))
                 {
                     case TypeCode.Double:
-                        var stemSeries = ((StemSeries)selectedOutputSeries);
+                        var stemSeries = ((StemSeries)selectedOutputSeries[0]);
                         stemSeries.Points.Clear();
                         stemSeries.Points
                             .AddRange(selectedOutputVariable.Values
                                 .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8)
                                 .Select(v => new DataPoint(v.Coordinate.X, (double)v.Value)));
+                        break;
+                    case TypeCode.Boolean:
+                        var trueSeries = (ScatterSeries)selectedOutputSeries[0];
+                        trueSeries.Points.Clear();
+                        trueSeries.Points.AddRange(selectedOutputVariable.Values
+                            .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8 && (bool)v.Value)
+                            .Select(v => new ScatterPoint(v.Coordinate.X, v.Coordinate.Z)));
+
+                        var falseSeries = (ScatterSeries)selectedOutputSeries[1];
+                        falseSeries.Points.Clear();
+                        falseSeries.Points.AddRange(selectedOutputVariable.Values
+                            .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8 && !(bool)v.Value)
+                            .Select(v => new ScatterPoint(v.Coordinate.X, v.Coordinate.Z)));
                         break;
                 }
             }
@@ -130,10 +141,13 @@ namespace DikeErosion.Visualization.ViewModels
 
         private void UpdateSelectedOutputVariableSeries()
         {
-            if (selectedOutputSeries != null)
+            if (selectedOutputSeries.Any())
             {
-                PlotModel.Series.Remove(selectedOutputSeries);
-                selectedOutputSeries = null;
+                foreach (var series in selectedOutputSeries.ToArray())
+                {
+                    PlotModel.Series.Remove(series);
+                    selectedOutputSeries.Remove(series);
+                }
                 PlotModel.Axes.Remove(selectedOutputAxes);
             }
 
@@ -142,7 +156,7 @@ namespace DikeErosion.Visualization.ViewModels
                 return;
             }
 
-            selectedOutputAxes.Title = selectedOutputVariable.Name; // TODO: Include units and pretty name.
+            selectedOutputAxes.Title = selectedOutputVariable.ToTitle();
             PlotModel.Axes.Add(selectedOutputAxes);
 
             switch (Type.GetTypeCode(selectedOutputVariable.ValueType))
@@ -150,7 +164,7 @@ namespace DikeErosion.Visualization.ViewModels
                 case TypeCode.Double:
                     var stemSeries = new StemSeries
                     {
-                        Title = selectedOutputVariable.Name,
+                        Title = selectedOutputVariable.ToTitle(),
                         MarkerStroke = OxyColors.Black,
                         MarkerType = MarkerType.Circle,
                         MarkerSize = 5,
@@ -165,8 +179,37 @@ namespace DikeErosion.Visualization.ViewModels
                         .AddRange(selectedOutputVariable.Values
                             .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8)
                             .Select(v => new DataPoint(v.Coordinate.X, (double)v.Value)));
-                    selectedOutputSeries = stemSeries;
-                    PlotModel.Series.Add(selectedOutputSeries);
+                    selectedOutputSeries.Add(stemSeries);
+                    PlotModel.Series.Add(stemSeries);
+                    break;
+                case TypeCode.Boolean:
+                    var trueSeries = new ScatterSeries
+                    {
+                        Title = selectedOutputVariable.ToTitle(),
+                        MarkerType = MarkerType.Circle,
+                        MarkerSize = 5,
+                        MarkerFill = OxyColors.DarkOliveGreen,
+                        MarkerStroke = OxyColors.Black,
+                        MarkerStrokeThickness = 1,
+                    };
+                    trueSeries.Points.AddRange(selectedOutputVariable.Values
+                        .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8 && (bool)v.Value)
+                        .Select(v => new ScatterPoint(v.Coordinate.X, v.Coordinate.Z)));
+                    PlotModel.Series.Add(trueSeries);
+                    selectedOutputSeries.Add(trueSeries);
+                    var falseSeries = new ScatterSeries
+                    {
+                        Title = selectedOutputVariable.ToTitle(),
+                        MarkerType = MarkerType.Cross,
+                        MarkerSize = 5,
+                        MarkerStroke = OxyColors.DarkRed,
+                        MarkerStrokeThickness = 1,
+                    };
+                    falseSeries.Points.AddRange(selectedOutputVariable.Values
+                        .Where(v => Math.Abs(v.Time - CurrentTimeStep) < 1E-8 && !(bool)v.Value)
+                        .Select(v => new ScatterPoint(v.Coordinate.X, v.Coordinate.Z)));
+                    PlotModel.Series.Add(falseSeries);
+                    selectedOutputSeries.Add(falseSeries);
                     break;
             }
         }
@@ -278,24 +321,34 @@ namespace DikeErosion.Visualization.ViewModels
 
         private void UpdateOutputLocations()
         {
-            if (outputLocationsSeries != null)
+            if (outputLocationsSeries.Any())
             {
-                PlotModel.Series.Remove(outputLocationsSeries);
-                outputLocationsSeries = null;
+                foreach (var series in outputLocationsSeries)
+                {
+                    PlotModel.Series.Remove(series);
+                }
+                outputLocationsSeries.Clear();
             }
 
-            outputLocationsSeries = new ScatterSeries
+            var types = Project.OutputLocations.Select(l => l.TopLayerType).Distinct();
+            foreach (var type in types)
             {
-                Title = "Uitvoerlocaties",
-                MarkerType = MarkerType.Circle,
-                MarkerFill = OxyColors.Transparent,
-                MarkerSize = 5,
-                MarkerStroke = OxyColors.DarkGray,
-                MarkerStrokeThickness = 2
-            };
-            outputLocationsSeries.Points.AddRange(Project.OutputLocations.Select(l => new ScatterPoint(l.Coordinate.X, l.Coordinate.Z, tag: l)));
+                var series = new ScatterSeries
+                {
+                    Title = $"Uitvoerlocaties ({type.ToTitle()})",
+                    MarkerType = MarkerType.Circle,
+                    MarkerFill = OxyColors.Transparent,
+                    MarkerSize = 5,
+                    MarkerStroke = type.ToStrokeColor(),
+                    MarkerStrokeThickness = 2
+                };
+                series.Points.AddRange(Project.OutputLocations
+                    .Where(l => l.TopLayerType == type)
+                    .Select(l => new ScatterPoint(l.Coordinate.X, l.Coordinate.Z, tag: l)));
 
-            PlotModel.Series.Add(outputLocationsSeries);
+                PlotModel.Series.Add(series);
+                outputLocationsSeries.Add(series);
+            }
         }
 
         private void UpdateHydraulicConditions()

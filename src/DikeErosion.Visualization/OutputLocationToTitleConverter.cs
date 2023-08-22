@@ -6,13 +6,13 @@ using DikeErosion.Visualization.ViewModels;
 
 namespace DikeErosion.Visualization;
 
-public class OutputVariableToTitleConverter : IValueConverter
+public class OutputLocationToTitleConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is TimeDependentOutputVariable output)
+        if (value is OutputLocation location)
         {
-            return output.ToTitle();
+            return $"X = {location.Coordinate.X} m  (Z = {location.Coordinate.Z:F2}) - {location.TopLayerType.ToTitle()}";
         }
 
         return value;

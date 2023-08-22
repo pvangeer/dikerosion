@@ -8,8 +8,10 @@
     <dataTemplates:TimeStepsToTicksConverter x:Key="TimeStepsToTicksConverter" />
     <dataTemplates:TimeStepsToStartTimeConverter x:Key="TimeStepsToStartTimeConverter" />
     <dataTemplates:TimeStepsToEndTimeConverter x:Key="TimeStepsToEndTimeConverter" />
+    <dataTemplates:HasTimeStepsConverter x:Key="HasTimeStepsConverter" />
 
     <visualization:OutputVariableToTitleConverter x:Key="OutputVariableToTitleConverter" />
+
     <DataTemplate x:Key="CrossShoreViewDataTemplate" DataType="{x:Type viewModels:CrossShoreChartViewModel}">
         <Grid>
             <Grid.RowDefinitions>
@@ -34,6 +36,7 @@
                 <ComboBox 
                     Grid.Column="1"
                     MinWidth="400"
+                    Margin="5"
                     VerticalContentAlignment="Center"
                     ItemsSource="{Binding OutputVariables}"
                     SelectedItem="{Binding SelectedOutputVariable}">
@@ -103,6 +106,7 @@
                     Ticks="{Binding TimeSteps, Converter={StaticResource TimeStepsToTicksConverter}}"
                     AutoToolTipPlacement="BottomRight"
                     AutoToolTipPrecision="2"
+                    IsEnabled="{Binding TimeSteps, Converter={StaticResource HasTimeStepsConverter}}"
                     IsSnapToTickEnabled="True"
                     Value="{Binding CurrentTimeStep}"
                     TickPlacement="Both">

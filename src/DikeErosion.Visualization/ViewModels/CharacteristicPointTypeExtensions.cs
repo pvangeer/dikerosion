@@ -10,13 +10,13 @@ namespace DikeErosion.Visualization.ViewModels
             switch (type)
             {
                 case CharacteristicPointType.CrownBermOuterSlope:
-                    return "Kruin Berm Buitenzijde";
+                    return "Kruin berm (buiten)";
                 case CharacteristicPointType.CrownOuterSlope:
-                    return "Kruin Buitenzijde";
+                    return "Kruin buitenzijde";
                 case CharacteristicPointType.InnerPointBermOuterSlope:
-                    return "Insteek Berm Buitenzijde";
+                    return "Insteek berm (binnen)";
                 case CharacteristicPointType.ToeOuterSlope:
-                    return "Teen Buitenzijde";
+                    return "Teen buitenzijde";
                 default:
                     return "Onbekend";
             }
