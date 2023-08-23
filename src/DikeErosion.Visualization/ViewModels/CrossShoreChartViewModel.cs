@@ -21,7 +21,7 @@ namespace DikeErosion.Visualization.ViewModels
         private LineSeries? waterLevelSeries;
         private AreaSeries? waveHeightSeries;
         private TimeDependentOutputVariable? selectedOutputVariable;
-        private List<Series> selectedOutputSeries = new();
+        private readonly List<Series> selectedOutputSeries = new();
 
         private const string OutputVariableAxisKey = "OutputVariableAxis";
         private readonly LinearAxis selectedOutputAxes = new()
@@ -39,11 +39,7 @@ namespace DikeErosion.Visualization.ViewModels
             Project = project;
             Project.PropertyChanged += ProjectPropertyChanged;
 
-            PlotModel = new PlotModel
-            {
-                Title = "Dike Erosion Results"
-            };
-
+            PlotModel = new PlotModel();
             Controller = new PlotController();
 
             InitializePlotModel();
@@ -100,6 +96,8 @@ namespace DikeErosion.Visualization.ViewModels
                             .Select(v => new ScatterPoint(v.Coordinate.X, v.Coordinate.Z)));
                         break;
                 }
+
+                PlotModel.Title = $"Tijdstap {Array.IndexOf(TimeSteps,CurrentTimeStep)}: {CurrentTimeStep:F2} [sec]";
             }
         }
 
@@ -212,6 +210,7 @@ namespace DikeErosion.Visualization.ViewModels
                     selectedOutputSeries.Add(falseSeries);
                     break;
             }
+            PlotModel.Title = $"Tijdstap {Array.IndexOf(TimeSteps, CurrentTimeStep)}: {CurrentTimeStep:F2} [sec]";
         }
 
         private void UpdateOutputRelatedInformation()
