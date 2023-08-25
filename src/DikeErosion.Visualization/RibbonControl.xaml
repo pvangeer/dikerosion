@@ -13,13 +13,15 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/DikeErosion.Visualization;component/DataTemplates/FileSelectionDataTempalte.xaml"/>
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/FileSelectionDataTempalte.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
             <visualization:IsViewStateConverter x:Key="IsViewStateConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
+
     <UserControl.DataContext>
-        <viewModels:MainWindowViewModel />
+        <viewModels:RibbonViewModel />
     </UserControl.DataContext>
 
     <fluent:Ribbon

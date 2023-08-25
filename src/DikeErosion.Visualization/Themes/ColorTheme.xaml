@@ -8,6 +8,9 @@
     <Color x:Key="DikeErosion.Colors.MouseOverHighlight" >Brown</Color>
     <Color x:Key="DikeErosion.Colors.MousePressedHighlight" >DarkRed</Color>
 
+    <Color x:Key="DikeErosion.Colors.DisabledDark" >DimGray</Color>
+    <Color x:Key="DikeErosion.Colors.DisabledLight" >Gray</Color>
+
     <Color x:Key="DikeErosion.Black">#000000</Color>
 
     <Color x:Key="DikeErosion.Colors.Header">Chocolate</Color>

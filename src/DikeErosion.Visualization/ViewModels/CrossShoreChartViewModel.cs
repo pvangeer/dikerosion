@@ -14,12 +14,14 @@ namespace DikeErosion.Visualization.ViewModels
 {
     public class CrossShoreChartViewModel : ViewModelBase
     {
+        private readonly LineSeries waterLevelSeries;
+        private readonly AreaSeries waveHeightSeries;
         private AreaSeries? dikeProfileSeries;
+        
         private readonly Dictionary<ScatterSeries, Annotation> characteristicPointsSeries = new();
         private readonly List<ScatterSeries> outputLocationsSeries = new();
+        
         private double currentTimeStep;
-        private LineSeries? waterLevelSeries;
-        private AreaSeries? waveHeightSeries;
         private TimeDependentOutputVariable? selectedOutputVariable;
         private readonly List<Series> selectedOutputSeries = new();
 
@@ -40,6 +42,8 @@ namespace DikeErosion.Visualization.ViewModels
             Project.PropertyChanged += ProjectPropertyChanged;
 
             PlotModel = InitializePlotModel();
+            waveHeightSeries = InitializeWaveHeightSeries();
+            waterLevelSeries = InitializeWaterLevelSeries();
 
             UpdateTimeSliderAndCurrentTimeStep();
         }
@@ -328,7 +332,7 @@ namespace DikeErosion.Visualization.ViewModels
                     Title = $"Uitvoerlocaties ({type.ToTitle()})",
                     MarkerType = MarkerType.Circle,
                     MarkerFill = OxyColors.Transparent,
-                    MarkerSize = 5,
+                    MarkerSize = 3,
                     MarkerStroke = type.ToStrokeColor(),
                     MarkerStrokeThickness = 2
                 };
@@ -343,54 +347,67 @@ namespace DikeErosion.Visualization.ViewModels
 
         private void UpdateHydraulicConditions()
         {
-            if (waterLevelSeries != null)
-            {
-                PlotModel.Series.Remove(waterLevelSeries);
-                waterLevelSeries = null;
-            }
-            if (waveHeightSeries != null)
-            {
-                PlotModel.Series.Remove(waveHeightSeries);
-                waveHeightSeries = null;
-            }
+            waterLevelSeries.IsVisible = false;
+            waveHeightSeries.IsVisible = false;
+            waterLevelSeries.Points.Clear();
+            waveHeightSeries.Points.Clear();
+            waveHeightSeries.Points2.Clear();
 
             if (Project.HydraulicConditions.Any())
             {
-                waterLevelSeries = new LineSeries
-                {
-                    Title = "Waterstand",
-                    Color = OxyColors.DeepSkyBlue,
-                    BrokenLineThickness = 2
-                };
-                var currentTimeStepIndex = Project.TimeSteps.IndexOf(CurrentTimeStep);
-                var currentHydraulicCondition = Project.HydraulicConditions[Math.Max(0, currentTimeStepIndex - 1)];
+                var currentHydraulicCondition = Project.HydraulicConditions[Math.Max(0, Project.TimeSteps.IndexOf(CurrentTimeStep) - 1)];
+                var waterLevel = currentHydraulicCondition.WaterLevel;
                 waterLevelSeries.Points.AddRange(new DataPoint[]
                 {
-                    new(Project.Profile.Coordinates.Min(c => c.X), currentHydraulicCondition.WaterLevel),
-                    new(Project.Profile.Coordinates.Max(c => c.X), currentHydraulicCondition.WaterLevel)
+                    new(Project.Profile.Coordinates.Min(c => c.X), waterLevel),
+                    new(Project.Profile.Coordinates.Max(c => c.X), waterLevel)
                 });
-                PlotModel.Series.Insert(0, waterLevelSeries);
 
-                waveHeightSeries = new AreaSeries
-                {
-                    Color = OxyColors.CadetBlue,
-                    Color2 = OxyColors.CadetBlue,
-                    Fill = OxyColors.LightBlue,
-                    Title = "Golfhoogte"
-                };
-                var waveHeight = currentHydraulicCondition.WaveHeight;
+                var halfWaveHeight = currentHydraulicCondition.WaveHeight/2.0;
                 waveHeightSeries.Points.AddRange(new DataPoint[]
                 {
-                    new(Project.Profile.Coordinates.Min(c => c.X), currentHydraulicCondition.WaterLevel + currentHydraulicCondition.WaveHeight/2.0),
-                    new(Project.Profile.Coordinates.Max(c => c.X), currentHydraulicCondition.WaterLevel + currentHydraulicCondition.WaveHeight/2.0)
+                    new(Project.Profile.Coordinates.Min(c => c.X), waterLevel + halfWaveHeight),
+                    new(Project.Profile.Coordinates.Max(c => c.X), waterLevel + halfWaveHeight)
                 });
                 waveHeightSeries.Points2.AddRange(new DataPoint[]
                 {
-                    new(Project.Profile.Coordinates.Min(c => c.X), currentHydraulicCondition.WaterLevel - currentHydraulicCondition.WaveHeight/2.0),
-                    new(Project.Profile.Coordinates.Max(c => c.X), currentHydraulicCondition.WaterLevel - currentHydraulicCondition.WaveHeight/2.0)
+                    new(Project.Profile.Coordinates.Min(c => c.X), waterLevel - halfWaveHeight),
+                    new(Project.Profile.Coordinates.Max(c => c.X), waterLevel - halfWaveHeight)
                 });
-                PlotModel.Series.Insert(0, waveHeightSeries);
+
+                waterLevelSeries.IsVisible = true;
+                waveHeightSeries.IsVisible = true;
+
             }
+        }
+
+        private AreaSeries InitializeWaveHeightSeries()
+        {
+            var series = new AreaSeries
+            {
+                Color = OxyColors.CadetBlue,
+                Color2 = OxyColors.CadetBlue,
+                Fill = OxyColors.LightBlue,
+                Title = "Golfhoogte",
+                IsVisible = false
+            };
+            PlotModel.Series.Add(series);
+
+            return series;
+        }
+
+        private LineSeries InitializeWaterLevelSeries()
+        {
+            var series = new LineSeries
+            {
+                Title = "Waterstand",
+                Color = OxyColors.DeepSkyBlue,
+                BrokenLineThickness = 2,
+                IsVisible = false
+            };
+            PlotModel.Series.Add(series);
+
+            return series;
         }
 
         private void UpdateCharacteristicPointsSeries()
@@ -467,88 +484,5 @@ namespace DikeErosion.Visualization.ViewModels
             PlotModel.Series.Add(dikeProfileSeries);
             PlotModel.InvalidatePlot(true);
         }
-    }
-
-    public class TimeStepBackCommand : ICommand
-    {
-        private readonly CrossShoreChartViewModel viewModel;
-
-        public TimeStepBackCommand(CrossShoreChartViewModel viewModel)
-        {
-            this.viewModel = viewModel;
-            this.viewModel.PropertyChanged += ViewModelPropertyChanged;
-        }
-
-        private void ViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(CrossShoreChartViewModel.TimeSteps):
-                case nameof(CrossShoreChartViewModel.CurrentTimeStep):
-                    CanExecuteChanged?.Invoke(this, e);
-                    break;
-            }
-        }
-
-        public bool CanExecute(object? parameter)
-        {
-            return viewModel.CanStepBackInTime;
-        }
-
-        public void Execute(object? parameter)
-        {
-            if (!viewModel.TimeSteps.Any())
-            {
-                viewModel.CurrentTimeStep = 0;
-            }
-            else
-            {
-                viewModel.CurrentTimeStep = viewModel.TimeSteps.Where(t => t < viewModel.CurrentTimeStep).Max();
-            }
-        }
-
-        public event EventHandler? CanExecuteChanged;
-    }
-
-
-    public class TimeStepForwardCommand : ICommand
-    {
-        private readonly CrossShoreChartViewModel viewModel;
-
-        public TimeStepForwardCommand(CrossShoreChartViewModel viewModel)
-        {
-            this.viewModel = viewModel;
-            this.viewModel.PropertyChanged += ViewModelPropertyChanged;
-        }
-
-        private void ViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(CrossShoreChartViewModel.TimeSteps):
-                case nameof(CrossShoreChartViewModel.CurrentTimeStep):
-                    CanExecuteChanged?.Invoke(this, e);
-                    break;
-            }
-        }
-
-        public bool CanExecute(object? parameter)
-        {
-            return viewModel.CanStepForwardInTime;
-        }
-
-        public void Execute(object? parameter)
-        {
-            if (!viewModel.TimeSteps.Any())
-            {
-                viewModel.CurrentTimeStep = 1;
-            }
-            else
-            {
-                viewModel.CurrentTimeStep = viewModel.TimeSteps.Where(t => t > viewModel.CurrentTimeStep).Min();
-            }
-        }
-
-        public event EventHandler? CanExecuteChanged;
     }
 }

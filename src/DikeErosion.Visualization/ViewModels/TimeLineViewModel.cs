@@ -16,7 +16,9 @@ public class TimeLineViewModel : ViewModelBase
     private OutputLocation? selectedOutputLocation;
     private TimeDependentOutputVariable? selectedOutputVariable;
     private readonly LinearAxis valueAxis;
-    private readonly LineSeries variableSeries;
+    private readonly LineSeries variableDoubleSeries;
+    private readonly LinearBarSeries variableTrueSeries;
+    private readonly LinearBarSeries variableFalseSeries;
 
     public TimeLineViewModel(DikeErosionProject project)
     {
@@ -26,65 +28,18 @@ public class TimeLineViewModel : ViewModelBase
         this.project = project;
         project.PropertyChanged += ProjectPropertyChanged;
         
-        PlotModel = new PlotModel();
-        Controller = new PlotController();
-        valueAxis = new LinearAxis
-        {
-            MajorGridlineColor = OxyColors.IndianRed,
-            MajorGridlineStyle = LineStyle.Solid,
-            MajorGridlineThickness = 1.0,
-            MinorGridlineColor = OxyColors.PaleVioletRed,
-            MinorGridlineStyle = LineStyle.Dot,
-            MinorGridlineThickness = 0.5,
-            IsZoomEnabled = true,
-            IsPanEnabled = true,
-            Position = AxisPosition.Left
-        };
-        variableSeries = new LineSeries
-        {
-            Color = OxyColors.Black,
-            MarkerType = MarkerType.Circle,
-            MarkerFill = OxyColors.IndianRed,
-            MarkerStroke = OxyColors.Gray,
-            MarkerStrokeThickness = 1,
-            MarkerSize = 5,
-            IsVisible = false
-        };
+        PlotModel = InitializePlotModel();
+        valueAxis = InitializeValueAxis();
+        variableDoubleSeries = InitializeVariableDoubleSeries();
+        variableTrueSeries = InitializeVariableTrueSeries();
+        variableFalseSeries = InitializeVariableFalseSeries();
 
         InitializePlotModel();
-    }
-
-    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DikeErosionProject.OutputFileName):
-                OnPropertyChanged(nameof(OutputVariables));
-                OutputVariables.Clear();
-                foreach (var variable in project.TimeDependentOutputVariables.Where(v => Type.GetTypeCode(v.ValueType) == TypeCode.Double))
-                {
-                    OutputVariables.Add(variable);
-                }
-
-                OutputLocations.Clear();
-                foreach (var location in project.OutputLocations)
-                {
-                    OutputLocations.Add(location);
-                }
-
-                selectedOutputVariable = OutputVariables.FirstOrDefault();
-                SelectedOutputLocation = OutputLocations.FirstOrDefault();
-                OnPropertyChanged(nameof(SelectedOutputVariable));
-                OnPropertyChanged(nameof(SelectedOutputLocation));
-                break;
-        }
     }
 
     public override string Title => "Tijdlijn";
 
     public PlotModel PlotModel { get; }
-
-    public PlotController Controller { get; }
 
     public ObservableCollection<TimeDependentOutputVariable> OutputVariables { get; }
 
@@ -110,32 +65,36 @@ public class TimeLineViewModel : ViewModelBase
         }
     }
 
-    private void UpdateChartInformation()
+    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        valueAxis.Title = "";
-        variableSeries.Points.Clear();
-        variableSeries.Title = "";
-        variableSeries.IsVisible = false;
-
-        if (SelectedOutputVariable != null && SelectedOutputLocation != null)
+        switch (e.PropertyName)
         {
-            variableSeries.Points.AddRange(SelectedOutputVariable.Values
-                .Where(v => Math.Abs(v.Coordinate.X - SelectedOutputLocation.Coordinate.X) < 1E-8)
-                .Select(v => new DataPoint(v.Time, (double)v.Value)));
+            case nameof(DikeErosionProject.OutputFileName):
+                OnPropertyChanged(nameof(OutputVariables));
+                OutputVariables.Clear();
+                foreach (var variable in project.TimeDependentOutputVariables.Where(v => Type.GetTypeCode(v.ValueType) == TypeCode.Double || Type.GetTypeCode(v.ValueType) == TypeCode.Boolean))
+                {
+                    OutputVariables.Add(variable);
+                }
 
-            if (variableSeries.Points.Count > 0)
-            {
-                valueAxis.Title = SelectedOutputVariable.ToTitle();
-                variableSeries.Title = SelectedOutputVariable.ToTitle();
-                variableSeries.IsVisible = true;
-            }
+                OutputLocations.Clear();
+                foreach (var location in project.OutputLocations)
+                {
+                    OutputLocations.Add(location);
+                }
+
+                selectedOutputVariable = OutputVariables.FirstOrDefault();
+                SelectedOutputLocation = OutputLocations.FirstOrDefault();
+                OnPropertyChanged(nameof(SelectedOutputVariable));
+                OnPropertyChanged(nameof(SelectedOutputLocation));
+                break;
         }
-        PlotModel.InvalidatePlot(true);
     }
 
-    private void InitializePlotModel()
+    private PlotModel InitializePlotModel()
     {
-        PlotModel.Axes.Add(new LinearAxis
+        var plotModel = new PlotModel();
+        plotModel.Axes.Add(new LinearAxis
         {
             MajorGridlineColor = OxyColors.Gray,
             MajorGridlineStyle = LineStyle.Solid,
@@ -148,9 +107,7 @@ public class TimeLineViewModel : ViewModelBase
             Position = AxisPosition.Bottom,
             Title = "Tijd [m]"
         });
-        PlotModel.Axes.Add(valueAxis);
-        PlotModel.Series.Add(variableSeries);
-        PlotModel.Legends.Add(new Legend
+        plotModel.Legends.Add(new Legend
         {
             LegendPlacement = LegendPlacement.Inside,
             LegendPosition = LegendPosition.LeftTop,
@@ -158,6 +115,121 @@ public class TimeLineViewModel : ViewModelBase
             LegendTextColor = OxyColors.White
         });
         
-        PlotModel.IsLegendVisible = true;
+        plotModel.IsLegendVisible = true;
+
+        return plotModel;
+    }
+
+    private LinearBarSeries InitializeVariableFalseSeries()
+    {
+        var series = new LinearBarSeries
+        {
+            FillColor = OxyColors.DarkRed,
+            IsVisible = false
+        };
+        PlotModel.Series.Add(series);
+
+        return series;
+    }
+
+    private LinearBarSeries InitializeVariableTrueSeries()
+    {
+        var series = new LinearBarSeries
+        {
+            FillColor = OxyColors.ForestGreen,
+            IsVisible = false
+        };
+        PlotModel.Series.Add(series);
+
+        return series;
+    }
+
+    private LineSeries InitializeVariableDoubleSeries()
+    {
+        var series = new LineSeries
+        {
+            Color = OxyColors.Black,
+            MarkerType = MarkerType.Circle,
+            MarkerFill = OxyColors.IndianRed,
+            MarkerStroke = OxyColors.Gray,
+            MarkerStrokeThickness = 1,
+            MarkerSize = 5,
+            IsVisible = false
+        };
+        PlotModel.Series.Add(series);
+
+        return series;
+    }
+
+    private LinearAxis InitializeValueAxis()
+    {
+        var newValueAxis = new LinearAxis
+        {
+            MajorGridlineColor = OxyColors.IndianRed,
+            MajorGridlineStyle = LineStyle.Solid,
+            MajorGridlineThickness = 1.0,
+            MinorGridlineColor = OxyColors.PaleVioletRed,
+            MinorGridlineStyle = LineStyle.Dot,
+            MinorGridlineThickness = 0.5,
+            IsZoomEnabled = true,
+            IsPanEnabled = true,
+            Position = AxisPosition.Left
+        };
+        PlotModel.Axes.Add(newValueAxis);
+
+        return newValueAxis;
+    }
+
+    private void UpdateChartInformation()
+    {
+        valueAxis.Title = "";
+        variableDoubleSeries.Points.Clear();
+        variableDoubleSeries.Title = string.Empty;
+        variableDoubleSeries.IsVisible = false;
+        variableTrueSeries.Points.Clear();
+        variableTrueSeries.Title = string.Empty;
+        variableTrueSeries.IsVisible = false;
+        variableFalseSeries.Points.Clear();
+        variableFalseSeries.Title = string.Empty;
+        variableFalseSeries.IsVisible = false;
+
+        if (SelectedOutputVariable != null && SelectedOutputLocation != null)
+        {
+            var outputVariableValues = SelectedOutputVariable.Values
+                .Where(v => Math.Abs(v.Coordinate.X - SelectedOutputLocation.Coordinate.X) < 1E-8 && v.Time > project.TimeSteps.Min() + 1E-8).ToArray();
+
+            if (Type.GetTypeCode(SelectedOutputVariable.ValueType) == TypeCode.Double)
+            {
+                variableDoubleSeries.Points.AddRange(
+                    outputVariableValues.Select(v => new DataPoint(v.Time, (double)v.Value)));
+
+                if (variableDoubleSeries.Points.Count > 0)
+                {
+                    valueAxis.Title = SelectedOutputVariable.ToTitle();
+                    variableDoubleSeries.Title = SelectedOutputVariable.ToTitle();
+                    variableDoubleSeries.IsVisible = true;
+                }
+            }
+
+            if (Type.GetTypeCode(SelectedOutputVariable.ValueType) == TypeCode.Boolean)
+            {
+                variableTrueSeries.Points.AddRange(outputVariableValues
+                        .Where(v => (bool)v.Value)
+                        .Select(v => new DataPoint(v.Time, 1)));
+                variableFalseSeries.Points.AddRange(outputVariableValues
+                    .Where(v => !(bool)v.Value)
+                    .Select(v => new DataPoint(v.Time, -1)));
+
+                if (outputVariableValues.Length > 0)
+                {
+                    valueAxis.Title = SelectedOutputVariable.ToTitle();
+                    variableTrueSeries.Title = $"{SelectedOutputVariable.ToTitle()} (Ja)";
+                    variableFalseSeries.Title = $"{SelectedOutputVariable.ToTitle()} (Nee)";
+                    variableTrueSeries.IsVisible = true;
+                    variableFalseSeries.IsVisible = true;
+                }
+            }
+        }
+        PlotModel.InvalidatePlot(true);
     }
 }

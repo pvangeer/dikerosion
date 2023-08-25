@@ -224,7 +224,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background" Color="White"
                      />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border"
-                     Color="{StaticResource Deltares.Colors.LightBlue}" />
+                     Color="{StaticResource DikeErosion.Colors.Border.Dark}" />
 
     <LinearGradientBrush x:Key="Fluent.Ribbon.Brushes.MenuItem.SubMenu.Arrow.Fill" StartPoint="0.055,0.128" EndPoint="0.945,0.872" >
         <GradientStop Color="{StaticResource Fluent.Ribbon.Colors.Gray2}" Offset="1" />

@@ -49,7 +49,7 @@
 
         <visualization:RibbonControl
             Grid.Row="0"
-            DataContext="{Binding}"/>
+            DataContext="{Binding RibbonViewModel}"/>
 
         <ContentPresenter 
             Grid.Row="1"

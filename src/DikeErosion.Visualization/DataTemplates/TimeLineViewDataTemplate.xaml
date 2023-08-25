@@ -109,8 +109,7 @@
                 ResizeBehavior="BasedOnAlignment"/>
             <oxy:PlotView 
                 Grid.Column="2" 
-                Model="{Binding PlotModel}"
-                Controller="{Binding Controller}"/>
+                Model="{Binding PlotModel}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

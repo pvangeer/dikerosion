@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using DikeErosion.Data;
+﻿using DikeErosion.Data;
 using OxyPlot;
 
 namespace DikeErosion.Visualization.ViewModels
@@ -28,9 +27,9 @@ namespace DikeErosion.Visualization.ViewModels
                 case TopLayerType.WAB:
                     return OxyColors.DarkGray;
                 case TopLayerType.NordicStone:
-                    return OxyColors.GreenYellow;
+                    return OxyColors.Chocolate;
                 case TopLayerType.GrassCoverClosed:
-                    return OxyColors.ForestGreen;
+                    return OxyColors.DarkGreen;
                 default:
                     return OxyColors.DarkBlue;
             }

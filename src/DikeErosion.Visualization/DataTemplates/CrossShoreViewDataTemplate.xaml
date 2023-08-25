@@ -48,10 +48,10 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid 
-                                Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                Background="Transparent"
                                 VerticalAlignment="Center">
                                 <TextBlock 
-                                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                    Background="Transparent"
                                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                                     Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"/>
                             </Grid>
