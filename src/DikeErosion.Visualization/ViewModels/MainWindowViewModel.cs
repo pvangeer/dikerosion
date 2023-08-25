@@ -1,65 +1,43 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Input;
-using DikeErosion.Data;
+﻿using DikeErosion.Data;
 
 namespace DikeErosion.Visualization.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly CrossShoreChartViewModel crossShoreChartViewModel;
+        private readonly TimeLineViewModel timeLineViewModel;
+
         private DikeErosionProject Project { get; }
 
         public MainWindowViewModel()
         {
             Project = new DikeErosionProject();
-            Project.PropertyChanged += ProjectPropertyChanged;
-            ContentViewModels = new ObservableCollection<ViewModelBase>
-            {
-                new CrossShoreChartViewModel(Project),
-                new TimeLineViewModel(Project)
-            };
+
+            crossShoreChartViewModel = new CrossShoreChartViewModel(Project);
+            timeLineViewModel = new TimeLineViewModel(Project);
+
+            SelectedContentViewModel = crossShoreChartViewModel;
         }
 
-        public string InputFileName
+        public string WindowTitle => "Dijkerosie";
+
+        public FileSelectionViewModel FileSelectionViewModel => new(Project);
+
+        public ViewState ViewState
         {
-            get => Project.InputFileName;
+            get => Project.ViewState;
             set
             {
-                Project.InputFileName = value;
-                Project.OnPropertyChanged(nameof(DikeErosionProject.InputFileName));
+                if (Project.ViewState != value)
+                {
+                    Project.ViewState = value;
+                    SelectedContentViewModel = Project.ViewState == ViewState.CrossShore ? crossShoreChartViewModel : timeLineViewModel;
+                    OnPropertyChanged(nameof(SelectedContentViewModel));
+                    OnPropertyChanged();
+                }
             }
         }
 
-        public string OutputFileName
-        {
-            get => Project.OutputFileName;
-            set
-            {
-                Project.OutputFileName = value;
-                Project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
-            }
-        }
-
-        public ICommand SelectInputFileCommand => new SelectInputFileCommand(Project);
-
-        public ICommand SelectOutputFileCommand => new SelectOutputFileCommand(Project);
-
-        public ObservableCollection<ViewModelBase> ContentViewModels { get; }
-
-        private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(DikeErosionProject.InputFileName):
-                    OnPropertyChanged(nameof(InputFileName));
-                    break;
-                case nameof(DikeErosionProject.OutputFileName):
-                    OnPropertyChanged(nameof(OutputFileName));
-                    break;
-            }
-        }
+        public ViewModelBase SelectedContentViewModel { get; private set; }
     }
 }

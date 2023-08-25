@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\cross_shore.ico" />
     <None Remove="Resources\ic_fluent_caret_left_24_regular.ico" />
     <None Remove="Resources\ic_fluent_caret_left_24_regular.png" />
     <None Remove="Resources\ic_fluent_caret_left_24_regular_grey.ico" />
@@ -14,9 +15,11 @@
     <None Remove="Resources\ic_fluent_caret_right_24_regular.ico" />
     <None Remove="Resources\ic_fluent_caret_right_24_regular.png" />
     <None Remove="Resources\ic_fluent_caret_right_24_regular_grey.ico" />
+    <None Remove="Resources\timeline.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="10.0.2" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
   </ItemGroup>
 
@@ -26,13 +29,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\cross_shore.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\ic_fluent_caret_left_24_regular.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\ic_fluent_caret_left_24_regular.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\ic_fluent_caret_left_24_regular_grey.png" />
+    <Resource Include="Resources\ic_fluent_caret_left_24_regular_grey.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\ic_fluent_caret_left_24_regular_grey.ico" />
     <Resource Include="Resources\ic_fluent_caret_right_24_regular.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -40,7 +48,12 @@
     <Resource Include="Resources\ic_fluent_caret_right_24_regular.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\ic_fluent_caret_right_24_regular_grey.ico" />
+    <Resource Include="Resources\ic_fluent_caret_right_24_regular_grey.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\timeline.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

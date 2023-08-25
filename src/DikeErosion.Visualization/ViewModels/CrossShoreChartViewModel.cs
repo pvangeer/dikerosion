@@ -39,15 +39,10 @@ namespace DikeErosion.Visualization.ViewModels
             Project = project;
             Project.PropertyChanged += ProjectPropertyChanged;
 
-            PlotModel = new PlotModel();
-            Controller = new PlotController();
-
-            InitializePlotModel();
+            PlotModel = InitializePlotModel();
 
             UpdateTimeSliderAndCurrentTimeStep();
         }
-
-        public PlotController Controller { get; }
 
         public override string Title => "Dwarsdoorsnede";
 
@@ -229,9 +224,11 @@ namespace DikeErosion.Visualization.ViewModels
             OnPropertyChanged(nameof(SelectedOutputVariable));
         }
 
-        private void InitializePlotModel()
+        private PlotModel InitializePlotModel()
         {
-            PlotModel.Axes.Add(new LinearAxis
+            var plotModel = new PlotModel();
+
+            plotModel.Axes.Add(new LinearAxis
             {
                 MajorGridlineColor = OxyColors.Gray,
                 MajorGridlineStyle = LineStyle.Solid,
@@ -245,7 +242,7 @@ namespace DikeErosion.Visualization.ViewModels
                 Title = "Afstand langs dwarsraai [m]"
             });
 
-            PlotModel.Axes.Add(new LinearAxis
+            plotModel.Axes.Add(new LinearAxis
             {
                 MajorGridlineColor = OxyColors.IndianRed,
                 MajorGridlineStyle = LineStyle.Solid,
@@ -259,19 +256,18 @@ namespace DikeErosion.Visualization.ViewModels
                 Title = "Hoogte [m + NAP]"
             });
 
-            PlotModel.Legends.Add(new Legend
+            plotModel.Legends.Add(new Legend
             {
                 LegendPlacement = LegendPlacement.Inside,
                 LegendPosition = LegendPosition.LeftTop,
                 LegendBackground = OxyColors.Brown,
                 LegendTextColor = OxyColors.White
             });
-            PlotModel.IsLegendVisible = true;
+            plotModel.IsLegendVisible = true;
 
-            PlotModel.Updated += PlotModelUpdating;
+            plotModel.Updated += PlotModelUpdating;
 
-            var command = new DelegatePlotCommand<OxyMouseDownEventArgs>(MouseButtonDown);
-            Controller.BindMouseDown(OxyMouseButton.Left, command);
+            return plotModel;
         }
 
         private void PlotModelUpdating(object? sender, EventArgs e)
@@ -291,11 +287,6 @@ namespace DikeErosion.Visualization.ViewModels
                     }
                 }
             }
-        }
-
-        private void MouseButtonDown(IPlotView arg1, IController arg2, OxyMouseDownEventArgs arg3)
-        {
-            // TODO: Implement if necessary
         }
 
         private void UpdateInputRelatedSeriesAndData()

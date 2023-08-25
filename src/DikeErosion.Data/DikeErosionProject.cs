@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using DikeErosion.Data.CrossShoreProfile;
+using DikeErosion.Visualization.ViewModels;
 
 namespace DikeErosion.Data
 {
@@ -19,9 +20,14 @@ namespace DikeErosion.Data
             TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
         }
 
+        // TODO: Really through DikeErosionProject?
+        public ViewState ViewState { get; set; }
+
         public string InputFileName { get; set; }
 
         public string OutputFileName { get; set; }
+
+        #region DikeErosionCalculation
 
         public Profile Profile { get; }
 
@@ -32,5 +38,7 @@ namespace DikeErosion.Data
         public ObservableCollection<HydraulicCondition> HydraulicConditions { get; }
 
         public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
+
+        #endregion
     }
 }
