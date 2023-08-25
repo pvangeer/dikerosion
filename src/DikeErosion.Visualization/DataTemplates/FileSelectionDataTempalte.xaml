@@ -2,53 +2,108 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:visualization="clr-namespace:DikeErosion.Visualization">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Themes/ColorTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <visualization:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <DataTemplate x:Key="FileSelectionDataTemplate" DataType="visualization:FileSelectionViewModel">
-        <Grid 
-            Grid.Row="0"
-            Background="Brown">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox 
-                Grid.Row="0"
-                Grid.Column="0"
-                Background="Chocolate" 
-                Height="30" 
-                VerticalContentAlignment="Center"
-                Margin="10,5" 
-                Text="{Binding InputFileName}"/>
-            <Button
-                Grid.Row="0"
-                Grid.Column="1"
-                Width="70" 
-                Height="30" 
-                Margin="5"
-                VerticalAlignment="Center"
-                Background="Chocolate" 
-                Content="Browse..." 
-                Command="{Binding SelectInputFileCommand}"/>
-            <TextBox 
-                Grid.Row="1"
-                Grid.Column="0"
-                Background="Chocolate" 
-                Height="30" 
-                VerticalContentAlignment="Center"
-                Margin="10,5" 
-                Text="{Binding OutputFileName}"/>
-            <Button 
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="70" 
-                Height="30"
-                VerticalAlignment="Center"
-                Background="Chocolate" 
-                Content="Browse..." 
-                Command="{Binding SelectOutputFileCommand}"/>
-        </Grid>
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+        <Border
+            Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+            BorderBrush="{StaticResource DikeErosion.Brushes.Border.Dark}"
+            BorderThickness="1">
+            <Grid 
+                HorizontalAlignment="Left"
+                Margin="35"
+                Background="{StaticResource DikeErosion.Brushes.DefaultBackground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition 
+                        Width="*"
+                        MinWidth="600" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Left"
+                    Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                    Text="Invoerbestand:"/>
+                <TextBox 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}" 
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                    Height="30" 
+                    VerticalContentAlignment="Center"
+                    Margin="0,5" 
+                    Text="{Binding InputFileName}"/>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="70" 
+                    Height="30" 
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}" 
+                    Content="Browse..." 
+                    Command="{Binding SelectInputFileCommand}"/>
+
+                <TextBlock 
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Left"
+                    Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                    Text="Uitvoerbestand:"/>
+                <TextBox 
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}" 
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                    Height="30" 
+                    VerticalContentAlignment="Center"
+                    Margin="0,5" 
+                    Text="{Binding OutputFileName}"/>
+                <Button 
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="70" 
+                    Height="30"
+                    VerticalAlignment="Center"
+                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}" 
+                    Content="Browse..." 
+                    Command="{Binding SelectOutputFileCommand}"/>
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                    Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+                    Text="Uitvoer automatisch overschrijven?" />
+                <CheckBox
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                    IsChecked="{Binding OverwriteOutput}">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2" />
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
+            </Grid>
+        </Border>
+        </ScrollViewer>
     </DataTemplate>
 </ResourceDictionary>

@@ -48,6 +48,7 @@
             <fluent:RibbonGroupBox Header="Rekenen">
                 <fluent:Button
                     Header="Opnieuw berekenen"
+                    Command="{Binding ReCalculateCommand}"
                     LargeIcon="pack://application:,,,/DikeErosion.Visualization;component/Resources/ic_fluent_caret_right_24_regular.ico"/>
             </fluent:RibbonGroupBox>
 

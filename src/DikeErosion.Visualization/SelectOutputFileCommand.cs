@@ -18,7 +18,7 @@ public class SelectOutputFileCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
-        return true;
+        return !project.OverwriteOutput;
     }
     public void Execute(object? parameter)
     {

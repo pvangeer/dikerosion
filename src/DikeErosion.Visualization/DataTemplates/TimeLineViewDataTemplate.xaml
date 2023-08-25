@@ -6,7 +6,7 @@
                     xmlns:visualization="clr-namespace:DikeErosion.Visualization">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Themes/ColorTheme.xaml" />
+        <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/ColorTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <visualization:OutputVariableToTitleConverter x:Key="OutputVariableToTitleConverter" />

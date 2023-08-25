@@ -39,6 +39,16 @@ public class FileSelectionViewModel : ViewModelBase
         }
     }
 
+    public bool OverwriteOutput
+    {
+        get => project.OverwriteOutput;
+        set
+        {
+            project.OverwriteOutput = value;
+            project.OnPropertyChanged(nameof(DikeErosionProject.OverwriteOutput));
+        }
+    }
+
     private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (e.PropertyName)

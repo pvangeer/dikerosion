@@ -39,6 +39,8 @@ namespace DikeErosion.Data
 
         public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
 
+        public bool OverwriteOutput { get; set; }
+
         #endregion
     }
 }
