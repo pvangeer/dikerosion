@@ -5,6 +5,10 @@
                     xmlns:data="clr-namespace:DikeErosion.Data;assembly=DikeErosion.Data"
                     xmlns:visualization="clr-namespace:DikeErosion.Visualization">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Themes/ColorTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <visualization:OutputVariableToTitleConverter x:Key="OutputVariableToTitleConverter" />
 
     <visualization:OutputLocationToTitleConverter x:Key="OutputLocationToTitleConverter" />
@@ -29,21 +33,27 @@
                     </Grid.RowDefinitions>
                     <Border 
                         Grid.Row="0"
-                        Background="Chocolate"
+                        Background="{StaticResource DikeErosion.Brushes.Header}"
                         Height="30"
                         VerticalAlignment="Center">
                         <TextBlock
-                             VerticalAlignment="Center"
-                             Text="Locatie"/>
+                            Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                            Background="{StaticResource DikeErosion.Brushes.Header}"
+                            VerticalAlignment="Center"
+                            Text="Locatie"/>
                     </Border>
                     <ListBox
                         Grid.Row="1"
+                        Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
                         ItemsSource="{Binding OutputLocations}"
                         SelectedItem="{Binding SelectedOutputLocation}"
                         MinWidth="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:OutputLocation}">
-                                <TextBlock Text="{Binding Converter={StaticResource OutputLocationToTitleConverter}}"></TextBlock>
+                                <TextBlock 
+                                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                                    Text="{Binding Converter={StaticResource OutputLocationToTitleConverter}}"></TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -52,7 +62,7 @@
                     Grid.Row="1"
                     ResizeDirection="Rows"
                     Height="5"
-                    Background="Brown"
+                    Background="{StaticResource DikeErosion.Brushes.Splitter}"
                     HorizontalAlignment="Stretch"
                     ResizeBehavior="BasedOnAlignment"/>
                 <Grid 
@@ -63,21 +73,28 @@
                     </Grid.RowDefinitions>
                     <Border 
                         Grid.Row="0"
-                        Background="Chocolate"
+                        Background="{StaticResource DikeErosion.Brushes.Header}"
                         Height="30"
                         VerticalAlignment="Center">
                         <TextBlock
+                            Background="{StaticResource DikeErosion.Brushes.Header}"
+                            Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                             VerticalAlignment="Center"
                             Text="Uitvoervariabele"/>
                     </Border>
                     <ListBox
                         Grid.Row="1"
                         MinWidth="200"
+                        Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                        Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                         SelectedItem="{Binding SelectedOutputVariable}"
                         ItemsSource="{Binding OutputVariables}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:TimeDependentOutputVariable}">
-                                <TextBlock Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"></TextBlock>
+                                <TextBlock 
+                                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"></TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -87,7 +104,7 @@
                 Grid.Column="1"
                 ResizeDirection="Columns"
                 Width="5"
-                Background="Brown"
+                Background="{StaticResource DikeErosion.Brushes.Splitter}"
                 HorizontalAlignment="Stretch"
                 ResizeBehavior="BasedOnAlignment"/>
             <oxy:PlotView 

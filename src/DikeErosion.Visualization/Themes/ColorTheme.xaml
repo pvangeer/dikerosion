@@ -4,11 +4,11 @@
     <Color x:Key="DikeErosion.Colors.DefaultBackground" >Chocolate</Color>
     <Color x:Key="DikeErosion.Colors.EditableBackground">BurlyWood</Color>
     <Color x:Key="DikeErosion.Colors.Foreground">Black</Color>
-    <Color x:Key="DikeErosion.Colors.Selected" >Brown</Color>
+    <Color x:Key="DikeErosion.Colors.Selected" >SaddleBrown</Color>
     <Color x:Key="DikeErosion.Colors.MouseOverHighlight" >Brown</Color>
     <Color x:Key="DikeErosion.Colors.MousePressedHighlight" >DarkRed</Color>
 
-    <Color x:Key="DeltaresBlack">#000000</Color>
+    <Color x:Key="DikeErosion.Black">#000000</Color>
 
     <Color x:Key="DikeErosion.Colors.Header">Chocolate</Color>
 
@@ -27,10 +27,12 @@
     <Color x:Key="DikeErosion.Colors.CurrentCell.Border">#FFE6E6E6</Color>
 
     <SolidColorBrush x:Key="DikeErosion.Brushes.EditableBackground"
-                     Color="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
+                     Color="{StaticResource DikeErosion.Colors.EditableBackground}" />
     <SolidColorBrush x:Key="DikeErosion.Brushes.Selected"
-                     Color="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
-    
+                     Color="{StaticResource DikeErosion.Colors.Selected}" />
+
+    <SolidColorBrush x:Key="DikeErosion.Brushes.Splitter" Color="SaddleBrown" />
+
     <SolidColorBrush x:Key="DikeErosion.Brushes.MouseOverHighlight"
                      Color="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
     <SolidColorBrush x:Key="DikeErosion.Brushes.MousePressedHighlight"

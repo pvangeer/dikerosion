@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml" />
                 <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/RibbonTheme.xaml" />
                 <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/SliderControlStyle.xaml" />
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/ComboBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <system:Double x:Key="DefaultItemHeight">35</system:Double>

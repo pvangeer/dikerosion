@@ -5,6 +5,11 @@
                     xmlns:dataTemplates="clr-namespace:DikeErosion.Visualization.DataTemplates"
                     xmlns:visualization="clr-namespace:DikeErosion.Visualization">
 
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="pack://application:,,,/DikeErosion.Visualization;Component/Themes/ColorTheme.xaml" />-->
+        <ResourceDictionary Source="../Themes/ColorTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <dataTemplates:TimeStepsToTicksConverter x:Key="TimeStepsToTicksConverter" />
     <dataTemplates:TimeStepsToStartTimeConverter x:Key="TimeStepsToStartTimeConverter" />
     <dataTemplates:TimeStepsToEndTimeConverter x:Key="TimeStepsToEndTimeConverter" />
@@ -20,8 +25,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid 
-                Background="Chocolate"
-                MinHeight="40"
+                Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+                MinHeight="{StaticResource DefaultItemHeight}"
                 VerticalAlignment="Center"
                 Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -31,6 +36,7 @@
                 <TextBlock 
                     Grid.Column="0"
                     Margin="5"
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                     VerticalAlignment="Center"
                     Text="Getoonde uitvoer:"/>
                 <ComboBox 
@@ -42,8 +48,13 @@
                     SelectedItem="{Binding SelectedOutputVariable}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"/>
+                            <Grid 
+                                Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                VerticalAlignment="Center">
+                                <TextBlock 
+                                    Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
+                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"/>
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -51,10 +62,9 @@
             </Grid>
             <oxy:PlotView 
                 Grid.Row="1" 
-                Model="{Binding PlotModel}"
-                Controller="{Binding Controller}"/>
+                Model="{Binding PlotModel}"/>
             <Grid 
-                Background="Chocolate"
+                Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
                 Grid.Row="2"
                 VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -109,6 +119,8 @@
                     IsEnabled="{Binding TimeSteps, Converter={StaticResource HasTimeStepsConverter}}"
                     IsSnapToTickEnabled="True"
                     Value="{Binding CurrentTimeStep}"
+                    Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
+                    Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                     TickPlacement="Both">
                 </Slider>
                 <RepeatButton
