@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml" />
+                <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/RibbonTheme.xaml" />
                 <ResourceDictionary Source="/DikeErosion.Visualization;Component/Themes/SliderControlStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
