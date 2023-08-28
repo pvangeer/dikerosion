@@ -1,7 +1,7 @@
-using DikeErosion.Data;
-using DikeErosion.Visualization.ViewModels;
 using System.ComponentModel;
 using System.Windows.Input;
+using DikeErosion.Data;
+using DikeErosion.Visualization.ViewModels;
 
 namespace DikeErosion.Visualization;
 
@@ -25,7 +25,7 @@ public class FileSelectionViewModel : ViewModelBase
         set
         {
             project.InputFileName = value;
-            project.OnPropertyChanged(nameof(DikeErosionProject.InputFileName));
+            project.OnPropertyChanged();
         }
     }
 
@@ -35,7 +35,7 @@ public class FileSelectionViewModel : ViewModelBase
         set
         {
             project.OutputFileName = value;
-            project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
+            project.OnPropertyChanged();
         }
     }
 
@@ -45,7 +45,7 @@ public class FileSelectionViewModel : ViewModelBase
         set
         {
             project.OverwriteOutput = value;
-            project.OnPropertyChanged(nameof(DikeErosionProject.OverwriteOutput));
+            project.OnPropertyChanged();
         }
     }
 

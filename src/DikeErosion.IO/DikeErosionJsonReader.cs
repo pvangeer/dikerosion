@@ -1,260 +1,231 @@
-﻿using DikeErosion.Data;
-using DikeErosion.Data.CrossShoreProfile;
+﻿using DikeErosion.Data.CrossShoreProfile;
 using DikeErosion.IO.Data;
 using DikeErosion.IO.Data.Input;
 using DikeErosion.IO.Data.Output;
 using Newtonsoft.Json.Linq;
 
-namespace DikeErosion.IO
+namespace DikeErosion.IO;
+
+public static class DikeErosionJsonReader
 {
-    public static class DikeErosionJsonReader
+    private const string OutputDataObjectPropertyName = "uitvoerdata";
+    private const string LocationsObjectPropertyName = "locaties";
+    private const string FailureObjectPropertyName = "falen";
+    private const string FailureOutputPropertyName = "faalgebeurtenis";
+    private const string FailureTimeOutputPropertyName = "faaltijd";
+    private const string DamageOutputPropertyName = "schade";
+    private const string DamagePerTimeStepOutputPropertyName = "schadegetalPerTijdstap";
+    private const string PhysicsObjectPropertyName = "fysica";
+    private const string HeightOutputPropertyName = "hoogteLocatie";
+    private const string SlopeOutputPropertyName = "hellingBuitentalud";
+
+    //private const string InputDataObjectPropertyName = "rekendata";
+    private const string TimeStepsPropertyName = "tijdstippen";
+    private const string HydraulicConditionsInputPropertyName = "hydraulischeBelastingen";
+    private const string ProfileDefinitionPropertyName = "dijkprofiel";
+    private const string ProfileXPositionsPropertyName = "posities";
+    private const string ProfileZPositionsPropertyName = "hoogten";
+    private const string ToeOuterSlopePropertyName = "teenBuitenzijde";
+    private const string BermCrownOuterSlopePropertyName = "kruinBermBuitenzijde";
+    private const string InsetBermOuterSlopePropertyName = "insteekBermBuitenzijde";
+    private const string CrownOuterSlopePropertyName = "kruinBuitenzijde";
+    private const string CrownInnerSlopePropertyName = "kruinBinnenzijde";
+    private const string ToeInnerSlopePropertyName = "teenBinnenzijde";
+
+    private const string OutputLocationsPropertyName = "locaties";
+    private const string LocationPositionPropertyName = "positie";
+    private const string BeginDamagePropertyName = "beginschade";
+    private const string CalculationMethodPropertyName = "rekenmethode";
+    private const string TopLayerTypePropertyName = "typeToplaag";
+
+    public static DikernelInput ReadInput(string fileName)
     {
-        private const string OutputDataObjectPropertyName = "uitvoerdata";
-        private const string LocationsObjectPropertyName = "locaties";
-        private const string FailureObjectPropertyName = "falen";
-        private const string FailureOutputPropertyName = "faalgebeurtenis";
-        private const string FailureTimeOutputPropertyName = "faaltijd";
-        private const string DamageOutputPropertyName = "schade";
-        private const string DamagePerTimeStepOutputPropertyName = "schadegetalPerTijdstap";
-        private const string PhysicsObjectPropertyName = "fysica";
-        private const string HeightOutputPropertyName = "hoogteLocatie";
-        private const string SlopeOutputPropertyName = "hellingBuitentalud";
+        var jInput = ReadJasonFileContent(fileName);
 
-        //private const string InputDataObjectPropertyName = "rekendata";
-        private const string TimeStepsPropertyName = "tijdstippen";
-        private const string HydraulicConditionsInputPropertyName = "hydraulischeBelastingen";
-        private const string ProfileDefinitionPropertyName = "dijkprofiel";
-        private const string ProfileXPositionsPropertyName = "posities";
-        private const string ProfileZPositionsPropertyName = "hoogten";
-        private const string ToeOuterSlopePropertyName = "teenBuitenzijde";
-        private const string BermCrownOuterSlopePropertyName = "kruinBermBuitenzijde";
-        private const string InsetBermOuterSlopePropertyName = "insteekBermBuitenzijde";
-        private const string CrownOuterSlopePropertyName = "kruinBuitenzijde";
-        private const string CrownInnerSlopePropertyName = "kruinBinnenzijde";
-        private const string ToeInnerSlopePropertyName = "teenBinnenzijde";
+        if (jInput.Count < 1)
+            throw new Exception("Unknown file format");
 
-        private const string OutputLocationsPropertyName = "locaties";
-        private const string LocationPositionPropertyName = "positie";
-        private const string BeginDamagePropertyName = "beginschade";
-        private const string CalculationMethodPropertyName = "rekenmethode";
-        private const string TopLayerTypePropertyName = "typeToplaag";
+        var timeSteps = ReadAsArrayOfDoubles(jInput, TimeStepsPropertyName);
 
-        public static DikernelInput ReadInput(string fileName)
+        var hydraulicConditions = new Dictionary<string, double[]>();
+        var jHydraulicConditions = ReadAsJObject(jInput, HydraulicConditionsInputPropertyName);
+        if (jHydraulicConditions != null)
+            foreach (var jHydraulicCondition in jHydraulicConditions)
+            {
+                var name = jHydraulicCondition.Key;
+                if (jHydraulicCondition.Value?.First?.Type == JTokenType.Float)
+                    hydraulicConditions[name] = jHydraulicCondition.Value.Select(v => v.ToDouble()).ToArray();
+                if (jHydraulicCondition.Value?.First?.Type == JTokenType.Integer)
+                    hydraulicConditions[name] = jHydraulicCondition.Value.Select(v => v.ToDouble()).ToArray();
+            }
+
+        DikeProfile? dikeProfile = null;
+        var jProfileDefinition = ReadAsJObject(jInput, ProfileDefinitionPropertyName);
+        if (jProfileDefinition != null)
         {
-            var jInput = ReadJasonFileContent(fileName);
+            var coordinates = new List<CrossShoreCoordinate>();
 
-            if (jInput.Count < 1)
-                throw new Exception("Unknown file format");
+            var xPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileXPositionsPropertyName);
+            var zPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileZPositionsPropertyName);
+            if (xPositions.Length == zPositions.Length)
+                for (var i = 0; i < xPositions.Length; i++)
+                    coordinates.Add(new CrossShoreCoordinate(xPositions[i], zPositions[i]));
 
-            var timeSteps = ReadAsArrayOfDoubles(jInput, TimeStepsPropertyName);
+            var toeOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, ToeOuterSlopePropertyName), coordinates);
+            var bermCrownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, BermCrownOuterSlopePropertyName), coordinates);
+            var insetBermOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, InsetBermOuterSlopePropertyName), coordinates);
+            var crownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownOuterSlopePropertyName), coordinates);
+            var crownInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownInnerSlopePropertyName), coordinates);
+            var toeInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, ToeInnerSlopePropertyName), coordinates);
 
-            var hydraulicConditions = new Dictionary<string, double[]>();
-            var jHydraulicConditions = ReadAsJObject(jInput, HydraulicConditionsInputPropertyName);
-            if (jHydraulicConditions != null)
-            {
-                foreach (var jHydraulicCondition in jHydraulicConditions)
-                {
-                    var name = jHydraulicCondition.Key;
-                    if (jHydraulicCondition.Value?.First?.Type == JTokenType.Float)
-                    {
-                        hydraulicConditions[name] = jHydraulicCondition.Value.Select(v => v.ToDouble()).ToArray();
-                    }
-                    if (jHydraulicCondition.Value?.First?.Type == JTokenType.Integer)
-                    {
-                        hydraulicConditions[name] = jHydraulicCondition.Value.Select(v => v.ToDouble()).ToArray();
-                    }
-                }
-            }
-
-            DikeProfile? dikeProfile = null;
-            var jProfileDefinition = ReadAsJObject(jInput, ProfileDefinitionPropertyName);
-            if (jProfileDefinition != null)
-            {
-                var coordinates = new List<CrossShoreCoordinate>();
-
-                var xPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileXPositionsPropertyName);
-                var zPositions = ReadAsArrayOfDoubles(jProfileDefinition, ProfileZPositionsPropertyName);
-                if (xPositions.Length == zPositions.Length)
-                {
-                    for (int i = 0; i < xPositions.Length; i++)
-                    {
-                        coordinates.Add(new CrossShoreCoordinate(xPositions[i], zPositions[i]));
-                    }
-                }
-
-                var toeOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, ToeOuterSlopePropertyName), coordinates);
-                var bermCrownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, BermCrownOuterSlopePropertyName), coordinates);
-                var insetBermOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, InsetBermOuterSlopePropertyName), coordinates);
-                var crownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownOuterSlopePropertyName), coordinates);
-                var crownInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownInnerSlopePropertyName), coordinates);
-                var toeInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, ToeInnerSlopePropertyName), coordinates);
-
-                dikeProfile = new DikeProfile(coordinates, 
-                    toeOuterSlope:toeOuterSlope, 
-                    bermCrownOuterSlope: bermCrownOuterSlope, 
-                    insetBermOuterSlope: insetBermOuterSlope, 
-                    crownOuterSlope: crownOuterSlope,
-                    crownInnerSlope:crownInnerSlope,
-                    toeInnerSlope:toeInnerSlope);
-            }
-
-            var outputLocations = new List<OutputLocationSpecification>();
-            var jOutputLocations = ReadAsJArray(jInput, OutputLocationsPropertyName);
-            if (jOutputLocations != null)
-            {
-                foreach (var jOutputLocation in jOutputLocations.OfType<JObject>())
-                {
-                    outputLocations.Add(
-                        new OutputLocationSpecification(
-                            ReadAsDouble(jOutputLocation, LocationPositionPropertyName),
-                            ApplyDefaultValueIfNaN(ReadAsDouble(jOutputLocation, BeginDamagePropertyName),0.0),
-                            ReadAsString(jOutputLocation, CalculationMethodPropertyName),
-                            ReadAsString(jOutputLocation, TopLayerTypePropertyName)
-                        ));
-                }
-            }
-
-            // TODO: Read calculation settings
-            var dikernelInput = new DikernelInput(timeSteps, dikeProfile, outputLocations);
-            dikernelInput.HydraulicConditions.AddRange(hydraulicConditions.Select(c => new HydraulicConditionItem(c.Key, c.Value)));
-            return dikernelInput;
+            dikeProfile = new DikeProfile(coordinates,
+                toeOuterSlope,
+                bermCrownOuterSlope,
+                insetBermOuterSlope,
+                crownOuterSlope,
+                crownInnerSlope,
+                toeInnerSlope);
         }
 
-        public static OutputAtLocation[] ReadOutput(string fileName)
-        {
-            var json = ReadJasonFileContent(fileName);
-
-            var jOutput = ReadAsJObject(json, OutputDataObjectPropertyName) ?? throw new Exception("Could not read output.");
-
-            var jOutputLocations = ReadAsJArray(jOutput, LocationsObjectPropertyName);
-            if (jOutputLocations == null || jOutputLocations.Count == 0 || jOutputLocations.First?.Type != JTokenType.Object)
-            {
-                return Array.Empty<OutputAtLocation>();
-            }
-
-            var locations = new List<OutputAtLocation>();
+        var outputLocations = new List<OutputLocationSpecification>();
+        var jOutputLocations = ReadAsJArray(jInput, OutputLocationsPropertyName);
+        if (jOutputLocations != null)
             foreach (var jOutputLocation in jOutputLocations.OfType<JObject>())
+                outputLocations.Add(
+                    new OutputLocationSpecification(
+                        ReadAsDouble(jOutputLocation, LocationPositionPropertyName),
+                        ApplyDefaultValueIfNaN(ReadAsDouble(jOutputLocation, BeginDamagePropertyName), 0.0),
+                        ReadAsString(jOutputLocation, CalculationMethodPropertyName),
+                        ReadAsString(jOutputLocation, TopLayerTypePropertyName)
+                    ));
+
+        // TODO: Read calculation settings
+        var dikernelInput = new DikernelInput(timeSteps, dikeProfile, outputLocations);
+        dikernelInput.HydraulicConditions.AddRange(hydraulicConditions.Select(c => new HydraulicConditionItem(c.Key, c.Value)));
+        return dikernelInput;
+    }
+
+    public static OutputAtLocation[] ReadOutput(string fileName)
+    {
+        var json = ReadJasonFileContent(fileName);
+
+        var jOutput = ReadAsJObject(json, OutputDataObjectPropertyName) ?? throw new Exception("Could not read output.");
+
+        var jOutputLocations = ReadAsJArray(jOutput, LocationsObjectPropertyName);
+        if (jOutputLocations == null || jOutputLocations.Count == 0 || jOutputLocations.First?.Type != JTokenType.Object)
+            return Array.Empty<OutputAtLocation>();
+
+        var locations = new List<OutputAtLocation>();
+        foreach (var jOutputLocation in jOutputLocations.OfType<JObject>())
+        {
+            var revetmentFailed = false;
+            var revetmentFailedAfter = double.NaN;
+            var damage = Array.Empty<double>();
+            var height = double.NaN;
+            var outerSlope = double.NaN;
+
+            var jFailureOutputObject = ReadAsJObject(jOutputLocation, FailureObjectPropertyName);
+            if (jFailureOutputObject != null)
             {
-                var revetmentFailed = false;
-                var revetmentFailedAfter = double.NaN;
-                var damage = Array.Empty<double>();
-                var height = double.NaN;
-                var outerSlope = double.NaN;
+                revetmentFailed = ReadAsBool(jFailureOutputObject, FailureOutputPropertyName);
+                revetmentFailedAfter = ReadAsDouble(jFailureOutputObject, FailureTimeOutputPropertyName);
+            }
 
-                var jFailureOutputObject = ReadAsJObject(jOutputLocation, FailureObjectPropertyName);
-                if (jFailureOutputObject != null)
-                {
-                    revetmentFailed = ReadAsBool(jFailureOutputObject, FailureOutputPropertyName);
-                    revetmentFailedAfter = ReadAsDouble(jFailureOutputObject, FailureTimeOutputPropertyName);
-                }
+            var jDamageOutputObject = ReadAsJObject(jOutputLocation, DamageOutputPropertyName);
+            if (jDamageOutputObject != null)
+                damage = ReadAsArrayOfDoubles(jDamageOutputObject, DamagePerTimeStepOutputPropertyName);
 
-                var jDamageOutputObject = ReadAsJObject(jOutputLocation, DamageOutputPropertyName);
-                if (jDamageOutputObject != null)
+            var physicsDoublesDictionary = new Dictionary<string, double[]>();
+            var physicsBoolDictionary = new Dictionary<string, bool[]>();
+            var jPhysics = ReadAsJObject(jOutputLocation, PhysicsObjectPropertyName);
+            if (jPhysics != null)
+                foreach (var jPhysicsOutput in jPhysics)
                 {
-                    damage = ReadAsArrayOfDoubles(jDamageOutputObject, DamagePerTimeStepOutputPropertyName);
-                }
-
-                var physicsDoublesDictionary = new Dictionary<string, double[]>();
-                var physicsBoolDictionary = new Dictionary<string, bool[]>();
-                var jPhysics = ReadAsJObject(jOutputLocation, PhysicsObjectPropertyName);
-                if (jPhysics != null)
-                {
-                    foreach (var jPhysicsOutput in jPhysics)
+                    var name = jPhysicsOutput.Key;
+                    switch (name)
                     {
-                        var name = jPhysicsOutput.Key;
-                        switch (name)
-                        {
-                            case HeightOutputPropertyName:
-                                height = jPhysicsOutput.Value.ToDouble();
-                                break;
-                            case SlopeOutputPropertyName:
-                                if (jPhysicsOutput.Value?.Type == JTokenType.Array)
-                                {
-                                    outerSlope = double.NaN;
-                                    goto default;
-                                }
-                                outerSlope = jPhysicsOutput.Value.ToDouble();
-                                break;
-                            default:
-                                if (jPhysicsOutput.Value?.First?.Type == JTokenType.Float)
-                                {
-                                    physicsDoublesDictionary[name] = jPhysicsOutput.Value.Select(v => v.ToDouble()).ToArray();
-                                }
-                                if (jPhysicsOutput.Value?.First?.Type == JTokenType.Boolean)
-                                {
-                                    physicsBoolDictionary[name] = jPhysicsOutput.Value.Select(v => v.ToBool()).ToArray();
-                                }
-                                break;
-                        }
+                        case HeightOutputPropertyName:
+                            height = jPhysicsOutput.Value.ToDouble();
+                            break;
+                        case SlopeOutputPropertyName:
+                            if (jPhysicsOutput.Value?.Type == JTokenType.Array)
+                            {
+                                outerSlope = double.NaN;
+                                goto default;
+                            }
+
+                            outerSlope = jPhysicsOutput.Value.ToDouble();
+                            break;
+                        default:
+                            if (jPhysicsOutput.Value?.First?.Type == JTokenType.Float)
+                                physicsDoublesDictionary[name] = jPhysicsOutput.Value.Select(v => v.ToDouble()).ToArray();
+                            if (jPhysicsOutput.Value?.First?.Type == JTokenType.Boolean)
+                                physicsBoolDictionary[name] = jPhysicsOutput.Value.Select(v => v.ToBool()).ToArray();
+                            break;
                     }
                 }
 
-                var location = new OutputAtLocation(height, outerSlope, revetmentFailed, revetmentFailedAfter, damage);
-                foreach (var item in physicsDoublesDictionary)
-                {
-                    location.PhysicsDouble[item.Key] = item.Value;
-                }
-                foreach (var item in physicsBoolDictionary)
-                {
-                    location.PhysicsBool[item.Key] = item.Value;
-                }
-                locations.Add(location);
-            }
-
-            return locations.ToArray();
+            var location = new OutputAtLocation(height, outerSlope, revetmentFailed, revetmentFailedAfter, damage);
+            foreach (var item in physicsDoublesDictionary)
+                location.PhysicsDouble[item.Key] = item.Value;
+            foreach (var item in physicsBoolDictionary)
+                location.PhysicsBool[item.Key] = item.Value;
+            locations.Add(location);
         }
 
-        private static double ApplyDefaultValueIfNaN(double value, double defaultValue)
-        {
-            return double.IsNaN(value) ? defaultValue : value;
-        }
+        return locations.ToArray();
+    }
 
-        private static CrossShoreCoordinate? ToCoordinate(double xPosition, List<CrossShoreCoordinate> coordinates)
-        {
-            return coordinates.FirstOrDefault(c => Math.Abs(c.X - xPosition) < 1E-8);
-        }
+    private static double ApplyDefaultValueIfNaN(double value, double defaultValue)
+    {
+        return double.IsNaN(value) ? defaultValue : value;
+    }
 
-        private static JObject ReadJasonFileContent(string fileName)
-        {
-            return JObject.Parse(File.ReadAllText(fileName));
-        }
+    private static CrossShoreCoordinate? ToCoordinate(double xPosition, List<CrossShoreCoordinate> coordinates)
+    {
+        return coordinates.FirstOrDefault(c => Math.Abs(c.X - xPosition) < 1E-8);
+    }
 
-        private static double[] ReadAsArrayOfDoubles(JObject jObject, string propertyName)
-        {
-            var jArray = ReadAsJArray(jObject, propertyName);
-            return jArray == null ? Array.Empty<double>() : jArray.Select(t => t.ToDouble()).ToArray();
-        }
+    private static JObject ReadJasonFileContent(string fileName)
+    {
+        return JObject.Parse(File.ReadAllText(fileName));
+    }
 
-        private static double ReadAsDouble(JObject jObject, string propertyName)
-        {
-            return ReadAsJToken(jObject, propertyName).ToDouble();
-        }
+    private static double[] ReadAsArrayOfDoubles(JObject jObject, string propertyName)
+    {
+        var jArray = ReadAsJArray(jObject, propertyName);
+        return jArray == null ? Array.Empty<double>() : jArray.Select(t => t.ToDouble()).ToArray();
+    }
 
-        private static bool ReadAsBool(JObject jObject, string propertyName)
-        {
-            var jToken = ReadAsJToken(jObject, propertyName);
-            return jToken != null && (bool)jToken;
-        }
+    private static double ReadAsDouble(JObject jObject, string propertyName)
+    {
+        return ReadAsJToken(jObject, propertyName).ToDouble();
+    }
 
-        private static string ReadAsString(JObject jObject, string propertyName)
-        {
-            var jToken = ReadAsJToken(jObject, propertyName);
-            return jToken == null ? string.Empty : jToken.ToString();
-        }
+    private static bool ReadAsBool(JObject jObject, string propertyName)
+    {
+        var jToken = ReadAsJToken(jObject, propertyName);
+        return jToken != null && (bool)jToken;
+    }
 
-        private static JArray? ReadAsJArray(JObject output, string propertyName)
-        {
-            return ReadAsJToken(output, propertyName) as JArray;
-        }
+    private static string ReadAsString(JObject jObject, string propertyName)
+    {
+        var jToken = ReadAsJToken(jObject, propertyName);
+        return jToken == null ? string.Empty : jToken.ToString();
+    }
 
-        private static JObject? ReadAsJObject(JObject outputJson, string propertyName)
-        {
-            return ReadAsJToken(outputJson, propertyName) as JObject;
-        }
+    private static JArray? ReadAsJArray(JObject output, string propertyName)
+    {
+        return ReadAsJToken(output, propertyName) as JArray;
+    }
 
-        private static JToken? ReadAsJToken(JObject output, string propertyName)
-        {
-            return output[propertyName];
-        }
+    private static JObject? ReadAsJObject(JObject outputJson, string propertyName)
+    {
+        return ReadAsJToken(outputJson, propertyName) as JObject;
+    }
+
+    private static JToken? ReadAsJToken(JObject output, string propertyName)
+    {
+        return output[propertyName];
     }
 }

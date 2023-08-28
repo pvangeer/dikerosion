@@ -10,9 +10,7 @@ public class TimeStepsToEndTimeConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is double[] timeSteps && timeSteps.Any())
-        {
             return timeSteps.Max();
-        }
 
         return 1.0;
     }

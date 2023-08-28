@@ -19,34 +19,19 @@ public class RecalculateCommand : ICommand
         project.PropertyChanged += ProjectPropertyChanged;
     }
 
-    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DikeErosionProject.OutputFileName):
-                CanExecuteChanged?.Invoke(project, EventArgs.Empty);
-                break;
-            case nameof(DikeErosionProject.OverwriteOutput):
-                CanExecuteChanged?.Invoke(project,EventArgs.Empty);
-                break;
-        }
-    }
-
     public bool CanExecute(object? parameter)
     {
-        return !string.IsNullOrWhiteSpace(project.OutputFileName) && 
-               Directory.Exists(Path.GetDirectoryName(project.OutputFileName)) && 
-               (project.OverwriteOutput && File.Exists(project.OutputFileName) || !File.Exists(project.OutputFileName));
+        return !string.IsNullOrWhiteSpace(project.OutputFileName) &&
+               Directory.Exists(Path.GetDirectoryName(project.OutputFileName)) &&
+               ((project.OverwriteOutput && File.Exists(project.OutputFileName)) || !File.Exists(project.OutputFileName));
     }
 
     public void Execute(object? parameter)
     {
-        string? assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (string.IsNullOrWhiteSpace(assemblyFolder))
-        {
             throw new Exception("Executable not found.");
-        }
-        var pathToDiKErnel = Path.Combine(assemblyFolder,"DiKErnel", "DiKErnel-cli.exe");
+        var pathToDiKErnel = Path.Combine(assemblyFolder, "DiKErnel", "DiKErnel-cli.exe");
 
         ProcessStartInfo startInfo = new()
         {
@@ -68,7 +53,10 @@ public class RecalculateCommand : ICommand
         try
         {
             process.Start();
-            process.WaitForExit(4000);// TODO: which time-out is still ok? Make it input to?
+            var reader = process.StandardOutput;
+            string output = reader.ReadToEnd();
+            Console.WriteLine(output);
+            process.WaitForExit(4000); // TODO: which time-out is still ok? Make it input to?
             result = process.ExitCode == 0;
         }
         catch (Exception e)
@@ -78,14 +66,25 @@ public class RecalculateCommand : ICommand
         }
 
         if (!result)
-        {
             // TODO: Log. Invalid run.
             return;
-        }
 
         var importer = new DikeErosionOutputImporter(project);
         importer.Import(project.OutputFileName);
     }
 
     public event EventHandler? CanExecuteChanged;
+
+    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(DikeErosionProject.OutputFileName):
+                CanExecuteChanged?.Invoke(project, EventArgs.Empty);
+                break;
+            case nameof(DikeErosionProject.OverwriteOutput):
+                CanExecuteChanged?.Invoke(project, EventArgs.Empty);
+                break;
+        }
+    }
 }

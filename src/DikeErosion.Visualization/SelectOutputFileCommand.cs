@@ -18,20 +18,11 @@ public class SelectOutputFileCommand : ICommand
         project.PropertyChanged += ProjectPropertyChanged;
     }
 
-    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DikeErosionProject.OverwriteOutput):
-                CanExecuteChanged?.Invoke(this,EventArgs.Empty);
-                break;
-        }
-    }
-
     public bool CanExecute(object? parameter)
     {
         return !project.OverwriteOutput;
     }
+
     public void Execute(object? parameter)
     {
         var dialog = new OpenFileDialog
@@ -51,4 +42,14 @@ public class SelectOutputFileCommand : ICommand
     }
 
     public event EventHandler? CanExecuteChanged;
+
+    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(DikeErosionProject.OverwriteOutput):
+                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                break;
+        }
+    }
 }

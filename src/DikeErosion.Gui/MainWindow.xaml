@@ -1,37 +1,40 @@
 ﻿<fluent:RibbonWindow x:Class="DikeErosion.Gui.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:gui="clr-namespace:DikeErosion.Gui"
-        xmlns:viewModels="clr-namespace:DikeErosion.Visualization.ViewModels;assembly=DikeErosion.Visualization"
-        xmlns:fluent="urn:fluent-ribbon"
-        xmlns:visualization="clr-namespace:DikeErosion.Visualization;assembly=DikeErosion.Visualization"
-        mc:Ignorable="d"
-        Title="{Binding WindowTitle}"
-        IsIconVisible="False"
-        AllowDrop="True"
-        WindowStartupLocation="CenterScreen"
-        Height="900"
-        Width="1500">
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:gui="clr-namespace:DikeErosion.Gui"
+                     xmlns:viewModels="clr-namespace:DikeErosion.Visualization.ViewModels;assembly=DikeErosion.Visualization"
+                     xmlns:fluent="urn:fluent-ribbon"
+                     xmlns:visualization="clr-namespace:DikeErosion.Visualization;assembly=DikeErosion.Visualization"
+                     mc:Ignorable="d"
+                     Title="{Binding WindowTitle}"
+                     IsIconVisible="False"
+                     AllowDrop="True"
+                     WindowStartupLocation="CenterScreen"
+                     Height="900"
+                     Width="1500">
     <!--Icon="pack://application:,,,/StakeholderAnalysis.App;component/Resources/Logo.png"-->
 
     <Window.DataContext>
-        <viewModels:MainWindowViewModel/>
+        <viewModels:MainWindowViewModel />
     </Window.DataContext>
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/CrossShoreViewDataTemplate.xaml" />
-                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/TimeLineViewDataTemplate.xaml" />
-                <ResourceDictionary Source="/DikeErosion.Visualization;Component/DataTemplates/TabItemDataTemplate.xaml" />
+                <ResourceDictionary
+                    Source="/DikeErosion.Visualization;Component/DataTemplates/CrossShoreViewDataTemplate.xaml" />
+                <ResourceDictionary
+                    Source="/DikeErosion.Visualization;Component/DataTemplates/TimeLineViewDataTemplate.xaml" />
+                <ResourceDictionary
+                    Source="/DikeErosion.Visualization;Component/DataTemplates/TabItemDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            <gui:MainContentTemplateSelector 
-                x:Key="MainContentTemplateSelector" 
+
+            <gui:MainContentTemplateSelector
+                x:Key="MainContentTemplateSelector"
                 CrossShoreViewDataTemplate="{StaticResource CrossShoreViewDataTemplate}"
-                TimeLineViewDataTemplate="{StaticResource TimeLineViewDataTemplate}"/>
+                TimeLineViewDataTemplate="{StaticResource TimeLineViewDataTemplate}" />
 
         </ResourceDictionary>
     </Window.Resources>
@@ -42,18 +45,18 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <visualization:RibbonControl
             Grid.Row="0"
-            DataContext="{Binding RibbonViewModel}"/>
+            DataContext="{Binding RibbonViewModel}" />
 
-        <ContentPresenter 
+        <ContentPresenter
             Grid.Row="1"
             Content="{Binding SelectedContentViewModel}"
-            ContentTemplateSelector="{StaticResource MainContentTemplateSelector}"/>
+            ContentTemplateSelector="{StaticResource MainContentTemplateSelector}" />
     </Grid>
 </fluent:RibbonWindow>

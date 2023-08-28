@@ -1,18 +1,17 @@
-﻿namespace DikeErosion.Data
+﻿namespace DikeErosion.Data;
+
+public class TimeDependentOutputVariable
 {
-    public class TimeDependentOutputVariable
+    public TimeDependentOutputVariable(string name, Type valueType, TimeDependentOutputVariableValue[] values)
     {
-        public TimeDependentOutputVariable(string name, Type valueType, TimeDependentOutputVariableValue[] values)
-        {
-            Name = name;
-            Values = values;
-            ValueType = valueType;
-        }
-
-        public string Name { get; }
-
-        public Type ValueType { get; }
-
-        public TimeDependentOutputVariableValue[] Values { get; }
+        Name = name;
+        Values = values;
+        ValueType = valueType;
     }
+
+    public string Name { get; }
+
+    public Type ValueType { get; }
+
+    public TimeDependentOutputVariableValue[] Values { get; }
 }

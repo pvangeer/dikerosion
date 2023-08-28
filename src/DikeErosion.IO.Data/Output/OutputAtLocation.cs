@@ -20,7 +20,7 @@ public class OutputAtLocation
     public bool RevetmentFailed { get; }
 
     /// <summary>
-    /// Moment of failure in seconds
+    ///     Moment of failure in seconds
     /// </summary>
     public double RevetmentFailedAfter { get; }
 

@@ -6,15 +6,15 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="SliderButtonStyle"
-       TargetType="{x:Type RepeatButton}">
+           TargetType="{x:Type RepeatButton}">
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                Value="true" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                Value="true" />
         <Setter Property="IsTabStop"
-          Value="false" />
+                Value="false" />
         <Setter Property="Focusable"
-          Value="false" />
+                Value="false" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -25,19 +25,19 @@
     </Style>
 
     <Style x:Key="SliderThumbStyle"
-       TargetType="{x:Type Thumb}">
+           TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                Value="true" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                Value="true" />
         <Setter Property="Height"
-          Value="20" />
+                Value="20" />
         <Setter Property="Width"
-          Value="14" />
+                Value="14" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle 
+                    <Rectangle
                         x:Name="Ellipse"
                         Stroke="Black"
                         Fill="Transparent"
@@ -50,27 +50,27 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).Color"
-                                                Storyboard.TargetName="Ellipse">
+                                                                      Storyboard.TargetName="Ellipse">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
+                                                                 Value="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).Color"
-                                                Storyboard.TargetName="Ellipse">
+                                                                      Storyboard.TargetName="Ellipse">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource DikeErosion.Colors.MousePressedHighlight}" />
+                                                                 Value="{StaticResource DikeErosion.Colors.MousePressedHighlight}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).Color"
-                                                Storyboard.TargetName="Ellipse">
+                                                                      Storyboard.TargetName="Ellipse">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="Gray" />
+                                                                 Value="Gray" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -84,115 +84,114 @@
 
     <!--Template when the orientation of the Slider is Horizontal.-->
     <ControlTemplate x:Key="HorizontalSlider"
-                 TargetType="{x:Type Slider}">
+                     TargetType="{x:Type Slider}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"
-                     MinHeight="{TemplateBinding MinHeight}" />
+                               MinHeight="{TemplateBinding MinHeight}" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TickBar 
-                 x:Name="TopTick"
-                 SnapsToDevicePixels="True"
-                 Placement="Top"
-                 Height="10"
-                 Visibility="Collapsed">
+            <TickBar
+                x:Name="TopTick"
+                SnapsToDevicePixels="True"
+                Placement="Top"
+                Height="10"
+                Visibility="Collapsed">
                 <TickBar.Fill>
                     <SolidColorBrush Color="{DynamicResource GlyphColor}" />
                 </TickBar.Fill>
             </TickBar>
             <Border x:Name="TrackBackground"
-                Margin="0"
-                CornerRadius="2"
-                Height="4"
-                Grid.Row="1"
-                Background="Gray"
-                BorderBrush="Black"
-                BorderThickness="2">
-            </Border>
+                    Margin="0"
+                    CornerRadius="2"
+                    Height="4"
+                    Grid.Row="1"
+                    Background="Gray"
+                    BorderBrush="Black"
+                    BorderThickness="2" />
             <Track Grid.Row="1"
-           x:Name="PART_Track">
+                   x:Name="PART_Track">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{StaticResource SliderButtonStyle}"
-                      Command="Slider.DecreaseLarge" />
+                                  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Style="{StaticResource SliderThumbStyle}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource SliderButtonStyle}"
-                      Command="Slider.IncreaseLarge" />
+                                  Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <TickBar x:Name="BottomTick"
-                 SnapsToDevicePixels="True"
-                 Grid.Row="2"
-                 Fill="{TemplateBinding Foreground}"
-                 Placement="Bottom"
-                 Height="10"
-                 Visibility="Collapsed" />
+                     SnapsToDevicePixels="True"
+                     Grid.Row="2"
+                     Fill="{TemplateBinding Foreground}"
+                     Placement="Bottom"
+                     Height="10"
+                     Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="TickPlacement"
-             Value="TopLeft">
+                     Value="TopLeft">
                 <Setter TargetName="TopTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
             <Trigger Property="TickPlacement"
-             Value="BottomRight">
+                     Value="BottomRight">
                 <Setter TargetName="BottomTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
             <Trigger Property="TickPlacement"
-             Value="Both">
+                     Value="Both">
                 <Setter TargetName="TopTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
                 <Setter TargetName="BottomTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <!--Template when the orientation of the Slider is Vertical.-->
     <ControlTemplate x:Key="VerticalSlider"
-                 TargetType="{x:Type Slider}">
+                     TargetType="{x:Type Slider}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto"
-                        MinWidth="{TemplateBinding MinWidth}" />
+                                  MinWidth="{TemplateBinding MinWidth}" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TickBar x:Name="TopTick"
-             SnapsToDevicePixels="True"
-             Placement="Left"
-             Width="4"
-             Visibility="Collapsed">
+                     SnapsToDevicePixels="True"
+                     Placement="Left"
+                     Width="4"
+                     Visibility="Collapsed">
                 <TickBar.Fill>
                     <SolidColorBrush Color="{DynamicResource GlyphColor}" />
                 </TickBar.Fill>
             </TickBar>
 
             <Border x:Name="TrackBackground"
-            Margin="0"
-            CornerRadius="2"
-            Width="4"
-            Grid.Column="1"
-            BorderThickness="1">
+                    Margin="0"
+                    CornerRadius="2"
+                    Width="4"
+                    Grid.Column="1"
+                    BorderThickness="1">
                 <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="1,0">
+                                         EndPoint="1,0">
                         <LinearGradientBrush.GradientStops>
                             <GradientStopCollection>
                                 <GradientStop Color="{DynamicResource BorderLightColor}"
-                            Offset="0.0" />
+                                              Offset="0.0" />
                                 <GradientStop Color="{DynamicResource BorderDarkColor}"
-                            Offset="1.0" />
+                                              Offset="1.0" />
                             </GradientStopCollection>
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
@@ -200,84 +199,84 @@
                 </Border.BorderBrush>
                 <Border.Background>
                     <LinearGradientBrush EndPoint="1,0"
-                             StartPoint="0.25,0">
+                                         StartPoint="0.25,0">
                         <GradientStop Color="{DynamicResource ControlLightColor}"
-                        Offset="0" />
+                                      Offset="0" />
                         <GradientStop Color="{DynamicResource SliderTrackDarkColor}"
-                        Offset="1" />
+                                      Offset="1" />
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
             <Track Grid.Column="1"
-           x:Name="PART_Track">
+                   x:Name="PART_Track">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{StaticResource SliderButtonStyle}"
-                      Command="Slider.DecreaseLarge" />
+                                  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Style="{StaticResource SliderThumbStyle}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource SliderButtonStyle}"
-                      Command="Slider.IncreaseLarge" />
+                                  Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <TickBar x:Name="BottomTick"
-             SnapsToDevicePixels="True"
-             Grid.Column="2"
-             Fill="{TemplateBinding Foreground}"
-             Placement="Right"
-             Width="4"
-             Visibility="Collapsed" />
+                     SnapsToDevicePixels="True"
+                     Grid.Column="2"
+                     Fill="{TemplateBinding Foreground}"
+                     Placement="Right"
+                     Width="4"
+                     Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="TickPlacement"
-             Value="TopLeft">
+                     Value="TopLeft">
                 <Setter TargetName="TopTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
             <Trigger Property="TickPlacement"
-             Value="BottomRight">
+                     Value="BottomRight">
                 <Setter TargetName="BottomTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
             <Trigger Property="TickPlacement"
-             Value="Both">
+                     Value="Both">
                 <Setter TargetName="TopTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
                 <Setter TargetName="BottomTick"
-              Property="Visibility"
-              Value="Visible" />
+                        Property="Visibility"
+                        Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type Slider}">
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                Value="true" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                Value="true" />
         <Style.Triggers>
             <Trigger Property="Orientation"
-             Value="Horizontal">
+                     Value="Horizontal">
                 <Setter Property="MinWidth"
-              Value="104" />
+                        Value="104" />
                 <Setter Property="MinHeight"
-              Value="21" />
+                        Value="21" />
                 <Setter Property="Template"
-              Value="{StaticResource HorizontalSlider}" />
+                        Value="{StaticResource HorizontalSlider}" />
             </Trigger>
             <Trigger Property="Orientation"
-             Value="Vertical">
+                     Value="Vertical">
                 <Setter Property="MinWidth"
-              Value="21" />
+                        Value="21" />
                 <Setter Property="MinHeight"
-              Value="104" />
+                        Value="104" />
                 <Setter Property="Template"
-              Value="{StaticResource VerticalSlider}" />
+                        Value="{StaticResource VerticalSlider}" />
             </Trigger>
         </Style.Triggers>
     </Style>

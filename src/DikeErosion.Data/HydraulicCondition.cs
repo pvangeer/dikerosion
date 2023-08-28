@@ -11,5 +11,4 @@ public class HydraulicCondition
     public double WavePeriod { get; set; }
 
     public double WaveAngle { get; set; }
-
 }

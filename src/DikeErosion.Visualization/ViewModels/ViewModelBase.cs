@@ -6,9 +6,8 @@ namespace DikeErosion.Visualization.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public virtual string Title => "";
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {

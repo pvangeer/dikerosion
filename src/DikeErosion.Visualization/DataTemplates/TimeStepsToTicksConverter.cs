@@ -13,11 +13,10 @@ public class TimeStepsToTicksConverter : IValueConverter
         if (value is double[] timeSteps && timeSteps.Any())
         {
             foreach (var timeStep in timeSteps)
-            {
-                ticks += (timeStep.ToString(CultureInfo.InvariantCulture) + ",");
-            }
+                ticks += timeStep.ToString(CultureInfo.InvariantCulture) + ",";
             ticks = ticks.Remove(ticks.Length - 1, 1);
         }
+
         return ticks;
     }
 

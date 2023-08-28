@@ -20,6 +20,7 @@ public class SelectInputFileCommand : ICommand
     {
         return true;
     }
+
     public void Execute(object? parameter)
     {
         var dialog = new OpenFileDialog

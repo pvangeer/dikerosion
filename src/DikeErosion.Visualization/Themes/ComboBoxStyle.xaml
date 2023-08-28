@@ -6,7 +6,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="ComboBoxToggleButton"
-                 TargetType="{x:Type ToggleButton}">
+                     TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -17,15 +17,17 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Panel.Background).
                 (GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
-                                   Value="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
+                                                     Value="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
                             </ColorAnimationUsingKeyFrames>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Panel.Background).
                 (GradientBrush.GradientStops)[0].(GradientStop.Color)"
-                                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
                                                      Value="{StaticResource DikeErosion.Colors.MouseOverHighlight}" />
                             </ColorAnimationUsingKeyFrames>
@@ -34,23 +36,26 @@
                     <VisualState x:Name="Pressed" />
                     <VisualState x:Name="Disabled">
                         <Storyboard>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Panel.Background).
                 (GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
-                                   Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
+                                                     Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
                             </ColorAnimationUsingKeyFrames>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Shape.Fill).
                 (SolidColorBrush.Color)"
-                                          Storyboard.TargetName="Arrow">
+                                Storyboard.TargetName="Arrow">
                                 <EasingColorKeyFrame KeyTime="0"
-                                   Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
+                                                     Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
                             </ColorAnimationUsingKeyFrames>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Border.BorderBrush).
                 (GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
-                                   Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
+                                                     Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
@@ -58,15 +63,17 @@
                 <VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
                         <Storyboard>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Panel.Background).
                 (GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
-                                   Value="{StaticResource DikeErosion.Colors.MousePressedHighlight}" />
+                                                     Value="{StaticResource DikeErosion.Colors.MousePressedHighlight}" />
                             </ColorAnimationUsingKeyFrames>
-                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                            <ColorAnimationUsingKeyFrames
+                                Storyboard.TargetProperty="(Panel.Background).
                 (GradientBrush.GradientStops)[0].(GradientStop.Color)"
-                                                          Storyboard.TargetName="Border">
+                                Storyboard.TargetName="Border">
                                 <EasingColorKeyFrame KeyTime="0"
                                                      Value="{StaticResource DikeErosion.Colors.MousePressedHighlight}" />
                             </ColorAnimationUsingKeyFrames>
@@ -77,27 +84,27 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Border x:Name="Border"
-            Grid.ColumnSpan="2"
-            CornerRadius="2"
-            BorderThickness="1">
+                    Grid.ColumnSpan="2"
+                    CornerRadius="2"
+                    BorderThickness="1">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0,1"
-                             StartPoint="0,0">
+                                         StartPoint="0,0">
                         <GradientStop Color="{DynamicResource BorderLightColor}"
-                        Offset="0" />
+                                      Offset="0" />
                         <GradientStop Color="{DynamicResource BorderDarkColor}"
-                        Offset="1" />
+                                      Offset="1" />
                     </LinearGradientBrush>
                 </Border.BorderBrush>
                 <Border.Background>
 
                     <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="0,1">
+                                         EndPoint="0,1">
                         <LinearGradientBrush.GradientStops>
                             <GradientStopCollection>
                                 <GradientStop Color="{DynamicResource ControlLightColor}" />
                                 <GradientStop Color="{DynamicResource ControlMediumColor}"
-                            Offset="1.0" />
+                                              Offset="1.0" />
                             </GradientStopCollection>
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
@@ -105,46 +112,46 @@
                 </Border.Background>
             </Border>
             <Border Grid.Column="0"
-            CornerRadius="2,0,0,2"
-            Margin="1" >
+                    CornerRadius="2,0,0,2"
+                    Margin="1">
                 <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource ControlLightColor}"/>
+                    <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
                 </Border.Background>
             </Border>
             <Path x:Name="Arrow"
-          Grid.Column="1"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          Data="M 0 0 L 4 4 L 8 0 Z" >
+                  Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M 0 0 L 4 4 L 8 0 Z">
                 <Path.Fill>
-                    <SolidColorBrush Color="{DynamicResource GlyphColor}"/>
+                    <SolidColorBrush Color="{DynamicResource GlyphColor}" />
                 </Path.Fill>
             </Path>
         </Grid>
     </ControlTemplate>
 
     <ControlTemplate x:Key="ComboBoxTextBox"
-                 TargetType="{x:Type TextBox}">
+                     TargetType="{x:Type TextBox}">
         <Border x:Name="PART_ContentHost"
-          Focusable="False"
-          Background="{TemplateBinding Background}" />
+                Focusable="False"
+                Background="{TemplateBinding Background}" />
     </ControlTemplate>
 
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                Value="true" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-          Value="Auto" />
+                Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-          Value="Auto" />
+                Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll"
-          Value="true" />
+                Value="true" />
         <Setter Property="MinWidth"
-          Value="120" />
+                Value="120" />
         <Setter Property="MinHeight"
-          Value="20" />
+                Value="20" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -156,9 +163,9 @@
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_EditableTextBox"
-                                                Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)">
+                                                                      Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
+                                                                 Value="{StaticResource DikeErosion.Colors.DisabledDark}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -166,15 +173,17 @@
                             <VisualStateGroup x:Name="EditStates">
                                 <VisualState x:Name="Editable">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                 Storyboard.TargetName="PART_EditableTextBox">
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Storyboard.TargetName="PART_EditableTextBox">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                            Value="{x:Static Visibility.Visible}" />
+                                                                    Value="{x:Static Visibility.Visible}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                                       Storyboard.TargetName="ContentSite">
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetProperty="(UIElement.Visibility)"
+                                            Storyboard.TargetName="ContentSite">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                            Value="{x:Static Visibility.Hidden}" />
+                                                                    Value="{x:Static Visibility.Hidden}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -182,43 +191,42 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <ToggleButton x:Name="ToggleButton"
-                        Template="{StaticResource ComboBoxToggleButton}"
-                        Grid.Column="2"
-                        Focusable="false"
-                        ClickMode="Press"
-                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
-              RelativeSource={RelativeSource TemplatedParent}}"/>
+                                      Template="{StaticResource ComboBoxToggleButton}"
+                                      Grid.Column="2"
+                                      Focusable="false"
+                                      ClickMode="Press"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
+              RelativeSource={RelativeSource TemplatedParent}}" />
                         <ContentPresenter x:Name="ContentSite"
-                            IsHitTestVisible="False"
-                            Content="{TemplateBinding SelectionBoxItem}"
-                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                            Margin="3,3,23,3"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Left">
-                        </ContentPresenter>
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,3,23,3"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Left" />
                         <TextBox x:Name="PART_EditableTextBox"
-                   Style="{x:Null}"
-                   Template="{StaticResource ComboBoxTextBox}"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Bottom"
-                   Margin="3,3,23,3"
-                   Focusable="True"
-                   Background="Transparent"
-                   Visibility="Hidden"
-                   IsReadOnly="{TemplateBinding IsReadOnly}" />
+                                 Style="{x:Null}"
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Bottom"
+                                 Margin="3,3,23,3"
+                                 Focusable="True"
+                                 Background="Transparent"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
                         <Popup x:Name="Popup"
-                 Placement="Bottom"
-                 IsOpen="{TemplateBinding IsDropDownOpen}"
-                 AllowsTransparency="True"
-                 Focusable="False"
-                 PopupAnimation="Slide">
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
                             <Grid x:Name="DropDown"
-                  SnapsToDevicePixels="True"
-                  MinWidth="{TemplateBinding ActualWidth}"
-                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                      BorderThickness="1">
+                                        BorderThickness="1">
                                     <Border.BorderBrush>
                                         <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
                                     </Border.BorderBrush>
@@ -227,34 +235,34 @@
                                     </Border.Background>
                                 </Border>
                                 <ScrollViewer Margin="4,6,4,6"
-                            SnapsToDevicePixels="True">
+                                              SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
-                            KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasItems"
-                   Value="false">
+                                 Value="false">
                             <Setter TargetName="DropDownBorder"
-                    Property="MinHeight"
-                    Value="95" />
+                                    Property="MinHeight"
+                                    Value="95" />
                         </Trigger>
                         <Trigger Property="IsGrouping"
-                   Value="true">
+                                 Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll"
-                    Value="false" />
+                                    Value="false" />
                         </Trigger>
                         <Trigger SourceName="Popup"
-                   Property="AllowsTransparency"
-                   Value="true">
+                                 Property="AllowsTransparency"
+                                 Value="true">
                             <Setter TargetName="DropDownBorder"
-                    Property="CornerRadius"
-                    Value="4" />
+                                    Property="CornerRadius"
+                                    Value="4" />
                             <Setter TargetName="DropDownBorder"
-                    Property="Margin"
-                    Value="0,2,0,0" />
+                                    Property="Margin"
+                                    Value="0,2,0,0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -263,38 +271,38 @@
     </Style>
 
     <Style x:Key="{x:Type ComboBoxItem}"
-       TargetType="{x:Type ComboBoxItem}">
+           TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                Value="true" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                Value="true" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border x:Name="Border"
-                Padding="2"
-                SnapsToDevicePixels="true"
-                Background="Transparent">
+                            Padding="2"
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Unselected" />
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Panel.Background).
+                                                                      Storyboard.TargetProperty="(Panel.Background).
                     (SolidColorBrush.Color)">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource DikeErosion.Colors.EditableBackground}" />
+                                                                 Value="{StaticResource DikeErosion.Colors.EditableBackground}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="SelectedUnfocused">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Panel.Background).
+                                                                      Storyboard.TargetProperty="(Panel.Background).
                     (SolidColorBrush.Color)">
                                             <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource DikeErosion.Colors.EditableBackground}" />
+                                                                 Value="{StaticResource DikeErosion.Colors.EditableBackground}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

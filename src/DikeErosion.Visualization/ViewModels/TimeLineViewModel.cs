@@ -13,12 +13,12 @@ namespace DikeErosion.Visualization.ViewModels;
 public class TimeLineViewModel : ViewModelBase
 {
     private readonly DikeErosionProject project;
-    private OutputLocation? selectedOutputLocation;
-    private TimeDependentOutputVariable? selectedOutputVariable;
     private readonly LinearAxis valueAxis;
     private readonly LineSeries variableDoubleSeries;
-    private readonly LinearBarSeries variableTrueSeries;
     private readonly LinearBarSeries variableFalseSeries;
+    private readonly LinearBarSeries variableTrueSeries;
+    private OutputLocation? selectedOutputLocation;
+    private TimeDependentOutputVariable? selectedOutputVariable;
 
     public TimeLineViewModel(DikeErosionProject project)
     {
@@ -27,7 +27,7 @@ public class TimeLineViewModel : ViewModelBase
 
         this.project = project;
         project.PropertyChanged += ProjectPropertyChanged;
-        
+
         PlotModel = InitializePlotModel();
         valueAxis = InitializeValueAxis();
         variableDoubleSeries = InitializeVariableDoubleSeries();
@@ -71,16 +71,13 @@ public class TimeLineViewModel : ViewModelBase
         {
             case nameof(DikeErosionProject.OutputFileName):
                 OutputVariables.Clear();
-                foreach (var variable in project.TimeDependentOutputVariables.Where(v => Type.GetTypeCode(v.ValueType) == TypeCode.Double || Type.GetTypeCode(v.ValueType) == TypeCode.Boolean))
-                {
+                foreach (var variable in project.TimeDependentOutputVariables.Where(v =>
+                             Type.GetTypeCode(v.ValueType) == TypeCode.Double || Type.GetTypeCode(v.ValueType) == TypeCode.Boolean))
                     OutputVariables.Add(variable);
-                }
 
                 OutputLocations.Clear();
                 foreach (var location in project.OutputLocations)
-                {
                     OutputLocations.Add(location);
-                }
 
                 selectedOutputVariable = OutputVariables.FirstOrDefault();
                 SelectedOutputLocation = OutputLocations.FirstOrDefault();
@@ -113,7 +110,7 @@ public class TimeLineViewModel : ViewModelBase
             LegendBackground = OxyColors.Brown,
             LegendTextColor = OxyColors.White
         });
-        
+
         plotModel.IsLegendVisible = true;
 
         return plotModel;
@@ -195,7 +192,8 @@ public class TimeLineViewModel : ViewModelBase
         if (SelectedOutputVariable != null && SelectedOutputLocation != null)
         {
             var outputVariableValues = SelectedOutputVariable.Values
-                .Where(v => Math.Abs(v.Coordinate.X - SelectedOutputLocation.Coordinate.X) < 1E-8 && v.Time > project.TimeSteps.Min() + 1E-8).ToArray();
+                .Where(v => Math.Abs(v.Coordinate.X - SelectedOutputLocation.Coordinate.X) < 1E-8 &&
+                            v.Time > project.TimeSteps.Min() + 1E-8).ToArray();
 
             if (Type.GetTypeCode(SelectedOutputVariable.ValueType) == TypeCode.Double)
             {
@@ -213,8 +211,8 @@ public class TimeLineViewModel : ViewModelBase
             if (Type.GetTypeCode(SelectedOutputVariable.ValueType) == TypeCode.Boolean)
             {
                 variableTrueSeries.Points.AddRange(outputVariableValues
-                        .Where(v => (bool)v.Value)
-                        .Select(v => new DataPoint(v.Time, 1)));
+                    .Where(v => (bool)v.Value)
+                    .Select(v => new DataPoint(v.Time, 1)));
                 variableFalseSeries.Points.AddRange(outputVariableValues
                     .Where(v => !(bool)v.Value)
                     .Select(v => new DataPoint(v.Time, -1)));
@@ -229,6 +227,7 @@ public class TimeLineViewModel : ViewModelBase
                 }
             }
         }
+
         PlotModel.InvalidatePlot(true);
     }
 }

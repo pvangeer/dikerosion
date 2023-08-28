@@ -19,11 +19,11 @@
     <DataTemplate x:Key="CrossShoreViewDataTemplate" DataType="{x:Type viewModels:CrossShoreChartViewModel}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid 
+            <Grid
                 Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
                 MinHeight="{StaticResource DefaultItemHeight}"
                 VerticalAlignment="Center"
@@ -32,13 +32,13 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock 
+                <TextBlock
                     Grid.Column="0"
                     Margin="5"
                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                     VerticalAlignment="Center"
-                    Text="Getoonde uitvoer:"/>
-                <ComboBox 
+                    Text="Getoonde uitvoer:" />
+                <ComboBox
                     Grid.Column="1"
                     MinWidth="400"
                     Margin="5"
@@ -47,22 +47,22 @@
                     SelectedItem="{Binding SelectedOutputVariable}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid 
+                            <Grid
                                 Background="Transparent"
                                 VerticalAlignment="Center">
-                                <TextBlock 
+                                <TextBlock
                                     Background="Transparent"
                                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
-                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"/>
+                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </Grid>
-            <oxy:PlotView 
-                Grid.Row="1" 
-                Model="{Binding PlotModel}"/>
-            <Grid 
+            <oxy:PlotView
+                Grid.Row="1"
+                Model="{Binding PlotModel}" />
+            <Grid
                 Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
                 Grid.Row="2"
                 VerticalAlignment="Center">
@@ -81,11 +81,11 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="RepeatButton">
-                                                <Image 
+                                                <Image
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
                                                     Source="pack://application:,,,/DikeErosion.Visualization;component/Resources/ic_fluent_caret_left_24_regular_grey.ico"
-                                                    Height="64"/>
+                                                    Height="64" />
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -95,11 +95,11 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="RepeatButton">
-                                            <Image 
+                                            <Image
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"
                                                 Source="pack://application:,,,/DikeErosion.Visualization;component/Resources/ic_fluent_caret_left_24_regular.ico"
-                                                Height="64"/>
+                                                Height="64" />
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
@@ -107,7 +107,7 @@
                         </Style>
                     </RepeatButton.Style>
                 </RepeatButton>
-                <Slider 
+                <Slider
                     Grid.Column="1"
                     Margin="0,12"
                     Minimum="{Binding TimeSteps, Converter={StaticResource TimeStepsToStartTimeConverter}}"
@@ -120,8 +120,7 @@
                     Value="{Binding CurrentTimeStep}"
                     Background="{StaticResource DikeErosion.Brushes.DefaultBackground}"
                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
-                    TickPlacement="Both">
-                </Slider>
+                    TickPlacement="Both" />
                 <RepeatButton
                     Grid.Column="2"
                     Command="{Binding TimeStepForwardCommand}">
@@ -132,11 +131,11 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="RepeatButton">
-                                                <Image 
+                                                <Image
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
                                                     Source="pack://application:,,,/DikeErosion.Visualization;component/Resources/ic_fluent_caret_right_24_regular_grey.ico"
-                                                    Height="64"/>
+                                                    Height="64" />
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -146,11 +145,11 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="RepeatButton">
-                                            <Image 
+                                            <Image
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"
                                                 Source="pack://application:,,,/DikeErosion.Visualization;component/Resources/ic_fluent_caret_right_24_regular.ico"
-                                                Height="64"/>
+                                                Height="64" />
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>

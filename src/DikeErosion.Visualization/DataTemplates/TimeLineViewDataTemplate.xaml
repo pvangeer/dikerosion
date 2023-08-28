@@ -15,23 +15,23 @@
     <DataTemplate x:Key="TimeLineViewDataTemplate" DataType="{x:Type viewModels:TimeLineViewModel}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid 
+                <Grid
                     Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Border 
+                    <Border
                         Grid.Row="0"
                         Background="{StaticResource DikeErosion.Brushes.Header}"
                         Height="30"
@@ -40,7 +40,7 @@
                             Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                             Background="{StaticResource DikeErosion.Brushes.Header}"
                             VerticalAlignment="Center"
-                            Text="Locatie"/>
+                            Text="Locatie" />
                     </Border>
                     <ListBox
                         Grid.Row="1"
@@ -50,28 +50,28 @@
                         MinWidth="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:OutputLocation}">
-                                <TextBlock 
+                                <TextBlock
                                     Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
                                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
-                                    Text="{Binding Converter={StaticResource OutputLocationToTitleConverter}}"></TextBlock>
+                                    Text="{Binding Converter={StaticResource OutputLocationToTitleConverter}}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-                <GridSplitter 
+                <GridSplitter
                     Grid.Row="1"
                     ResizeDirection="Rows"
                     Height="5"
                     Background="{StaticResource DikeErosion.Brushes.Splitter}"
                     HorizontalAlignment="Stretch"
-                    ResizeBehavior="BasedOnAlignment"/>
-                <Grid 
+                    ResizeBehavior="BasedOnAlignment" />
+                <Grid
                     Grid.Row="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Border 
+                    <Border
                         Grid.Row="0"
                         Background="{StaticResource DikeErosion.Brushes.Header}"
                         Height="30"
@@ -80,7 +80,7 @@
                             Background="{StaticResource DikeErosion.Brushes.Header}"
                             Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
                             VerticalAlignment="Center"
-                            Text="Uitvoervariabele"/>
+                            Text="Uitvoervariabele" />
                     </Border>
                     <ListBox
                         Grid.Row="1"
@@ -91,25 +91,25 @@
                         ItemsSource="{Binding OutputVariables}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type data:TimeDependentOutputVariable}">
-                                <TextBlock 
+                                <TextBlock
                                     Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
                                     Foreground="{StaticResource DikeErosion.Brushes.Foreground}"
-                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}"></TextBlock>
+                                    Text="{Binding Converter={StaticResource OutputVariableToTitleConverter}}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Grid>
-            <GridSplitter 
+            <GridSplitter
                 Grid.Column="1"
                 ResizeDirection="Columns"
                 Width="5"
                 Background="{StaticResource DikeErosion.Brushes.Splitter}"
                 HorizontalAlignment="Stretch"
-                ResizeBehavior="BasedOnAlignment"/>
-            <oxy:PlotView 
-                Grid.Column="2" 
-                Model="{Binding PlotModel}"/>
+                ResizeBehavior="BasedOnAlignment" />
+            <oxy:PlotView
+                Grid.Column="2"
+                Model="{Binding PlotModel}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

@@ -11,9 +11,7 @@ public class OutputVariableToTitleConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is TimeDependentOutputVariable output)
-        {
             return output.ToTitle();
-        }
 
         return value;
     }

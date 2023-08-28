@@ -7,7 +7,7 @@ public static class TestHelper
         get
         {
             var solutionDirParts = AppDomain.CurrentDomain.BaseDirectory.Split("test\\");
-            return Path.Combine(solutionDirParts[0],"test","testdata");
+            return Path.Combine(solutionDirParts[0], "test", "testdata");
         }
     }
 }

@@ -3,5 +3,5 @@
 public enum ViewState
 {
     CrossShore,
-    TimeLine,
+    TimeLine
 }

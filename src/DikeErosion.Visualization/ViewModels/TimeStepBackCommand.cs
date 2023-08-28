@@ -15,6 +15,21 @@ public class TimeStepBackCommand : ICommand
         this.viewModel.PropertyChanged += ViewModelPropertyChanged;
     }
 
+    public bool CanExecute(object? parameter)
+    {
+        return viewModel.CanStepBackInTime;
+    }
+
+    public void Execute(object? parameter)
+    {
+        if (!viewModel.TimeSteps.Any())
+            viewModel.CurrentTimeStep = 0;
+        else
+            viewModel.CurrentTimeStep = viewModel.TimeSteps.Where(t => t < viewModel.CurrentTimeStep).Max();
+    }
+
+    public event EventHandler? CanExecuteChanged;
+
     private void ViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (e.PropertyName)
@@ -25,23 +40,4 @@ public class TimeStepBackCommand : ICommand
                 break;
         }
     }
-
-    public bool CanExecute(object? parameter)
-    {
-        return viewModel.CanStepBackInTime;
-    }
-
-    public void Execute(object? parameter)
-    {
-        if (!viewModel.TimeSteps.Any())
-        {
-            viewModel.CurrentTimeStep = 0;
-        }
-        else
-        {
-            viewModel.CurrentTimeStep = viewModel.TimeSteps.Where(t => t < viewModel.CurrentTimeStep).Max();
-        }
-    }
-
-    public event EventHandler? CanExecuteChanged;
 }

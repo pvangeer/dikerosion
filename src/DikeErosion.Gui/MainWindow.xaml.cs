@@ -1,16 +1,12 @@
-﻿using System.Windows;
-using Fluent;
+﻿namespace DikeErosion.Gui;
 
-namespace DikeErosion.Gui
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

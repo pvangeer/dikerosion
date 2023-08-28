@@ -2,45 +2,44 @@
 using DikeErosion.Data.CrossShoreProfile;
 using DikeErosion.Visualization.ViewModels;
 
-namespace DikeErosion.Data
+namespace DikeErosion.Data;
+
+public class DikeErosionProject : NotifyPropertyChangedObservable
 {
-    public class DikeErosionProject : NotifyPropertyChangedObservable
+    public DikeErosionProject()
     {
-        public DikeErosionProject()
-        {
-            InputFileName = "";
-            OutputFileName = "";
+        InputFileName = "";
+        OutputFileName = "";
 
-            TimeSteps = new ObservableCollection<double>();
-            Profile = new Profile();
+        TimeSteps = new ObservableCollection<double>();
+        Profile = new Profile();
 
-            OutputLocations = new ObservableCollection<OutputLocation>();
-            HydraulicConditions = new ObservableCollection<HydraulicCondition>();
+        OutputLocations = new ObservableCollection<OutputLocation>();
+        HydraulicConditions = new ObservableCollection<HydraulicCondition>();
 
-            TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
-        }
-
-        // TODO: Really through DikeErosionProject?
-        public ViewState ViewState { get; set; }
-
-        public string InputFileName { get; set; }
-
-        public string OutputFileName { get; set; }
-
-        #region DikeErosionCalculation
-
-        public Profile Profile { get; }
-
-        public ObservableCollection<double> TimeSteps { get; }
-
-        public ObservableCollection<OutputLocation> OutputLocations { get; }
-
-        public ObservableCollection<HydraulicCondition> HydraulicConditions { get; }
-
-        public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
-
-        public bool OverwriteOutput { get; set; }
-
-        #endregion
+        TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
     }
+
+    // TODO: Really through DikeErosionProject?
+    public ViewState ViewState { get; set; }
+
+    public string InputFileName { get; set; }
+
+    public string OutputFileName { get; set; }
+
+    #region DikeErosionCalculation
+
+    public Profile Profile { get; }
+
+    public ObservableCollection<double> TimeSteps { get; }
+
+    public ObservableCollection<OutputLocation> OutputLocations { get; }
+
+    public ObservableCollection<HydraulicCondition> HydraulicConditions { get; }
+
+    public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
+
+    public bool OverwriteOutput { get; set; }
+
+    #endregion
 }

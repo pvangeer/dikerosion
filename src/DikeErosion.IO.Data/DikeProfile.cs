@@ -1,5 +1,4 @@
-﻿using DikeErosion.Data;
-using DikeErosion.Data.CrossShoreProfile;
+﻿using DikeErosion.Data.CrossShoreProfile;
 
 namespace DikeErosion.IO.Data;
 
