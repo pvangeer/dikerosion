@@ -27,10 +27,12 @@ namespace DikeErosion.IO
             }
 
             project.Profile.CharacteristicPoints.Clear();
-            AddCharacteristicPoint(input.Profile.BermCrownOuterSlope, CharacteristicPointType.CrownBermOuterSlope);
-            AddCharacteristicPoint(input.Profile.CrownOuterSlope, CharacteristicPointType.CrownOuterSlope);
-            AddCharacteristicPoint(input.Profile.InsetBermOuterSlope, CharacteristicPointType.InnerPointBermOuterSlope);
             AddCharacteristicPoint(input.Profile.ToeOuterSlope, CharacteristicPointType.ToeOuterSlope);
+            AddCharacteristicPoint(input.Profile.BermCrownOuterSlope, CharacteristicPointType.CrownBermOuterSlope);
+            AddCharacteristicPoint(input.Profile.InsetBermOuterSlope, CharacteristicPointType.InnerPointBermOuterSlope);
+            AddCharacteristicPoint(input.Profile.CrownOuterSlope, CharacteristicPointType.CrownOuterSlope);
+            AddCharacteristicPoint(input.Profile.CrownInnerSlope, CharacteristicPointType.CrownInnerSlope);
+            AddCharacteristicPoint(input.Profile.ToeInnerSlope, CharacteristicPointType.ToeInnerSlope);
 
             project.TimeSteps.Clear();
             foreach (var timeStep in input.TimeSteps)
@@ -89,7 +91,7 @@ namespace DikeErosion.IO
             project.Profile.CharacteristicPoints.Add(new CharacteristicPoint(coordinate.X, coordinate.Z, type));
         }
 
-        private void ValidateFileName(string fileName)
+        private static void ValidateFileName(string fileName)
         {
             if (!File.Exists(fileName))
             {

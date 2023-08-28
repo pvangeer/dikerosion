@@ -7,70 +7,58 @@ namespace DikeErosion.Visualization.ViewModels
     {
         public static string ToTitle(this CharacteristicPointType type)
         {
-            switch (type)
+            return type switch
             {
-                case CharacteristicPointType.CrownBermOuterSlope:
-                    return "Kruin berm (buiten)";
-                case CharacteristicPointType.CrownOuterSlope:
-                    return "Kruin buitenzijde";
-                case CharacteristicPointType.InnerPointBermOuterSlope:
-                    return "Insteek berm (binnen)";
-                case CharacteristicPointType.ToeOuterSlope:
-                    return "Teen buitenzijde";
-                default:
-                    return "Onbekend";
-            }
+                CharacteristicPointType.CrownBermOuterSlope => "Kruin berm (buiten)",
+                CharacteristicPointType.CrownOuterSlope => "Kruin buitenzijde",
+                CharacteristicPointType.InnerPointBermOuterSlope => "Insteek berm (binnen)",
+                CharacteristicPointType.ToeOuterSlope => "Teen buitenzijde",
+                CharacteristicPointType.ToeInnerSlope => "Teen binnenzijde",
+                CharacteristicPointType.CrownInnerSlope => "Kruin binnenzijde",
+                _ => "Onbekend"
+            };
         }
 
         public static MarkerType ToMarkerType(this CharacteristicPointType type)
         {
-            switch (type)
+            return type switch
             {
-                case CharacteristicPointType.CrownBermOuterSlope:
-                    return MarkerType.Diamond;
-                case CharacteristicPointType.CrownOuterSlope:
-                    return MarkerType.Diamond;
-                case CharacteristicPointType.InnerPointBermOuterSlope:
-                    return MarkerType.Diamond;
-                case CharacteristicPointType.ToeOuterSlope:
-                    return MarkerType.Diamond;
-                default:
-                    return MarkerType.Diamond;
-            }
+                CharacteristicPointType.CrownBermOuterSlope => MarkerType.Diamond,
+                CharacteristicPointType.CrownOuterSlope => MarkerType.Diamond,
+                CharacteristicPointType.InnerPointBermOuterSlope => MarkerType.Diamond,
+                CharacteristicPointType.ToeOuterSlope => MarkerType.Diamond,
+                CharacteristicPointType.CrownInnerSlope => MarkerType.Diamond,
+                CharacteristicPointType.ToeInnerSlope => MarkerType.Diamond,
+                _ => MarkerType.Diamond
+            };
         }
 
         public static double ToMarkerSize(this CharacteristicPointType type)
         {
-            switch (type)
+            return type switch
             {
-                case CharacteristicPointType.CrownBermOuterSlope:
-                    return 5.0;
-                case CharacteristicPointType.CrownOuterSlope:
-                    return 5.0;
-                case CharacteristicPointType.InnerPointBermOuterSlope:
-                    return 5.0;
-                case CharacteristicPointType.ToeOuterSlope:
-                    return 5.0;
-                default:
-                    return 5.0;
-            }
+                CharacteristicPointType.CrownBermOuterSlope => 5.0,
+                CharacteristicPointType.CrownOuterSlope => 5.0,
+                CharacteristicPointType.InnerPointBermOuterSlope => 5.0,
+                CharacteristicPointType.ToeOuterSlope => 5.0,
+                CharacteristicPointType.ToeInnerSlope => 5.0,
+                CharacteristicPointType.CrownInnerSlope => 5.0,
+                _ => 5.0
+            };
         }
 
         public static OxyColor ToColor(this CharacteristicPointType type)
         {
-            switch (type)
+            return type switch
             {
-                case CharacteristicPointType.CrownBermOuterSlope:
-                    return OxyColors.LightGray;
-                case CharacteristicPointType.CrownOuterSlope:
-                    return OxyColors.LawnGreen;
-                case CharacteristicPointType.InnerPointBermOuterSlope:
-                    return OxyColors.GreenYellow;
-                case CharacteristicPointType.ToeOuterSlope:
-                    return OxyColors.Brown;
-                default:
-                    return OxyColors.Brown;
-            }
+                CharacteristicPointType.CrownBermOuterSlope => OxyColors.LightGray,
+                CharacteristicPointType.CrownOuterSlope => OxyColors.LawnGreen,
+                CharacteristicPointType.InnerPointBermOuterSlope => OxyColors.GreenYellow,
+                CharacteristicPointType.ToeOuterSlope => OxyColors.Brown,
+                CharacteristicPointType.ToeInnerSlope => OxyColors.DarkGreen,
+                CharacteristicPointType.CrownInnerSlope => OxyColors.DarkSeaGreen,
+                _ => OxyColors.Brown
+            };
         }
     }
 }

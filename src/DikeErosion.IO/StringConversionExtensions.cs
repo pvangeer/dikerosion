@@ -13,37 +13,30 @@ namespace DikeErosion.IO
         private const string NordicStoneKey = "noorseSteen";
         private const string GrassCoverClosedKey = "grasGeslotenZode";
         private const string WABKey = "waterbouwAsfaltBeton";
+        private const string GrassOvertoppingKey = "grasGolfoverslag";
 
         public static CalculationMethod ToCalculationMethod(this string value)
         {
-            switch (value)
+            return value switch
             {
-                case NaturalStoneKey:
-                    return CalculationMethod.NaturalStone;
-                case GrassCoverWaveAttackKey:
-                    return CalculationMethod.GrassCoverWaveAttack;
-                case GrassCoverWaveRunUpKey:
-                    return CalculationMethod.GrassCoverWaveRunUp;
-                case AsphaltCoverWaveAttackKey:
-                    return CalculationMethod.AsphaltCoverWaveAttack;
-                default:
-                    throw new DikeErosionException(DikeErosionExceptionType.UnexpectedCalculationMethod);
-            }
+                NaturalStoneKey => CalculationMethod.NaturalStone,
+                GrassCoverWaveAttackKey => CalculationMethod.GrassCoverWaveAttack,
+                GrassCoverWaveRunUpKey => CalculationMethod.GrassCoverWaveRunUp,
+                AsphaltCoverWaveAttackKey => CalculationMethod.AsphaltCoverWaveAttack,
+                GrassOvertoppingKey => CalculationMethod.GrassCoverOvertopping,
+                _ => throw new DikeErosionException(DikeErosionExceptionType.UnexpectedCalculationMethod)
+            };
         }
 
         public static TopLayerType ToTopLayerType(this string value)
         {
-            switch (value)
+            return value switch
             {
-                case NordicStoneKey:
-                    return TopLayerType.NordicStone;
-                case GrassCoverClosedKey:
-                    return TopLayerType.GrassCoverClosed;
-                case WABKey:
-                    return TopLayerType.WAB;
-                default:
-                    throw new DikeErosionException(DikeErosionExceptionType.UnexpectedTopLayerType);
-            }
+                NordicStoneKey => TopLayerType.NordicStone,
+                GrassCoverClosedKey => TopLayerType.GrassCoverClosed,
+                WABKey => TopLayerType.WAB,
+                _ => throw new DikeErosionException(DikeErosionExceptionType.UnexpectedTopLayerType)
+            };
         }
     }
 }

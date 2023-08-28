@@ -70,7 +70,6 @@ public class TimeLineViewModel : ViewModelBase
         switch (e.PropertyName)
         {
             case nameof(DikeErosionProject.OutputFileName):
-                OnPropertyChanged(nameof(OutputVariables));
                 OutputVariables.Clear();
                 foreach (var variable in project.TimeDependentOutputVariables.Where(v => Type.GetTypeCode(v.ValueType) == TypeCode.Double || Type.GetTypeCode(v.ValueType) == TypeCode.Boolean))
                 {
@@ -91,7 +90,7 @@ public class TimeLineViewModel : ViewModelBase
         }
     }
 
-    private PlotModel InitializePlotModel()
+    private static PlotModel InitializePlotModel()
     {
         var plotModel = new PlotModel();
         plotModel.Axes.Add(new LinearAxis

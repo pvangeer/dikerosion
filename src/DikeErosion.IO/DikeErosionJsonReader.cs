@@ -30,6 +30,8 @@ namespace DikeErosion.IO
         private const string BermCrownOuterSlopePropertyName = "kruinBermBuitenzijde";
         private const string InsetBermOuterSlopePropertyName = "insteekBermBuitenzijde";
         private const string CrownOuterSlopePropertyName = "kruinBuitenzijde";
+        private const string CrownInnerSlopePropertyName = "kruinBinnenzijde";
+        private const string ToeInnerSlopePropertyName = "teenBinnenzijde";
 
         private const string OutputLocationsPropertyName = "locaties";
         private const string LocationPositionPropertyName = "positie";
@@ -84,8 +86,16 @@ namespace DikeErosion.IO
                 var bermCrownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, BermCrownOuterSlopePropertyName), coordinates);
                 var insetBermOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, InsetBermOuterSlopePropertyName), coordinates);
                 var crownOuterSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownOuterSlopePropertyName), coordinates);
+                var crownInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, CrownInnerSlopePropertyName), coordinates);
+                var toeInnerSlope = ToCoordinate(ReadAsDouble(jProfileDefinition, ToeInnerSlopePropertyName), coordinates);
 
-                dikeProfile = new DikeProfile(coordinates, toeOuterSlope, bermCrownOuterSlope, insetBermOuterSlope, crownOuterSlope);
+                dikeProfile = new DikeProfile(coordinates, 
+                    toeOuterSlope:toeOuterSlope, 
+                    bermCrownOuterSlope: bermCrownOuterSlope, 
+                    insetBermOuterSlope: insetBermOuterSlope, 
+                    crownOuterSlope: crownOuterSlope,
+                    crownInnerSlope:crownInnerSlope,
+                    toeInnerSlope:toeInnerSlope);
             }
 
             var outputLocations = new List<OutputLocationSpecification>();
@@ -110,7 +120,7 @@ namespace DikeErosion.IO
             return dikernelInput;
         }
 
-        public static OutputAtLocation[] ReadResults(string fileName)
+        public static OutputAtLocation[] ReadOutput(string fileName)
         {
             var json = ReadJasonFileContent(fileName);
 

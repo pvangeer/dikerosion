@@ -1,4 +1,5 @@
 ﻿using DikeErosion.Data;
+using DikeErosion.Data.CrossShoreProfile;
 using DikeErosion.Data.ExceptionHandling;
 using DikeErosion.IO.Data.Output;
 
@@ -23,7 +24,7 @@ namespace DikeErosion.IO
 
             ValidateFileName(fileName);
 
-            var results = DikeErosionJsonReader.ReadResults(fileName);
+            var results = DikeErosionJsonReader.ReadOutput(fileName);
             if (!results.Any())
             {
                 return;
@@ -50,31 +51,27 @@ namespace DikeErosion.IO
                 // TODO: Log error.
                 return;
             }
-            var coordinates = heights.ToDictionary(h => h, h => project.OutputLocations.FirstOrDefault(l => Math.Abs(l.Coordinate.Z - h) < 1E-8));
-            if (coordinates.Values.Any(v => v == null))
+
+            var coordinatesDictionary = new Dictionary<OutputAtLocation, CrossShoreCoordinate>();
+            for (int i = 0; i < heights.Length; i++)
             {
-                // TODO: Log error.
-                return;
+                coordinatesDictionary[results[i]] = project.OutputLocations[i].Coordinate;
             }
 
             var outputVariableValues = new Dictionary<string,List<TimeDependentOutputVariableValue>>();
             foreach (var name in doubleVariableNames)
             {
-                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinates, double.NaN);
+                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
             }
             foreach (var name in boolVariableNames)
             {
-                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinates, false);
+                outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, false);
             }
-            outputVariableValues["Schadeontwikkeling"] = GetDefaultOutputVariableList(results, coordinates, double.NaN);
+            outputVariableValues["Schadeontwikkeling"] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
 
             foreach (var location in results)
             {
-                var currentCoordinate = coordinates[location.Height]?.Coordinate;
-                if (currentCoordinate == null)
-                {
-                    throw new Exception("Should not occur");
-                }
+                var currentCoordinate = coordinatesDictionary[location];
 
                 for (int i = 1; i < project.TimeSteps.Count; i++)
                 {
@@ -129,21 +126,12 @@ namespace DikeErosion.IO
 
         }
 
-        private List<TimeDependentOutputVariableValue> GetDefaultOutputVariableList(OutputAtLocation[] results, Dictionary<double, OutputLocation?> coordinates, object value)
+        private List<TimeDependentOutputVariableValue> GetDefaultOutputVariableList(OutputAtLocation[] results, Dictionary<OutputAtLocation, CrossShoreCoordinate> coordinates, object value)
         {
-            return results.Select(r =>
-            {
-                var coordinate = coordinates[r.Height]?.Coordinate;
-                if (coordinate != null)
-                {
-                    return new TimeDependentOutputVariableValue(coordinate, project.TimeSteps[0], value);
-                }
-
-                throw new Exception("Should not occur");
-            }).ToList();
+            return results.Select(r => new TimeDependentOutputVariableValue(coordinates[r], project.TimeSteps[0], value)).ToList();
         }
 
-        private void ValidateFileName(string fileName)
+        private static void ValidateFileName(string fileName)
         {
             if (!File.Exists(fileName))
             {

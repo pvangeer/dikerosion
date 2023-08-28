@@ -6,4 +6,6 @@ public enum CharacteristicPointType
     CrownBermOuterSlope,
     InnerPointBermOuterSlope,
     CrownOuterSlope,
+    CrownInnerSlope,
+    ToeInnerSlope
 }

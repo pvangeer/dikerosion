@@ -9,6 +9,7 @@ using OxyPlot;
 using OxyPlot.Annotations;
 using OxyPlot.Series;
 using OxyPlot.Legends;
+#pragma warning disable CS0618
 
 namespace DikeErosion.Visualization.ViewModels
 {
@@ -36,7 +37,7 @@ namespace DikeErosion.Visualization.ViewModels
 
         public CrossShoreChartViewModel(DikeErosionProject project)
         {
-            TimeSteps = new double[]{};
+            TimeSteps = Array.Empty<double>();
 
             Project = project;
             Project.PropertyChanged += ProjectPropertyChanged;

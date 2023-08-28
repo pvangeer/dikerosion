@@ -5,5 +5,6 @@ public enum CalculationMethod
     NaturalStone, //natuursteen
     GrassCoverWaveAttack, //grasGolfklap
     GrassCoverWaveRunUp, //grasGolfoploop
-    AsphaltCoverWaveAttack //asfaltGolfklap
+    AsphaltCoverWaveAttack, //asfaltGolfklap
+    GrassCoverOvertopping // COBM - GEKB
 }

@@ -20,7 +20,7 @@ namespace DikeErosion.IO.Data.Test
         [TestCase("NaturalStoneWithOptionalProperties - test output.json")]
         public void ReadOutput(string file)
         {
-            var output = DikeErosionJsonReader.ReadResults(Path.Combine(TestHelper.TestDataDir,file));
+            var output = DikeErosionJsonReader.ReadOutput(Path.Combine(TestHelper.TestDataDir,file));
 
             Assert.IsNotNull(output);
             Assert.Greater(output.Length,0);

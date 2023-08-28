@@ -48,7 +48,7 @@ public class RecalculateCommand : ICommand
         }
         var pathToDiKErnel = Path.Combine(assemblyFolder,"DiKErnel", "DiKErnel-cli.exe");
 
-        ProcessStartInfo startInfo = new ProcessStartInfo
+        ProcessStartInfo startInfo = new()
         {
             FileName = pathToDiKErnel,
             Arguments = $"--invoerbestand {project.InputFileName} --uitvoerbestand {project.OutputFileName} --uitvoerniveau fysica",
@@ -58,7 +58,7 @@ public class RecalculateCommand : ICommand
             CreateNoWindow = true
         };
 
-        Process process = new Process
+        Process process = new()
         {
             StartInfo = startInfo,
             EnableRaisingEvents = true
@@ -74,7 +74,7 @@ public class RecalculateCommand : ICommand
         catch (Exception e)
         {
             result = false;
-            // Log or catch exception.
+            // TODO: Log or catch exception.
         }
 
         if (!result)

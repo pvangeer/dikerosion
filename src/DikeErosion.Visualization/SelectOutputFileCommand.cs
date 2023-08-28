@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
 using DikeErosion.Data;
@@ -14,6 +15,17 @@ public class SelectOutputFileCommand : ICommand
     public SelectOutputFileCommand(DikeErosionProject project)
     {
         this.project = project;
+        project.PropertyChanged += ProjectPropertyChanged;
+    }
+
+    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(DikeErosionProject.OverwriteOutput):
+                CanExecuteChanged?.Invoke(this,EventArgs.Empty);
+                break;
+        }
     }
 
     public bool CanExecute(object? parameter)
