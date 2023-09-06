@@ -17,8 +17,7 @@ public class DikeErosionOutputImporter
     public void Import(string fileName)
     {
         if (!project.TimeSteps.Any() || !project.OutputLocations.Any())
-            // TODO: Log warning? Most probably input is not yet specified.
-            return;
+            throw new DikeErosionException(DikeErosionExceptionType.SpecifyInputFirst);
 
         ValidateFileName(fileName);
 
@@ -34,28 +33,17 @@ public class DikeErosionOutputImporter
             boolVariableNames.AddRange(result.PhysicsBool.Keys.Where(k => !boolVariableNames.Contains(k)));
         }
 
-        /*if ((doubleVariableNames.Any() && firstResult.PhysicsDouble.Values.First().Length != project.TimeSteps.Count -1) ||
-            (boolPhysicsResultsAvailable && firstResult.PhysicsDouble.Values.First().Length != project.TimeSteps.Count - 1))
-        {
-            return;
-        }*/
-        // TODO: Check correct length?
+        // TODO: Check correct length of output variables (correct number of time steps)?
 
         var heights = results.Select(r => r.Height).ToArray();
         if (heights.Length != project.OutputLocations.Count)
-            // TODO: Log error.
-            return;
+            throw new DikeErosionException(DikeErosionExceptionType.OutputDoesNotMatchInput);
 
         var coordinatesDictionary = new Dictionary<OutputAtLocation, CrossShoreCoordinate>();
         for (var i = 0; i < heights.Length; i++)
             coordinatesDictionary[results[i]] = project.OutputLocations[i].Coordinate;
 
-        var outputVariableValues = new Dictionary<string, List<TimeDependentOutputVariableValue>>();
-        foreach (var name in doubleVariableNames)
-            outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
-        foreach (var name in boolVariableNames)
-            outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, false);
-        outputVariableValues["Schadeontwikkeling"] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
+        var outputVariableValues = InitializeOutputVariableValues(doubleVariableNames, results, coordinatesDictionary, boolVariableNames);
 
         foreach (var location in results)
         {
@@ -99,6 +87,18 @@ public class DikeErosionOutputImporter
 
         project.OutputFileName = fileName;
         project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
+    }
+
+    private Dictionary<string, List<TimeDependentOutputVariableValue>> InitializeOutputVariableValues(List<string> doubleVariableNames, OutputAtLocation[] results, Dictionary<OutputAtLocation, CrossShoreCoordinate> coordinatesDictionary,
+        List<string> boolVariableNames)
+    {
+        var outputVariableValues = new Dictionary<string, List<TimeDependentOutputVariableValue>>();
+        foreach (var name in doubleVariableNames)
+            outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
+        foreach (var name in boolVariableNames)
+            outputVariableValues[name] = GetDefaultOutputVariableList(results, coordinatesDictionary, false);
+        outputVariableValues["Schadeontwikkeling"] = GetDefaultOutputVariableList(results, coordinatesDictionary, double.NaN);
+        return outputVariableValues;
     }
 
     private List<TimeDependentOutputVariableValue> GetDefaultOutputVariableList(OutputAtLocation[] results,

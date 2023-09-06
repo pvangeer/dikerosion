@@ -20,7 +20,6 @@ public class DikeErosionProject : NotifyPropertyChangedObservable
         TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
     }
 
-    // TODO: Really through DikeErosionProject?
     public ViewState ViewState { get; set; }
 
     public string InputFileName { get; set; }

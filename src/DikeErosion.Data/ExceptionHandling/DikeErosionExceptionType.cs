@@ -6,5 +6,7 @@ public enum DikeErosionExceptionType
     XShouldNotBeValidValue,
     ZShouldNotBeValidValue,
     UnexpectedCalculationMethod,
-    UnexpectedTopLayerType
+    UnexpectedTopLayerType,
+    OutputDoesNotMatchInput,
+    SpecifyInputFirst
 }

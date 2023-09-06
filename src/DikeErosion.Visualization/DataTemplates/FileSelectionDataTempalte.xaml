@@ -26,11 +26,13 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
                             Width="*"
                             MinWidth="600" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
@@ -58,7 +60,7 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
-                        Content="Browse..."
+                        Content="Selecteer..."
                         Command="{Binding SelectInputFileCommand}" />
 
                     <TextBlock
@@ -85,8 +87,16 @@
                         Height="30"
                         VerticalAlignment="Center"
                         Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
-                        Content="Browse..."
+                        Content="Selecteer..."
                         Command="{Binding SelectOutputFileCommand}" />
+                    <Button
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Height="30"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource DikeErosion.Brushes.EditableBackground}"
+                        Content="Uitvoer inlezen"
+                        Command="{Binding ReadOutputFileCommand}" />
                     <TextBlock
                         Grid.Row="4"
                         Grid.Column="0"

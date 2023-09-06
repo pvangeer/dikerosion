@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using DikeErosion.Data;
 using DikeErosion.IO;
@@ -15,12 +16,11 @@ public class SelectOutputFileCommand : ICommand
     public SelectOutputFileCommand(DikeErosionProject project)
     {
         this.project = project;
-        project.PropertyChanged += ProjectPropertyChanged;
     }
 
     public bool CanExecute(object? parameter)
     {
-        return !project.OverwriteOutput;
+        return true;
     }
 
     public void Execute(object? parameter)
@@ -36,20 +36,12 @@ public class SelectOutputFileCommand : ICommand
         var result = dialog.ShowDialog();
         if (result == true)
         {
-            var importer = new DikeErosionOutputImporter(project);
-            importer.Import(dialog.FileName);
+            project.OutputFileName = dialog.FileName;
+            project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
+
+
         }
     }
 
     public event EventHandler? CanExecuteChanged;
-
-    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DikeErosionProject.OverwriteOutput):
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-                break;
-        }
-    }
 }

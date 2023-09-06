@@ -49,6 +49,8 @@ public class FileSelectionViewModel : ViewModelBase
         }
     }
 
+    public ICommand ReadOutputFileCommand => new ReadOutputFileCommand(project);
+
     private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (e.PropertyName)
@@ -58,6 +60,9 @@ public class FileSelectionViewModel : ViewModelBase
                 break;
             case nameof(DikeErosionProject.OutputFileName):
                 OnPropertyChanged(nameof(OutputFileName));
+                break;
+            case nameof(DikeErosionProject.OverwriteOutput):
+                OnPropertyChanged(nameof(OverwriteOutput));
                 break;
         }
     }
