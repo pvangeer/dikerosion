@@ -10,7 +10,7 @@
                      mc:Ignorable="d"
                      Title="{Binding WindowTitle}"
                      IsIconVisible="False"
-                     AllowDrop="True"
+                     AllowDrop="False"
                      WindowStartupLocation="CenterScreen"
                      Height="900"
                      Width="1500">

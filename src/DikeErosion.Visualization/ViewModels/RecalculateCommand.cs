@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using DikeErosion.Data;
@@ -37,10 +36,8 @@ public class RecalculateCommand : ICommand
                 MessageBox.Show($"Het uitvoerbestand ({Path.GetFileName(project.OutputFileName)}) bestaat al. Wilt u dit overschrijven?",
                     "Uitvoerbestand overschrijven", MessageBoxButton.YesNo);
             if (messageBoxResult != MessageBoxResult.Yes)
-            {
                 // TODO: Log cancelled by user
                 return;
-            }
         }
 
         // TODO: This introduces a dependency to DikeErosion.Gui. Change it.
@@ -85,7 +82,7 @@ public class RecalculateCommand : ICommand
         var importer = new DikeErosionOutputImporter(project);
         importer.Import(project.OutputFileName);
 
-        CanExecuteChanged?.Invoke(this,EventArgs.Empty);
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public event EventHandler? CanExecuteChanged;

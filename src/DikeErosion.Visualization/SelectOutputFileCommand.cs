@@ -1,10 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using DikeErosion.Data;
-using DikeErosion.IO;
 using Microsoft.Win32;
 
 namespace DikeErosion.Visualization;
@@ -38,8 +35,6 @@ public class SelectOutputFileCommand : ICommand
         {
             project.OutputFileName = dialog.FileName;
             project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
-
-
         }
     }
 

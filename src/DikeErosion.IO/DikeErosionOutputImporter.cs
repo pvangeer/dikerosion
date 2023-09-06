@@ -40,11 +40,15 @@ public class DikeErosionOutputImporter
             throw new DikeErosionException(DikeErosionExceptionType.OutputDoesNotMatchInput);
 
         var coordinatesDictionary = new Dictionary<OutputAtLocation, CrossShoreCoordinate>();
+        var locationsDictionary = new Dictionary<OutputAtLocation, OutputLocation>();
         for (var i = 0; i < heights.Length; i++)
+        {
             coordinatesDictionary[results[i]] = project.OutputLocations[i].Coordinate;
+            locationsDictionary[results[i]] = project.OutputLocations[i];
+        }
 
         var outputVariableValues = InitializeOutputVariableValues(doubleVariableNames, results, coordinatesDictionary, boolVariableNames);
-
+        var locationSpecificOutput = new List<LocationSpecificOutput>();
         foreach (var location in results)
         {
             var currentCoordinate = coordinatesDictionary[location];
@@ -73,10 +77,8 @@ public class DikeErosionOutputImporter
                             location.DamageDevelopment[i - 1]));
             }
 
-            // TODO: Not time dependent
-            /*OuterSlope
-            RevetmentFailed
-            RevetmentFailedAfter*/
+            locationSpecificOutput.Add(new LocationSpecificOutput(locationsDictionary[location], location.RevetmentFailed,
+                location.RevetmentFailedAfter, location.OuterSlope));
         }
 
         var timeDependentOutputVariables = outputVariableValues.Select(v =>
@@ -85,11 +87,16 @@ public class DikeErosionOutputImporter
         foreach (var variable in timeDependentOutputVariables)
             project.TimeDependentOutputVariables.Add(variable);
 
+        project.LocationSpecificOutputVariables.Clear();
+        foreach (var specificOutput in locationSpecificOutput)
+            project.LocationSpecificOutputVariables.Add(specificOutput);
+
         project.OutputFileName = fileName;
         project.OnPropertyChanged(nameof(DikeErosionProject.OutputFileName));
     }
 
-    private Dictionary<string, List<TimeDependentOutputVariableValue>> InitializeOutputVariableValues(List<string> doubleVariableNames, OutputAtLocation[] results, Dictionary<OutputAtLocation, CrossShoreCoordinate> coordinatesDictionary,
+    private Dictionary<string, List<TimeDependentOutputVariableValue>> InitializeOutputVariableValues(List<string> doubleVariableNames,
+        OutputAtLocation[] results, Dictionary<OutputAtLocation, CrossShoreCoordinate> coordinatesDictionary,
         List<string> boolVariableNames)
     {
         var outputVariableValues = new Dictionary<string, List<TimeDependentOutputVariableValue>>();

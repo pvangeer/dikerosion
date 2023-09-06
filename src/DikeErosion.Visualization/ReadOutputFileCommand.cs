@@ -18,20 +18,10 @@ public class ReadOutputFileCommand : ICommand
         project.PropertyChanged += ProjectPropertyChanged;
     }
 
-    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DikeErosionProject.OutputFileName):
-                CanExecuteChanged?.Invoke(this, e);
-                break;
-        }
-    }
-
 
     public bool CanExecute(object? parameter)
     {
-        return !string.IsNullOrWhiteSpace(project.OutputFileName) && 
+        return !string.IsNullOrWhiteSpace(project.OutputFileName) &&
                File.Exists(project.OutputFileName);
     }
 
@@ -70,4 +60,14 @@ public class ReadOutputFileCommand : ICommand
     }
 
     public event EventHandler? CanExecuteChanged;
+
+    private void ProjectPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(DikeErosionProject.OutputFileName):
+                CanExecuteChanged?.Invoke(this, e);
+                break;
+        }
+    }
 }

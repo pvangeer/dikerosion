@@ -19,6 +19,7 @@ public class CrossShoreChartViewModel : ViewModelBase
     private const string OutputVariableAxisKey = "OutputVariableAxis";
 
     private readonly Dictionary<ScatterSeries, Annotation> characteristicPointsSeries = new();
+    private readonly ScatterSeries failedLocationsSeries;
     private readonly List<ScatterSeries> outputLocationsSeries = new();
 
     private readonly LinearAxis selectedOutputAxes = new()
@@ -45,6 +46,7 @@ public class CrossShoreChartViewModel : ViewModelBase
         PlotModel = InitializePlotModel();
         waveHeightSeries = InitializeWaveHeightSeries();
         waterLevelSeries = InitializeWaterLevelSeries();
+        failedLocationsSeries = InitializeFailedLocationsSeries();
 
         UpdateTimeSliderAndCurrentTimeStep();
     }
@@ -63,6 +65,7 @@ public class CrossShoreChartViewModel : ViewModelBase
             currentTimeStep = value;
             UpdateHydraulicConditions();
             UpdateSelectedOutputVariableSeriesData();
+            UpdateFailedLocationSeries();
             PlotModel.InvalidatePlot(true);
             OnPropertyChanged();
             OnPropertyChanged(nameof(CanStepBackInTime));
@@ -90,6 +93,23 @@ public class CrossShoreChartViewModel : ViewModelBase
             selectedOutputVariable = value;
             UpdateSelectedOutputVariableSeries();
             PlotModel.InvalidatePlot(true);
+        }
+    }
+
+    private void UpdateFailedLocationSeries()
+    {
+        var failedLocations = Project.LocationSpecificOutputVariables.Where(l =>
+            l.Failed && (l.FailureTimeStep < currentTimeStep || Math.Abs(l.FailureTimeStep - currentTimeStep) < 1E-8)).ToList();
+        failedLocationsSeries.Points.Clear();
+        if (failedLocations.Any())
+        {
+            failedLocationsSeries.Points.AddRange(failedLocations.Select(l =>
+                new ScatterPoint(l.Location.Coordinate.X, l.Location.Coordinate.Z)));
+            failedLocationsSeries.Title = $"Gefaalde locaties ({failedLocations.Count})";
+        }
+        else
+        {
+            failedLocationsSeries.Title = "Gefaalde locaties";
         }
     }
 
@@ -297,6 +317,8 @@ public class CrossShoreChartViewModel : ViewModelBase
         UpdateCharacteristicPointsSeries();
         UpdateOutputLocations();
         UpdateHydraulicConditions();
+        PlotModel.Series.Remove(failedLocationsSeries);
+        PlotModel.Series.Add(failedLocationsSeries);
         PlotModel.InvalidatePlot(true);
     }
 
@@ -398,6 +420,21 @@ public class CrossShoreChartViewModel : ViewModelBase
             Color = OxyColors.DeepSkyBlue,
             BrokenLineThickness = 2,
             IsVisible = false
+        };
+        PlotModel.Series.Add(series);
+
+        return series;
+    }
+
+    private ScatterSeries InitializeFailedLocationsSeries()
+    {
+        var series = new ScatterSeries
+        {
+            Title = "Gefaalde locaties",
+            MarkerStroke = OxyColors.Red,
+            MarkerType = MarkerType.Cross,
+            MarkerSize = 8,
+            MarkerStrokeThickness = 5
         };
         PlotModel.Series.Add(series);
 

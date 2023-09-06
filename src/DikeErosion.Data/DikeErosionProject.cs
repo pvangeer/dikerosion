@@ -18,6 +18,8 @@ public class DikeErosionProject : NotifyPropertyChangedObservable
         HydraulicConditions = new ObservableCollection<HydraulicCondition>();
 
         TimeDependentOutputVariables = new ObservableCollection<TimeDependentOutputVariable>();
+
+        LocationSpecificOutputVariables = new ObservableCollection<LocationSpecificOutput>();
     }
 
     public ViewState ViewState { get; set; }
@@ -37,6 +39,8 @@ public class DikeErosionProject : NotifyPropertyChangedObservable
     public ObservableCollection<HydraulicCondition> HydraulicConditions { get; }
 
     public ObservableCollection<TimeDependentOutputVariable> TimeDependentOutputVariables { get; }
+
+    public ObservableCollection<LocationSpecificOutput> LocationSpecificOutputVariables { get; }
 
     public bool OverwriteOutput { get; set; }
 
