@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DikeErosion.Data;
 using OxyPlot;
+using OxyPlot.Annotations;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.Series;
@@ -19,6 +20,7 @@ public class TimeLineViewModel : ViewModelBase
     private readonly LinearBarSeries variableTrueSeries;
     private OutputLocation? selectedOutputLocation;
     private TimeDependentOutputVariable? selectedOutputVariable;
+    private LineAnnotation? failureLineAnnotation;
 
     public TimeLineViewModel(DikeErosionProject project)
     {
@@ -73,11 +75,15 @@ public class TimeLineViewModel : ViewModelBase
                 OutputVariables.Clear();
                 foreach (var variable in project.TimeDependentOutputVariables.Where(v =>
                              Type.GetTypeCode(v.ValueType) == TypeCode.Double || Type.GetTypeCode(v.ValueType) == TypeCode.Boolean))
+                {
                     OutputVariables.Add(variable);
+                }
 
                 OutputLocations.Clear();
-                foreach (var location in project.OutputLocations)
+                foreach (var location in project.OutputLocations.OrderBy(l => l.Coordinate.X))
+                {
                     OutputLocations.Add(location);
+                }
 
                 selectedOutputVariable = OutputVariables.FirstOrDefault();
                 SelectedOutputLocation = OutputLocations.FirstOrDefault();
@@ -188,6 +194,11 @@ public class TimeLineViewModel : ViewModelBase
         variableFalseSeries.Points.Clear();
         variableFalseSeries.Title = string.Empty;
         variableFalseSeries.IsVisible = false;
+        if (failureLineAnnotation != null)
+        {
+            PlotModel.Annotations.Remove(failureLineAnnotation);
+            failureLineAnnotation = null;
+        }
 
         if (SelectedOutputVariable != null && SelectedOutputLocation != null)
         {
@@ -225,6 +236,23 @@ public class TimeLineViewModel : ViewModelBase
                     variableTrueSeries.IsVisible = true;
                     variableFalseSeries.IsVisible = true;
                 }
+            }
+
+            var locationSpecificResult = project.LocationSpecificOutputVariables.FirstOrDefault(l => l.Location == SelectedOutputLocation);
+            if (locationSpecificResult is { Failed: true })
+            {
+                failureLineAnnotation = new LineAnnotation
+                {
+                    StrokeThickness = 3,
+                    Color = OxyColors.Red,
+                    Type = LineAnnotationType.Vertical,
+                    X = locationSpecificResult.FailureTimeStep,
+                    Text = "Falen",
+                    TextVerticalAlignment = VerticalAlignment.Top,
+                    TextHorizontalAlignment = HorizontalAlignment.Right,
+                    TextOrientation = AnnotationTextOrientation.Vertical
+                };
+                PlotModel.Annotations.Add(failureLineAnnotation);
             }
         }
 
